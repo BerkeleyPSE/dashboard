@@ -9,17 +9,17 @@ const bodyParser = require('body-parser');
 const keys = require('./config/keys');
 
 /*** models ***/
+require('./models/User');
+require('./models/careers/Fulltime');
+require('./models/careers/Internship');
+require('./models/Brother');
 
 // start express server instance
 const app = express();
 
 /*** mLab MongoDB databases ***/
-mongoose.connect(keys.mongoStaticURI, {
-  useMongoClient: true,
-});
-mongoose.connect(keys.mongoAppURI, {
-  useMongoClient: true,
-});
+mongoose.connect(keys.mongoStaticURI);
+mongoose.connect(keys.mongoAppURI);
 
 /*** middleware ***/
 
