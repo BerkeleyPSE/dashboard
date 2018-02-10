@@ -1,2 +1,3 @@
-# dashboard
-An admin dashboard to make static data changes to website (http://berkeleypse.org) without touching code.
+# Dashboard
+
+An administor dashboard to make changes to static data on the website (http://berkeleypse.org) without touching code.
