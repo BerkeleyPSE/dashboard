@@ -1,0 +1,26 @@
+{
+  "name": "dashboard",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/BerkeleyPSE/dashboard.git",
+  "author": "Rahul Rangnekar <rrangnekar96@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "start": "node index.js",
+    "server": "nodemon index.js",
+    "client": "yarn start --prefix client",
+    "dev": "concurrently \"yarn run server\" \"yarn run client\" --kill-others-on-fail",
+    "build": "yarn run build --prefix client",
+    "heroku-postbuild": "yarn install --prefix client && yarn run build --prefix client"
+  },
+  "devDependencies": {
+    "concurrently": "3.5.1",
+    "eslint": "^4.17.0",
+    "eslint-config-airbnb": "16.1.0",
+    "eslint-plugin-import": "2.8.0",
+    "eslint-plugin-jsx-a11y": "6.0.3",
+    "eslint-plugin-react": "7.6.1",
+    "nodemon": "^1.14.12"
+  },
+  "dependencies": {}
+}

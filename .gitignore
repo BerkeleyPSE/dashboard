@@ -5,5 +5,7 @@
 /build
 
 .vscode
+.eslintrc
 
 .DS_store
+
