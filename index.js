@@ -7,11 +7,19 @@ const bodyParser = require('body-parser');
 
 // local imports
 const keys = require('./config/keys');
-// require models here
 
+/*** models ***/
+
+// start express server instance
 const app = express();
 
-// connect to MongoDB database
+/*** mLab MongoDB databases ***/
+mongoose.connect(keys.mongoStaticURI, {
+  useMongoClient: true,
+});
+mongoose.connect(keys.mongoAppURI, {
+  useMongoClient: true,
+});
 
 /*** middleware ***/
 
@@ -19,7 +27,7 @@ app.use(bodyParser.json());
 
 app.use(
   cookieSession({
-    maxAge: 7 * 24 * 60 * 60 * 1000, // cookie is valid for 1 week
+    maxAge: 1 * 24 * 60 * 60 * 1000, // cookie is valid for 1 day
     keys: [keys.cookieKey],
   }),
 );
@@ -28,6 +36,10 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 /*** routes ***/
+require('./routes/authorization/authRoutes')(app);
+require('./routes/careers/fulltimeRoutes')(app);
+require('./routes/careers/internshipRoutes')(app);
+require('./routes/brothers/brotherRoutes')(app);
 
 /*** start the server ***/
 if (process.env.NODE_ENV === 'production') {
