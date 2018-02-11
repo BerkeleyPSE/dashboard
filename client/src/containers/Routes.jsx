@@ -5,6 +5,7 @@ import { Route, Switch } from 'react-router-dom';
 
 // local components
 import Home from './Home';
+import Login from './Login';
 
 export default class Routes extends Component {
   componentWillReceiveProps(nextProps) {
@@ -19,7 +20,7 @@ export default class Routes extends Component {
         <div>
           <Switch>
             <Route exact path="/" component={Home} />
-            <Route exact path="/login" component={Home} />
+            <Route exact path="/login" component={Login} />
           </Switch>
         </div>
         {/* Footer */}

@@ -1,5 +1,7 @@
+# secret development keys
 /config/dev.js
 
+# dependencies
 /node_modules
 /client/node_modules
 
@@ -7,4 +9,4 @@
 
 .vscode
 .eslintrc
-.DS_store
+.DS_Store
