@@ -2,12 +2,16 @@ import React, { Component } from 'react';
 
 // node modules
 import { Route, Switch } from 'react-router-dom';
+import { withRouter } from 'react-router';
+import { connect } from 'react-redux';
 
 // local components
 import Home from './Home';
 import Login from './Login';
 
-export default class Routes extends Component {
+class Routes extends Component {
+  componentDidMount() {}
+
   componentWillReceiveProps(nextProps) {
     // if not logged in, redirect to /login path
   }
@@ -28,3 +32,9 @@ export default class Routes extends Component {
     );
   }
 }
+
+const mapStateToProps = (state, ownProps) => ({
+  AuthReducer: state.AuthReducer
+});
+
+export default withRouter(connect(mapStateToProps, null)(Routes));
