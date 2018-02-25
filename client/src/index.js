@@ -19,7 +19,7 @@ const store = createStore(rootReducer, {}, composeEnhancers(applyMiddleware(redu
 
 ReactDOM.render(
   <Provider store={store}>
-    <Router history={createHistory()}>
+    <Router>
       <App />
     </Router>
   </Provider>,

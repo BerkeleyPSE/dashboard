@@ -11,8 +11,8 @@ const keys = require('./config/keys');
 
 /** * models ** */
 require('./models/User');
-require('./models/careers/Fulltime');
-require('./models/careers/Internship');
+require('./models/Fulltime');
+require('./models/Internship');
 require('./models/Brother');
 
 // start express server instance

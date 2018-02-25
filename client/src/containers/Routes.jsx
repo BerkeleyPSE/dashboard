@@ -15,8 +15,13 @@ import Internship from './Internship';
 import Faqs from './Faqs';
 import Regforms from './Regforms';
 
+// actions
+import { BrotherActions } from '../actions/brother-actions';
+
 class Routes extends Component {
-  componentDidMount() {}
+  componentDidMount() {
+    this.props.getBrothers();
+  }
 
   componentWillReceiveProps(nextProps) {
     // if not logged in, redirect to /login path
@@ -46,7 +51,8 @@ class Routes extends Component {
 }
 
 const mapStateToProps = (state, ownProps) => ({
-  AuthReducer: state.AuthReducer
+  AuthReducer: state.AuthReducer,
+  BrotherReducer: state.BrotherReducer
 });
 
-export default withRouter(connect(mapStateToProps, null)(Routes));
+export default withRouter(connect(mapStateToProps, BrotherActions)(Routes));

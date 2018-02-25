@@ -4,75 +4,95 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const BrotherSchema = new Schema({
-  first_name: {
+  key: {
     type: String,
     required: true,
+    lowercase: true
   },
 
-  last_name: {
+  firstName: {
     type: String,
-    required: true,
+    required: true
   },
 
-  pse_class: {
+  lastName: {
     type: String,
-    required: true,
+    required: true
+  },
+
+  pseClass: {
+    type: String,
+    required: true
   },
 
   year: {
     type: String,
-    required: true,
+    required: true
   },
 
   isExecutive: {
     type: Boolean,
     required: true,
-    default: false,
+    default: false
   },
 
   position: {
     type: String,
     required: true,
-    default: 'Active',
+    default: 'Active'
   },
 
   hometown: {
     type: String,
-    required: true,
+    required: true
   },
 
-  career_interests: {
-    type: String,
-    required: true,
+  majors: {
+    type: [String],
+    required: true
   },
 
-  major1: {
-    type: String,
-    required: true,
-  },
-
-  major2: {
-    type: String,
+  minors: {
+    type: [String],
     required: false,
+    default: []
   },
 
-  minor: {
-    type: String,
+  careerInterests: {
+    type: [String],
+    required: true
+  },
+
+  previousPositions: {
+    type: [String],
     required: false,
+    default: []
   },
 
-  previous_positions: {
+  bio: {
     type: String,
-    required: false,
+    required: true
   },
 
-  media_urls: {
-    type: Object,
+  mediaUrls: {
+    type: {
+      linkedin: String,
+      github: String,
+      medium: String,
+      quora: String,
+      twitter: String,
+      website: String
+    },
     required: true,
     default: {
       linkedin: '',
-    },
-  },
+      github: '',
+      medium: '',
+      quora: '',
+      twitter: '',
+      website: ''
+    }
+  }
 });
 
 mongoose.model('brother', BrotherSchema);
