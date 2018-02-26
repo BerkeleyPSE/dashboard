@@ -10,12 +10,12 @@ const BrotherSchema = new Schema({
     lowercase: true
   },
 
-  firstName: {
+  name: {
     type: String,
     required: true
   },
 
-  lastName: {
+  imgUrl: {
     type: String,
     required: true
   },

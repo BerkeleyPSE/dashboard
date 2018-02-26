@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
+import propTypes from 'prop-types';
 
 // local components
 import Home from './Home';
@@ -15,12 +16,13 @@ import Internship from './Internship';
 import Faqs from './Faqs';
 import Regforms from './Regforms';
 
-// actions
-import { BrotherActions } from '../actions/brother-actions';
-
 class Routes extends Component {
+  static propTypes = {
+    AuthReducer: propTypes.object
+  };
+
   componentDidMount() {
-    this.props.getBrothers();
+    // check for authorization
   }
 
   componentWillReceiveProps(nextProps) {
@@ -51,8 +53,7 @@ class Routes extends Component {
 }
 
 const mapStateToProps = (state, ownProps) => ({
-  AuthReducer: state.AuthReducer,
-  BrotherReducer: state.BrotherReducer
+  AuthReducer: state.AuthReducer
 });
 
-export default withRouter(connect(mapStateToProps, BrotherActions)(Routes));
+export default withRouter(connect(mapStateToProps, null)(Routes));
