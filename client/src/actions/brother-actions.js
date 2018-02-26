@@ -20,6 +20,7 @@ export const BrotherActions = {
     };
 
     const res = await axios.get(API.GET_BROTHERS, { params });
+
     dispatch({
       type: BrotherConstants.GET_BROTHERS,
       brothers: res.data

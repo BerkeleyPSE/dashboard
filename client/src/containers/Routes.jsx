@@ -5,8 +5,10 @@ import { Route, Switch } from 'react-router-dom';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import propTypes from 'prop-types';
+import styled from 'styled-components';
 
 // local components
+import Navbar from './Navbar/Navbar';
 import Home from './Home';
 import Login from './Login';
 import Applications from './Applications';
@@ -31,9 +33,10 @@ class Routes extends Component {
 
   render() {
     return (
-      <div>
-        {/* Navbar */}
+      <RoutesGrid>
         {/* Edit / Safe Mode Banner */}
+        {/* Navbar */}
+        <Navbar />
         <div>
           <Switch>
             <Route exact path="/" component={Home} />
@@ -46,8 +49,7 @@ class Routes extends Component {
             <Route exact path="/regforms" component={Regforms} />
           </Switch>
         </div>
-        {/* Footer */}
-      </div>
+      </RoutesGrid>
     );
   }
 }
@@ -57,3 +59,9 @@ const mapStateToProps = (state, ownProps) => ({
 });
 
 export default withRouter(connect(mapStateToProps, null)(Routes));
+
+const RoutesGrid = styled.div`
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  min-height: 100vh;
+`;

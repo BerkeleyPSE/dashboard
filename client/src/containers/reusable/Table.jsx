@@ -3,39 +3,44 @@ import React, { Component } from 'react';
 // node modules
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import isEmpty from 'lodash/isEmpty';
+
+// components
+import TableRow from './TableRow';
 
 export default class Table extends Component {
   static propTypes = {
     columns: PropTypes.object,
-    id: PropTypes.string,
+    tableId: PropTypes.string,
     data: PropTypes.array
   };
 
   static defaultProps = {
     columns: {},
-    id: '',
+    tableId: '',
     data: []
   };
 
   render() {
-    let { columns, id, data } = this.props;
+    let { columns, tableId, data } = this.props;
 
     const columnHeaders = (
       <Row>
         {Object.values(columns).map((col, index) => {
-          return <ColumnHeader key={`${id}_col_${index}`}>{col}</ColumnHeader>;
+          return <ColumnHeader key={`${tableId}_col_${index}`}>{col}</ColumnHeader>;
         })}
       </Row>
     );
 
-    const tableRows = data.map((person, index) => {
+    const tableRows = data.map((rowData, index) => {
+      console.log(rowData);
+      console.log(columns);
       return (
-        <Row key={`${id}_row_${index}`} index={index}>
-          {Object.keys(columns).map((col, index) => {
-            return <Cell key={`${id}_${person.name}_${col}`}>{person[col] || ''}</Cell>;
-          })}
-        </Row>
+        <TableRow
+          key={`${tableId}_row_${rowData._id}`}
+          rowId={rowData._id}
+          row={rowData}
+          columns={columns}
+        />
       );
     });
 
@@ -73,12 +78,4 @@ const Row = styled.tr`
   background-color: ${props => props.index % 2 === 0 && '#EEE'};
   margin: 0;
   overflow: scroll;
-`;
-
-const Cell = styled.td`
-  font-size: 0.9rem;
-  letter-spacing: 0.0125rem;
-  margin: 0;
-  padding: 0.5rem 0.25rem;
-  min-width: 150px;
 `;

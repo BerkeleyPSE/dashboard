@@ -10,6 +10,7 @@ module.exports = (app) => {
     const brothers = await Brothers.find().sort({
       name: 1
     });
+
     res.status(200).send(brothers);
   });
 };

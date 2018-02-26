@@ -27,6 +27,11 @@ class Brothers extends React.Component {
     this.fetchData();
   }
 
+  componentWillReceiveProps(nextProps) {
+    let { data } = this.state;
+    if (!data.length) this.fetchData();
+  }
+
   fetchData = async () => {
     await this.props.getBrothers();
     this.setState({
@@ -37,13 +42,12 @@ class Brothers extends React.Component {
   render() {
     let { data } = this.state;
 
-    console.log(this.state);
+    console.log(data);
 
     return (
       <div>
         <h1>Brother Component</h1>
-        {/* <div>{JSON.stringify(this.props.BrotherReducer.brothers, null, 2)}</div> */}
-        <Table data={data} columns={COLUMNS} id="brothers" />
+        <Table data={data} columns={COLUMNS} tableId="brothers" />
       </div>
     );
   }
