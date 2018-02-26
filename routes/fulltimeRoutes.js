@@ -1,11 +1,9 @@
-// node modules
-const mongoose = require('mongoose');
-
-// MongoDB collections
-const Fulltime = mongoose.model('careers_fulltime');
-
-// local files
+// local
+const mongooseStatic = require('../databases/static');
 const API = require('./api');
+
+// MongoDB collection
+const Fulltime = mongooseStatic.model('careers_fulltime');
 
 module.exports = (app) => {
   app.get(API.GET_FULLTIMES, async (res, req) => {

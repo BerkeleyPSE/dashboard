@@ -1,6 +1,9 @@
 // node modules
 const mongoose = require('mongoose');
 
+// local
+const mongooseStatic = require('../databases/static');
+
 const { Schema } = mongoose;
 
 const FaqSchema = new Schema({
@@ -16,4 +19,4 @@ const FaqSchema = new Schema({
   }
 });
 
-mongoose.model('internship', FaqSchema);
+mongooseStatic.model('faqs', FaqSchema);

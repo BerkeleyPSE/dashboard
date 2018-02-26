@@ -9,7 +9,7 @@
     "start": "node index.js",
     "server": "nodemon index.js",
     "client": "cd client && yarn start",
-    "dev": "concurrently \"yarn run server\" \"yarn run client\"",
+    "dev": "concurrently \"yarn run server\" \"yarn run client\" --kill-others",
     "build": "yarn run build --prefix client",
     "heroku-postbuild": "yarn install --prefix client && yarn run build --prefix client"
   },
@@ -23,7 +23,6 @@
     "nodemon": "^1.14.12"
   },
   "dependencies": {
-    "@types/react-router-dom": "^4.2.3",
     "body-parser": "1.18.2",
     "cookie-session": "^2.0.0-beta.3",
     "express": "4.16.1",

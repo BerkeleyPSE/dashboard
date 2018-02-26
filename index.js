@@ -1,28 +1,29 @@
 // node modules
 const express = require('express');
-const mongoose = require('mongoose');
+// const mongoose = require('mongoose');
 const cookieSession = require('cookie-session');
 const passport = require('passport');
 const bodyParser = require('body-parser');
 const path = require('path');
 
+/* mLab MongoDB databases */
+require('./databases/application');
+require('./databases/static');
+
 // local imports
 const keys = require('./config/keys');
-
-/** * models ** */
-require('./models/User');
-require('./models/Fulltime');
-require('./models/Internship');
-require('./models/Brother');
 
 // start express server instance
 const app = express();
 
-/** * mLab MongoDB databases ** */
-mongoose.connect(keys.mongoStaticURI);
-mongoose.connect(keys.mongoAppURI);
+/* models */
+require('./models/Brother');
+require('./models/Faq');
+require('./models/Fulltime');
+require('./models/Internship');
+require('./models/User');
 
-/** * middleware ** */
+/* middleware */
 
 app.use(bodyParser.json());
 
@@ -34,13 +35,17 @@ app.use(cookieSession({
 app.use(passport.initialize());
 app.use(passport.session());
 
-/** * routes ** */
+/* routes */
 require('./routes/authRoutes')(app);
+// require('./routes/applicationRoutes')(app);
+require('./routes/brotherRoutes')(app);
+require('./routes/faqRoutes')(app);
 require('./routes/fulltimeRoutes')(app);
 require('./routes/internshipRoutes')(app);
-require('./routes/brotherRoutes')(app);
+// require('./routes/regformRoutes')(app);
+require('./routes/userRoutes')(app);
 
-/** * start the server ** */
+/* start the server */
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static('./client/build'));
 

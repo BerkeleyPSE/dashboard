@@ -1,6 +1,8 @@
 // node modules
 const mongoose = require('mongoose');
 
+const mongooseStatic = require('../databases/static');
+
 const { Schema } = mongoose;
 
 const BrotherSchema = new Schema({
@@ -95,4 +97,4 @@ const BrotherSchema = new Schema({
   }
 });
 
-mongoose.model('brother', BrotherSchema);
+mongooseStatic.model('brothers', BrotherSchema);

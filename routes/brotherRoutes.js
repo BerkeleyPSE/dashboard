@@ -1,9 +1,9 @@
-// node modules
-const mongoose = require('mongoose');
-
-const Brothers = mongoose.model('brother');
-
+// local
+const mongooseStatic = require('../databases/static');
 const API = require('./api');
+
+// MongoDB collection
+const Brothers = mongooseStatic.model('brothers');
 
 module.exports = (app) => {
   app.get(API.GET_BROTHERS, async (req, res) => {

@@ -1,6 +1,9 @@
 // node modules
 const mongoose = require('mongoose');
 
+// local
+const mongooseStatic = require('../databases/static');
+
 const { Schema } = mongoose;
 
 const FulltimeSchema = new Schema({
@@ -35,4 +38,4 @@ const FulltimeSchema = new Schema({
   }
 });
 
-mongoose.model('careers_fulltime', FulltimeSchema);
+mongooseStatic.model('careers_fulltime', FulltimeSchema);
