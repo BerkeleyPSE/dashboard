@@ -32,8 +32,6 @@ export default class Table extends Component {
     );
 
     const tableRows = data.map((rowData, index) => {
-      console.log(rowData);
-      console.log(columns);
       return (
         <TableRow
           key={`${tableId}_row_${rowData._id}`}

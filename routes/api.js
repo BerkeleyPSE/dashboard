@@ -13,7 +13,8 @@ module.exports = {
   DELETE_APPS: `${BASE_URL}/app/delete`,
 
   // brother endpoints (brotherRoutes)
-  GET_BROTHERS: `${BASE_URL}/brother/`,
+  GET_BROTHERS: `${BASE_URL}/brother/all`,
+  GET_ONE_BROTHER: `${BASE_URL}/brother/one`,
   CREATE_BROTHER: `${BASE_URL}/brother/create`,
   UPDATE_BROTHER: `${BASE_URL}/brother/update`,
   DELETE_BROTHER: `${BASE_URL}/brother/delete`,
