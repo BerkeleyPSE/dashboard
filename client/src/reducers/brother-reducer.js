@@ -1,6 +1,9 @@
 import { BrotherConstants } from '../actions/brother-actions';
 
-const initialState = {};
+const initialState = {
+  brothers: [],
+  activeBrother: {}
+};
 
 const BrotherReducer = (state = initialState, action) => {
   switch (action.type) {

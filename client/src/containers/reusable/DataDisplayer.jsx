@@ -4,9 +4,12 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
+// local components
+import { SectionHeader } from '../styleguide/Headers';
+
 export default class DataDisplayer extends Component {
   static propTypes = {
-    id: PropTypes.string.isRequired,
+    pageId: PropTypes.string.isRequired,
     dictkey: PropTypes.string.isRequired,
     data: PropTypes.arrayOf(PropTypes.object),
     handleDataClick: PropTypes.func.isRequired
@@ -17,15 +20,15 @@ export default class DataDisplayer extends Component {
   };
 
   render() {
-    const { id, data, dictkey, handleDataClick } = this.props;
+    const { pageId, data, dictkey, handleDataClick } = this.props;
     return (
       <DataContainer>
-        <h1>{id}</h1>
+        <SectionHeader>{pageId}</SectionHeader>
         {data.map((d, index) => {
           return (
-            <div key={`${id}_${index}`} onClick={() => handleDataClick(d._id)}>
+            <DataItem key={`${pageId}_${index}`} onClick={() => handleDataClick(d._id)}>
               {d[dictkey]}
-            </div>
+            </DataItem>
           );
         })}
       </DataContainer>
@@ -37,5 +40,15 @@ const DataContainer = styled.div`
   min-width: 200px;
   max-width: 350px;
   min-height: 100%;
-  border-right: 2px solid var(--purple);
+  border-right: 2px solid var(--accent);
+`;
+
+const DataItem = styled.p`
+  color: var(--accent);
+  cursor: pointer;
+  width: 100%;
+
+  &:hover {
+    color: ;
+  }
 `;

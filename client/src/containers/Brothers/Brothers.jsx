@@ -33,10 +33,15 @@ class Brothers extends React.Component {
     this.fetchBrothers();
   }
 
-  componentWillReceiveProps(nextProps) {
-    let { brothers } = this.state;
-    if (!brothers.length) this.fetchBrothers();
-  }
+  componentWillReceiveProps = nextProps => {
+    let { activeBrother, brothers } = this.props.BrotherReducer;
+    if (brothers !== nextProps.BrotherReducer.brothers) {
+      this.setState({ brothers: nextProps.BrotherReducer.brothers });
+    }
+    if (activeBrother !== nextProps.BrotherReducer.activeBrother) {
+      this.setState({ activeBrother: nextProps.BrotherReducer.activeBrother });
+    }
+  };
 
   fetchBrothers = async (search = this.state.search) => {
     await this.props.getBrothers(search);
@@ -57,7 +62,7 @@ class Brothers extends React.Component {
     return (
       <BrothersContainer>
         <DataDisplayer
-          id="Brothers"
+          pageId="Brothers"
           data={brothers}
           dictkey="name"
           handleDataClick={this.fetchOneBrother}

@@ -6,6 +6,7 @@ import styled from 'styled-components';
 
 // local components
 import TextInput from './TextInput';
+import { SectionHeader } from '../styleguide/Headers';
 
 export default class Editor extends Component {
   static propTypes = {
@@ -17,19 +18,37 @@ export default class Editor extends Component {
     data: {}
   };
 
+  constructor(props) {
+    super(props);
+    this.changed = {};
+  }
+
+  onInputSave = (fieldKey, newValue) => {
+    const { data } = this.props;
+
+    if (data[fieldKey] === newValue) {
+      if (this.changed[fieldKey]) delete this.changed[fieldKey];
+    } else {
+      this.changed[fieldKey] = newValue;
+    }
+
+    // console.log(this.changed);
+  };
+
   render() {
     let { data, fields } = this.props;
     return (
       <EditorContainer>
-        <h1>Editor Component</h1>
-        {/* {JSON.stringify(data, null, 2)}
-        {typeof data} */}
+        <SectionHeader>Edit</SectionHeader>
         {fields.map(field => {
           return (
             <TextInput
+              dataId={data._id}
               key={field.key}
+              dataKey={field.key}
               label={field.label}
               value={data[field.key] || field.default}
+              onInputSave={this.onInputSave}
             />
           );
         })}
