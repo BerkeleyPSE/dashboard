@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 // local components
+import { RowContainer } from '../styleguide/Containers';
 
 export default class TextInput extends Component {
   static propTypes = {
@@ -38,7 +39,7 @@ export default class TextInput extends Component {
   setDisabled = async bool => {
     const { label } = this.props;
     await this.setState({ disabled: bool });
-    if (!bool) document.getElementById(label).focus();
+    if (!bool) this.textInput.focus();
   };
 
   resetInput = () => {
@@ -61,23 +62,26 @@ export default class TextInput extends Component {
     let { value, disabled } = this.state;
 
     return (
-      <InputContainer justifyContent="baseline">
+      <InputContainer>
         <Label for={label}>{label}</Label>
         <Input
           id={label}
           value={value}
           disabled={disabled}
-          ref={input => (this.textInput = input)}
+          innerRef={input => (this.textInput = input)}
           onChange={e => this.setState({ value: e.target.value })}
           hasChanged={this.props.value !== value}
+          type="text"
         />
         {disabled ? (
-          <div onClick={() => this.setDisabled(false)}>
+          <IconContainer onClick={() => this.setDisabled(false)}>
             <i className="fas fa-pencil-alt" aria-hidden="true" />
-          </div>
+          </IconContainer>
         ) : (
-          <Button onClick={this.onSave}>Save</Button>
-          // try to add a reset button here, but it throws an exception when wrapped with a div
+          <RowContainer>
+            <Button onClick={this.onSave}>Save</Button>
+            <Button onClick={this.resetInput}>Reset</Button>
+          </RowContainer>
         )}
       </InputContainer>
     );
@@ -86,23 +90,24 @@ export default class TextInput extends Component {
 
 const InputContainer = styled.div`
   display: grid;
-  grid-template-columns: minmax(150px, 200px) auto 50px;
+  grid-template-columns: minmax(150px, 200px) auto 150px;
+  align-items: center;
   margin: 20px 0;
 `;
 
 const Label = styled.label`
-  margin: 0 5px;
   min-width: 150px;
 `;
 
 const Input = styled.input`
   background-color: ${props => !props.disabled && 'var(--white)'};
+  background-color: ${props => props.hasChanged && 'var(--accent-alt)'};
   border: none;
   border-bottom: ${props => (props.disabled ? 'none' : `2px solid var(--purple)`)};
-  border: ${props => props.hasChanged && '1px solid red'};
-  padding: 2px 3px;
+  padding: 5px 3px;
   outline: none;
   min-width: 200px;
+  height: 100%;
 `;
 
 const Button = styled.button`
@@ -119,5 +124,14 @@ const Button = styled.button`
   &:hover {
     background-color: var(--accent);
     color: var(--white);
+  }
+`;
+
+const IconContainer = RowContainer.extend`
+  color: var(--accent);
+  cursor: pointer;
+
+  &:hover {
+    color: var(--accent-alt);
   }
 `;
