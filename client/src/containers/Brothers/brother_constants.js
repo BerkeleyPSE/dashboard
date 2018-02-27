@@ -5,7 +5,7 @@ const BROTHER_FIELDS = [
     default: 'NO KEY SPECIFIED'
   },
   {
-    label: 'name',
+    label: 'Name',
     key: 'name',
     default: 'NO NAME SPECIFIED'
   },

@@ -4,6 +4,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
+// local components
+import TextInput from './TextInput';
+
 export default class Editor extends Component {
   static propTypes = {
     data: PropTypes.object,
@@ -23,12 +26,11 @@ export default class Editor extends Component {
         {typeof data} */}
         {fields.map(field => {
           return (
-            <div key={field.key}>
-              <p>
-                <strong>{field.label}</strong>
-              </p>
-              <p>{data[field.key] || field.default}</p>
-            </div>
+            <TextInput
+              key={field.key}
+              label={field.label}
+              value={data[field.key] || field.default}
+            />
           );
         })}
       </EditorContainer>
