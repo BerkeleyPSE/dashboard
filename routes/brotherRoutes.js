@@ -21,6 +21,6 @@ module.exports = (app) => {
     const brother = await Brothers.find({ _id: req.query.brotherId });
     if (isEmpty(brother)) return res.status(404).send({});
 
-    return res.status(200).send(brother);
+    return res.status(200).send(brother[0]);
   });
 };

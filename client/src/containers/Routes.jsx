@@ -12,7 +12,7 @@ import Navbar from './Navbar/Navbar';
 import Home from './Home';
 import Login from './Login';
 import Applications from './Applications';
-import Brothers from './Brothers';
+import Brothers from './Brothers/Brothers';
 import Fulltime from './Fulltime';
 import Internship from './Internship';
 import Faqs from './Faqs';

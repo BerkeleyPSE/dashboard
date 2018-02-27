@@ -3,14 +3,16 @@ import React from 'react';
 // node modules
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
+import isEmpty from 'lodash/isEmpty';
 
 // components
-import Table from './reusable/Table';
-import DataDisplayer from './reusable/DataDisplayer';
-import Editor from './reusable/Editor';
+import DataDisplayer from '../reusable/DataDisplayer';
+import Editor from '../reusable/Editor';
+import BROTHER_FIELDS from './brother_constants';
 
 // actions
-import { BrotherActions } from '../actions/brother-actions';
+import { BrotherActions } from '../../actions/brother-actions';
 
 class Brothers extends React.Component {
   static propTypes = {
@@ -23,8 +25,6 @@ class Brothers extends React.Component {
     this.state = {
       brothers: [],
       activeBrother: {},
-      sort: {},
-      filter: {},
       search: ''
     };
   }
@@ -55,17 +55,15 @@ class Brothers extends React.Component {
   render() {
     let { brothers, activeBrother } = this.state;
     return (
-      <div>
-        <h1>Brother Component</h1>
+      <BrothersContainer>
         <DataDisplayer
           id="Brothers"
           data={brothers}
           dictkey="name"
           handleDataClick={this.fetchOneBrother}
         />
-        <Editor data={activeBrother} />
-        {/* <Table data={data} columns={COLUMNS} tableId="brothers" /> */}
-      </div>
+        {!isEmpty(activeBrother) && <Editor data={activeBrother} fields={BROTHER_FIELDS} />}
+      </BrothersContainer>
     );
   }
 }
@@ -76,8 +74,9 @@ const mapStateToProps = (state, ownProps) => ({
 
 export default connect(mapStateToProps, BrotherActions)(Brothers);
 
-const COLUMNS = {
-  name: 'Name',
-  year: 'Year',
-  pseClass: 'Class'
-};
+const BrothersContainer = styled.div`
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  min-height: 100%;
+  padding: 0 20px;
+`;
