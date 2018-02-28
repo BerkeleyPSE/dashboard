@@ -15,24 +15,24 @@ export default class Editor extends Component {
   static propTypes = {
     data: PropTypes.object,
     fields: PropTypes.arrayOf(PropTypes.object).isRequired,
-    clearActive: PropTypes.func
+    clearActive: PropTypes.func,
+    isNew: PropTypes.bool,
+    createActive: PropTypes.func,
+    updateActive: PropTypes.func,
+    deleteActive: PropTypes.func
   };
 
   static defaultProps = {
     data: {}
   };
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      changes: {} // TODO: clear this after submitting changes successfully
-    };
-  }
+  state = {
+    changes: {}
+  };
 
   onInputSave = (fieldKey, newValue) => {
     const { data } = this.props;
     let newChanges = { ...this.state.changes };
-
     if (data[fieldKey] === newValue) {
       if (newChanges[fieldKey]) {
         delete newChanges[fieldKey];
@@ -44,6 +44,14 @@ export default class Editor extends Component {
     this.setState({ changes: newChanges });
   };
 
+  createActive = async () => {
+    const { changes } = this.state;
+    const { data } = this.props;
+    // find way to validate all fields
+    const resStatus = await this.props.createActive({ ...data, ...changes });
+    if (resStatus === 201) this.setState({ changes: {} });
+  };
+
   updateActive = async () => {
     const { data } = this.props;
     const { changes } = this.state;
@@ -51,8 +59,19 @@ export default class Editor extends Component {
     if (resStatus === 200) this.setState({ changes: {} });
   };
 
+  deleteActive = async () => {
+    const { data } = this.props;
+    const resStatus = await this.props.deleteActive(data._id);
+    if (resStatus === 200) this.clearActive();
+  };
+
+  clearActive = async () => {
+    this.props.clearActive();
+    this.setState({ changes: {} });
+  };
+
   render() {
-    const { data, fields, clearActive, updateActive } = this.props;
+    const { data, fields, isNew } = this.props;
     const { changes } = this.state;
     return (
       <EditorContainer>
@@ -71,11 +90,20 @@ export default class Editor extends Component {
         })}
         {!isEmpty(changes) && (
           <RowContainer justifyContent="space-between">
-            <Button colorStyle="save" size="large" onClick={this.updateActive} noMargin>
-              Confirm Updates
-            </Button>
-            <Button colorStyle="reject" size="small" onClick={clearActive} noMargin>
+            {isNew ? (
+              <Button colorStyle="save" size="large" onClick={this.createActive} noMargin>
+                Create New
+              </Button>
+            ) : (
+              <Button colorStyle="save" size="large" onClick={this.updateActive} noMargin>
+                Confirm Updates
+              </Button>
+            )}
+            <Button colorStyle="reject" size="small" onClick={this.clearActive} noMargin>
               Reject Changes
+            </Button>
+            <Button colorStyle="reject" size="small" onClick={this.deleteActive} noMargin>
+              Delete This
             </Button>
           </RowContainer>
         )}

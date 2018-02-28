@@ -17,13 +17,14 @@ export default class TextInput extends Component {
     value: PropTypes.string.isRequired
   };
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      value: '',
-      disabled: true
-    };
-  }
+  static defaultProps = {
+    dataId: ''
+  };
+
+  state = {
+    value: '',
+    disabled: true
+  };
 
   componentDidMount() {
     this.setState({

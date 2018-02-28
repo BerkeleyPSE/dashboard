@@ -17,12 +17,12 @@ const DataDisplayer = (props) => {
     handleDataClick,
     searchValue,
     handleSearchChange,
-    createNew
+    generateNew
   } = props;
   return (
     <DataContainer>
       <SectionHeader>{pageId}</SectionHeader>
-      <AddNewButton onClick={createNew} />
+      <AddNewButton onClick={generateNew} />
       <SearchInput value={searchValue} handleChange={handleSearchChange} />
       {data.map((d, index) => (
         <DataItem key={`${pageId}_${d._id}`} onClick={() => handleDataClick(d._id)}>
@@ -40,7 +40,7 @@ DataDisplayer.propTypes = {
   handleDataClick: PropTypes.func.isRequired,
   searchValue: PropTypes.string.isRequired,
   handleSearchChange: PropTypes.func.isRequired,
-  createNew: PropTypes.func.isRequired
+  generateNew: PropTypes.func.isRequired
 };
 
 DataDisplayer.defaultProps = {

@@ -9,7 +9,8 @@ export const BrotherConstants = {
   GET_ONE_BROTHER: 'GET_ONE_BROTHER',
   CLEAR_ACTIVE_BROTHER: 'CLEAR_ACTIVE_BROTHER',
   CREATE_BROTHER: 'CREATE_BROTHER',
-  UPDATE_BROTHER: 'UPDATE_BROTHER'
+  UPDATE_BROTHER: 'UPDATE_BROTHER',
+  DELETE_BROTHER: 'DELETE_BROTHER'
 };
 
 export const BrotherActions = {
@@ -51,18 +52,17 @@ export const BrotherActions = {
   }),
 
   createBrother: brother => async (dispatch) => {
-    const params = { ...brother };
-
-    const res = await axios.post(API.CREATE_BROTHER, params);
+    const res = await axios.post(API.CREATE_BROTHER, brother);
 
     if (res.status === 201) {
       dispatch({
-        type: BrotherConstants.GET_BROTHERS,
-        brothers: res.data
+        type: BrotherConstants.CREATE_BROTHER,
+        activeBrother: res.data
       });
     } else {
       // respond with an error message;
     }
+    return res.status;
   },
 
   deleteBrother: brotherId => async (dispatch) => {
@@ -72,11 +72,11 @@ export const BrotherActions = {
 
     if (res.status === 200 || res.status === 204) {
       dispatch({
-        type: BrotherConstants.GET_BROTHERS,
-        brothers: res.data
+        type: BrotherConstants.DELETE_BROTHER
       });
     } else {
       // respond with an error message
     }
+    return res.status;
   }
 };

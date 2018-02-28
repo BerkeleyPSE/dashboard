@@ -21,14 +21,12 @@ class Brothers extends React.Component {
     getBrothers: PropTypes.func
   };
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      brothers: [],
-      activeBrother: {},
-      searchValue: ''
-    };
-  }
+  state = {
+    brothers: [],
+    activeBrother: {},
+    searchValue: '',
+    isNewBrother: false
+  };
 
   componentDidMount() {
     this.fetchBrothers();
@@ -44,13 +42,34 @@ class Brothers extends React.Component {
     }
   };
 
-  createNewBrother = () => {
-    let newBrother = {};
-    BROTHER_FIELDS.forEach(field => (newBrother[field] = ''));
-    this.setState({ activeBrother: newBrother });
+  createBrother = async brother => {
+    const resStatus = await this.props.createBrother(brother);
+    if (resStatus === 201) {
+      this.setState({ isNewBrother: false });
+      this.fetchBrothers();
+    }
+    return resStatus;
   };
 
-  fetchBrothers = async (search = this.state.search) => {
+  updateBrother = async (brotherId, newActiveBrother) => {
+    const resStatus = await this.props.updateBrother(brotherId, newActiveBrother);
+    if (resStatus === 200) this.fetchBrothers();
+    return resStatus;
+  };
+
+  deleteBrother = async brotherId => {
+    const resStatus = await this.props.deleteBrother(brotherId);
+    if (resStatus === 200) this.fetchBrothers();
+    return resStatus;
+  };
+
+  generateNewBrother = () => {
+    let newBrother = {};
+    BROTHER_FIELDS.forEach(field => (newBrother[field.key] = field.default));
+    this.setState({ activeBrother: newBrother, isNewBrother: true, searchValue: '' });
+  };
+
+  fetchBrothers = async (search = this.state.searchValue) => {
     await this.props.getBrothers(search);
     this.setState({
       brothers: this.props.BrotherReducer.brothers
@@ -60,7 +79,8 @@ class Brothers extends React.Component {
   fetchOneBrother = async brotherId => {
     await this.props.getOneBrother(brotherId);
     this.setState({
-      activeBrother: this.props.BrotherReducer.activeBrother
+      activeBrother: this.props.BrotherReducer.activeBrother,
+      isNewBrother: false
     });
   };
 
@@ -71,7 +91,7 @@ class Brothers extends React.Component {
   };
 
   render() {
-    const { brothers, activeBrother, searchValue } = this.state;
+    const { brothers, activeBrother, searchValue, isNewBrother } = this.state;
     const { clearActiveBrother, updateBrother } = this.props;
     return (
       <BrothersContainer>
@@ -82,14 +102,17 @@ class Brothers extends React.Component {
           handleDataClick={this.fetchOneBrother}
           searchValue={searchValue}
           handleSearchChange={this.handleSearchChange}
-          createNew={this.createNewBrother}
+          generateNew={this.generateNewBrother}
         />
         {!isEmpty(activeBrother) && (
           <Editor
             data={activeBrother}
             fields={BROTHER_FIELDS}
+            isNew={isNewBrother}
             clearActive={clearActiveBrother}
-            updateActive={updateBrother}
+            createActive={this.createBrother}
+            updateActive={this.updateBrother}
+            deleteActive={this.deleteBrother}
           />
         )}
       </BrothersContainer>
