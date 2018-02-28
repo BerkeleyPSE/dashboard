@@ -35,8 +35,6 @@ export const BrotherActions = {
     const params = { brotherId, newActiveBrother };
     const res = await axios.put(API.UPDATE_BROTHER, params);
 
-    console.log(res.data);
-
     if (res.status === 200) {
       dispatch({
         type: BrotherConstants.UPDATE_BROTHER,
@@ -45,6 +43,7 @@ export const BrotherActions = {
     } else {
       // respond with an error message
     }
+    return res.status;
   },
 
   clearActiveBrother: dispatch => ({

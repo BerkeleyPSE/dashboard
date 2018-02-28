@@ -26,7 +26,7 @@ class Brothers extends React.Component {
     this.state = {
       brothers: [],
       activeBrother: {},
-      search: ''
+      searchValue: ''
     };
   }
 
@@ -44,6 +44,12 @@ class Brothers extends React.Component {
     }
   };
 
+  createNewBrother = () => {
+    let newBrother = {};
+    BROTHER_FIELDS.forEach(field => (newBrother[field] = ''));
+    this.setState({ activeBrother: newBrother });
+  };
+
   fetchBrothers = async (search = this.state.search) => {
     await this.props.getBrothers(search);
     this.setState({
@@ -58,8 +64,14 @@ class Brothers extends React.Component {
     });
   };
 
+  handleSearchChange = searchValue => {
+    const { brothers } = this.state;
+    this.setState({ searchValue });
+    this.fetchBrothers(searchValue);
+  };
+
   render() {
-    const { brothers, activeBrother } = this.state;
+    const { brothers, activeBrother, searchValue } = this.state;
     const { clearActiveBrother, updateBrother } = this.props;
     return (
       <BrothersContainer>
@@ -68,6 +80,9 @@ class Brothers extends React.Component {
           data={brothers}
           dictkey="name"
           handleDataClick={this.fetchOneBrother}
+          searchValue={searchValue}
+          handleSearchChange={this.handleSearchChange}
+          createNew={this.createNewBrother}
         />
         {!isEmpty(activeBrother) && (
           <Editor
@@ -92,5 +107,5 @@ const BrothersContainer = styled.div`
   display: grid;
   grid-template-columns: 200px 1fr;
   min-height: 100%;
-  padding: 0 20px;
+  padding: 0 10px;
 `;

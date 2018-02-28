@@ -10,15 +10,20 @@ const Brothers = mongooseStatic.model('brothers');
 
 module.exports = (app) => {
   app.get(API.GET_BROTHERS, async (req, res) => {
-    const brothers = await Brothers.find({}, { _id: 1, name: 1 }).sort({ name: 1 });
-    if (!brothers.length) return res.status(404).send([]);
+    const searchTerm = isEmpty(req.query.search)
+      ? {}
+      : { name: { $regex: req.query.search, $options: 'i' } };
+    const brothers = await Brothers.find(searchTerm, { _id: 1, name: 1 }).sort({
+      name: 1
+    });
+    // if (!brothers.length) return res.status(404).send([]);
     return res.status(200).send(brothers);
   });
 
   app.get(API.GET_ONE_BROTHER, async (req, res) => {
     if (isEmpty(req.query) || isEmpty(req.query.brotherId)) return res.status(404).send({});
 
-    const brother = await Brothers.find({ _id: req.query.brotherId });
+    const brother = await Brothers.find({ _id: req.query.brotherId }); // try changing to findById
     if (isEmpty(brother)) return res.status(404).send({});
 
     return res.status(200).send(brother[0]);

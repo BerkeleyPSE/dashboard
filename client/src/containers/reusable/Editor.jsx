@@ -25,7 +25,7 @@ export default class Editor extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      changes: {}
+      changes: {} // TODO: clear this after submitting changes successfully
     };
   }
 
@@ -42,6 +42,13 @@ export default class Editor extends Component {
     }
 
     this.setState({ changes: newChanges });
+  };
+
+  updateActive = async () => {
+    const { data } = this.props;
+    const { changes } = this.state;
+    const resStatus = await this.props.updateActive(data._id, { ...data, ...changes });
+    if (resStatus === 200) this.setState({ changes: {} });
   };
 
   render() {
@@ -64,12 +71,7 @@ export default class Editor extends Component {
         })}
         {!isEmpty(changes) && (
           <RowContainer justifyContent="space-between">
-            <Button
-              colorStyle="save"
-              size="large"
-              onClick={() => updateActive(data._id, { ...data, ...changes })}
-              noMargin
-            >
+            <Button colorStyle="save" size="large" onClick={this.updateActive} noMargin>
               Confirm Updates
             </Button>
             <Button colorStyle="reject" size="small" onClick={clearActive} noMargin>
