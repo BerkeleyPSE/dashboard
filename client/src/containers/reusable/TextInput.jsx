@@ -3,9 +3,11 @@ import React, { Component } from 'react';
 // node modules
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import isEqual from 'lodash/isEqual';
 
 // local components
 import { RowContainer } from '../styleguide/Containers';
+import Button from './Button';
 
 export default class TextInput extends Component {
   static propTypes = {
@@ -37,7 +39,6 @@ export default class TextInput extends Component {
   };
 
   setDisabled = async bool => {
-    const { label } = this.props;
     await this.setState({ disabled: bool });
     if (!bool) this.textInput.focus();
   };
@@ -70,7 +71,7 @@ export default class TextInput extends Component {
           disabled={disabled}
           innerRef={input => (this.textInput = input)}
           onChange={e => this.setState({ value: e.target.value })}
-          hasChanged={this.props.value !== value}
+          hasChanged={!isEqual(this.props.value, value)}
           type="text"
         />
         {disabled ? (
@@ -79,8 +80,12 @@ export default class TextInput extends Component {
           </IconContainer>
         ) : (
           <RowContainer>
-            <Button onClick={this.onSave}>Save</Button>
-            <Button onClick={this.resetInput}>Reset</Button>
+            <Button colorStyle="save" size="small" onClick={this.onSave}>
+              Save
+            </Button>
+            <Button colorStyle="reject" size="small" onClick={this.resetInput}>
+              Reset
+            </Button>
           </RowContainer>
         )}
       </InputContainer>
@@ -108,23 +113,6 @@ const Input = styled.input`
   outline: none;
   min-width: 200px;
   height: 100%;
-`;
-
-const Button = styled.button`
-  background-color: var(--white);
-  border: 2px solid var(--accent);
-  color: var(--accent);
-  cursor: pointer;
-  margin: 0 5px;
-  padding: 3px 5px;
-  outline: none;
-  text-transform: uppercase;
-  transition: all 0.25s;
-
-  &:hover {
-    background-color: var(--accent);
-    color: var(--white);
-  }
 `;
 
 const IconContainer = RowContainer.extend`

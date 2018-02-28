@@ -33,7 +33,7 @@ export default class Navbar extends Component {
 
 const NavbarContainer = styled.div`
   height: 100%;
-  width: 250px;
+  width: 175px;
   padding: 0 10px;
   border-right: 2px solid var(--accent);
 `;

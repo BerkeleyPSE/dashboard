@@ -3,15 +3,19 @@ import React, { Component } from 'react';
 // node modules
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import isEmpty from 'lodash/isEmpty';
 
 // local components
 import TextInput from './TextInput';
+import Button from './Button';
 import { SectionHeader } from '../styleguide/Headers';
+import { RowContainer } from '../styleguide/Containers';
 
 export default class Editor extends Component {
   static propTypes = {
     data: PropTypes.object,
-    fields: PropTypes.arrayOf(PropTypes.object).isRequired
+    fields: PropTypes.arrayOf(PropTypes.object).isRequired,
+    clearActive: PropTypes.func
   };
 
   static defaultProps = {
@@ -20,23 +24,29 @@ export default class Editor extends Component {
 
   constructor(props) {
     super(props);
-    this.changed = {};
+    this.state = {
+      changes: {}
+    };
   }
 
   onInputSave = (fieldKey, newValue) => {
     const { data } = this.props;
+    let newChanges = { ...this.state.changes };
 
     if (data[fieldKey] === newValue) {
-      if (this.changed[fieldKey]) delete this.changed[fieldKey];
+      if (newChanges[fieldKey]) {
+        delete newChanges[fieldKey];
+      }
     } else {
-      this.changed[fieldKey] = newValue;
+      newChanges[fieldKey] = newValue;
     }
 
-    // console.log(this.changed);
+    this.setState({ changes: newChanges });
   };
 
   render() {
-    let { data, fields } = this.props;
+    const { data, fields, clearActive, updateActive } = this.props;
+    const { changes } = this.state;
     return (
       <EditorContainer>
         <SectionHeader>Edit</SectionHeader>
@@ -52,6 +62,21 @@ export default class Editor extends Component {
             />
           );
         })}
+        {!isEmpty(changes) && (
+          <RowContainer justifyContent="space-between">
+            <Button
+              colorStyle="save"
+              size="large"
+              onClick={() => updateActive(data._id, { ...data, ...changes })}
+              noMargin
+            >
+              Confirm Updates
+            </Button>
+            <Button colorStyle="reject" size="small" onClick={clearActive} noMargin>
+              Reject Changes
+            </Button>
+          </RowContainer>
+        )}
       </EditorContainer>
     );
   }

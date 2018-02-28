@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import isEmpty from 'lodash/isEmpty';
+import isEqual from 'lodash/isEqual';
 
 // components
 import DataDisplayer from '../reusable/DataDisplayer';
@@ -35,10 +36,10 @@ class Brothers extends React.Component {
 
   componentWillReceiveProps = nextProps => {
     let { activeBrother, brothers } = this.props.BrotherReducer;
-    if (brothers !== nextProps.BrotherReducer.brothers) {
+    if (!isEqual(brothers, nextProps.BrotherReducer.brothers)) {
       this.setState({ brothers: nextProps.BrotherReducer.brothers });
     }
-    if (activeBrother !== nextProps.BrotherReducer.activeBrother) {
+    if (!isEqual(activeBrother, nextProps.BrotherReducer.activeBrother)) {
       this.setState({ activeBrother: nextProps.BrotherReducer.activeBrother });
     }
   };
@@ -58,7 +59,8 @@ class Brothers extends React.Component {
   };
 
   render() {
-    let { brothers, activeBrother } = this.state;
+    const { brothers, activeBrother } = this.state;
+    const { clearActiveBrother, updateBrother } = this.props;
     return (
       <BrothersContainer>
         <DataDisplayer
@@ -67,7 +69,14 @@ class Brothers extends React.Component {
           dictkey="name"
           handleDataClick={this.fetchOneBrother}
         />
-        {!isEmpty(activeBrother) && <Editor data={activeBrother} fields={BROTHER_FIELDS} />}
+        {!isEmpty(activeBrother) && (
+          <Editor
+            data={activeBrother}
+            fields={BROTHER_FIELDS}
+            clearActive={clearActiveBrother}
+            updateActive={updateBrother}
+          />
+        )}
       </BrothersContainer>
     );
   }

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 // node modules
 import PropTypes from 'prop-types';
@@ -7,34 +7,34 @@ import styled from 'styled-components';
 // local components
 import { SectionHeader } from '../styleguide/Headers';
 
-export default class DataDisplayer extends Component {
-  static propTypes = {
-    pageId: PropTypes.string.isRequired,
-    dictkey: PropTypes.string.isRequired,
-    data: PropTypes.arrayOf(PropTypes.object),
-    handleDataClick: PropTypes.func.isRequired
-  };
+const DataDisplayer = (props) => {
+  const {
+    pageId, data, dictkey, handleDataClick
+  } = props;
+  return (
+    <DataContainer>
+      <SectionHeader>{pageId}</SectionHeader>
+      {data.map((d, index) => (
+        <DataItem key={`${pageId}_${d._id}`} onClick={() => handleDataClick(d._id)}>
+          {d[dictkey]}
+        </DataItem>
+      ))}
+    </DataContainer>
+  );
+};
 
-  static defaultProps = {
-    data: []
-  };
+DataDisplayer.propTypes = {
+  pageId: PropTypes.string.isRequired,
+  dictkey: PropTypes.string.isRequired,
+  data: PropTypes.arrayOf(PropTypes.object),
+  handleDataClick: PropTypes.func.isRequired
+};
 
-  render() {
-    const { pageId, data, dictkey, handleDataClick } = this.props;
-    return (
-      <DataContainer>
-        <SectionHeader>{pageId}</SectionHeader>
-        {data.map((d, index) => {
-          return (
-            <DataItem key={`${pageId}_${index}`} onClick={() => handleDataClick(d._id)}>
-              {d[dictkey]}
-            </DataItem>
-          );
-        })}
-      </DataContainer>
-    );
-  }
-}
+DataDisplayer.defaultProps = {
+  data: []
+};
+
+export default DataDisplayer;
 
 const DataContainer = styled.div`
   min-width: 200px;
@@ -49,6 +49,6 @@ const DataItem = styled.p`
   width: 100%;
 
   &:hover {
-    color: ;
+    color: var(--accent-alt);
   }
 `;

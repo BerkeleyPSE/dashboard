@@ -23,4 +23,13 @@ module.exports = (app) => {
 
     return res.status(200).send(brother[0]);
   });
+
+  app.put(API.UPDATE_BROTHER, async (req, res) => {
+    const { brotherId, newActiveBrother } = req.body;
+    if (isEmpty(brotherId) || isEmpty(newActiveBrother)) return res.status(400).send({});
+    const brother = await Brothers.findByIdAndUpdate(brotherId, newActiveBrother, { new: true });
+    if (isEmpty(brother)) return res.status(401).send({});
+
+    return res.status(200).send(brother);
+  });
 };

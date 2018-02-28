@@ -7,6 +7,7 @@ import API from './api';
 export const BrotherConstants = {
   GET_BROTHERS: 'GET_BROTHERS',
   GET_ONE_BROTHER: 'GET_ONE_BROTHER',
+  CLEAR_ACTIVE_BROTHER: 'CLEAR_ACTIVE_BROTHER',
   CREATE_BROTHER: 'CREATE_BROTHER',
   UPDATE_BROTHER: 'UPDATE_BROTHER'
 };
@@ -30,6 +31,26 @@ export const BrotherActions = {
     });
   },
 
+  updateBrother: (brotherId, newActiveBrother) => async (dispatch) => {
+    const params = { brotherId, newActiveBrother };
+    const res = await axios.put(API.UPDATE_BROTHER, params);
+
+    console.log(res.data);
+
+    if (res.status === 200) {
+      dispatch({
+        type: BrotherConstants.UPDATE_BROTHER,
+        activeBrother: res.data
+      });
+    } else {
+      // respond with an error message
+    }
+  },
+
+  clearActiveBrother: dispatch => ({
+    type: BrotherConstants.CLEAR_ACTIVE_BROTHER
+  }),
+
   createBrother: brother => async (dispatch) => {
     const params = { ...brother };
 
@@ -42,23 +63,6 @@ export const BrotherActions = {
       });
     } else {
       // respond with an error message;
-    }
-  },
-
-  updateBrother: (brotherId = '', newInfo) => async (dispatch) => {
-    const params = { ...newInfo };
-
-    // update the brother in the database
-    const res = await axios.put(API.UPDATE_BROTHER, { params });
-
-    // check that the brother was updated successfully
-    if (res.status === 204) {
-      dispatch({
-        type: BrotherConstants.GET_BROTHERS,
-        brothers: res.data
-      });
-    } else {
-      // respond with an error message
     }
   },
 
