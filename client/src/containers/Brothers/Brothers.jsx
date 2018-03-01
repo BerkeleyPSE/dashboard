@@ -85,14 +85,13 @@ class Brothers extends React.Component {
   };
 
   handleSearchChange = searchValue => {
-    const { brothers } = this.state;
     this.setState({ searchValue });
     this.fetchBrothers(searchValue);
   };
 
   render() {
     const { brothers, activeBrother, searchValue, isNewBrother } = this.state;
-    const { clearActiveBrother, updateBrother } = this.props;
+    const { clearActiveBrother } = this.props;
     return (
       <BrothersContainer>
         <DataDisplayer

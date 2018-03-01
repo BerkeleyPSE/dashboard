@@ -1,8 +1,15 @@
+import validators from '../../helpers/validators';
+
+// add field for type: shortText, longText, radio, dropdown
+// if radio or dropdown, add field for options: [opt1, opt2, ...]
+// figure out how to do Media URLs
+
 const BROTHER_FIELDS = [
   {
     label: 'Key',
     key: 'key',
-    default: 'NO KEY SPECIFIED'
+    default: 'NO KEY SPECIFIED',
+    validate: value => validators.validateKey(value)
   },
   {
     label: 'Name',

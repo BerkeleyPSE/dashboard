@@ -88,7 +88,7 @@ export default class Editor extends Component {
             />
           );
         })}
-        {!isEmpty(changes) && (
+        {!isEmpty(changes) ? (
           <RowContainer justifyContent="space-between">
             {isNew ? (
               <Button colorStyle="save" size="large" onClick={this.createActive} noMargin>
@@ -99,12 +99,24 @@ export default class Editor extends Component {
                 Confirm Updates
               </Button>
             )}
-            <Button colorStyle="reject" size="small" onClick={this.clearActive} noMargin>
+            <Button colorStyle="reject" size="medium" onClick={this.clearActive} noMargin>
               Reject Changes
             </Button>
             <Button colorStyle="reject" size="small" onClick={this.deleteActive} noMargin>
               Delete This
             </Button>
+          </RowContainer>
+        ) : (
+          <RowContainer justifyContent="flex-end">
+            {isNew ? (
+              <Button colorStyle="reject" size="small" onClick={this.clearActive} noMargin>
+                Cancel
+              </Button>
+            ) : (
+              <Button colorStyle="reject" size="small" onClick={this.deleteActive} noMargin>
+                Delete This
+              </Button>
+            )}
           </RowContainer>
         )}
       </EditorContainer>
