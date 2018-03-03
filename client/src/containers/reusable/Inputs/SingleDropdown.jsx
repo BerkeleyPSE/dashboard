@@ -13,7 +13,7 @@ import InputController from './InputController';
 export default class SingleDropdown extends Component {
   static propTypes = {
     dataId: PropTypes.string,
-    dataKey: PropTypes.object,
+    dataKey: PropTypes.string,
     defaultOption: PropTypes.object,
     label: PropTypes.string,
     onInputSave: PropTypes.func, // send the value to the collector
@@ -23,7 +23,7 @@ export default class SingleDropdown extends Component {
   };
 
   static defaultProps = {
-    dataKey: { label: '', key: '' },
+    dataKey: '',
     options: [],
     defaultOption: { label: '', value: '' }
   };
@@ -49,7 +49,7 @@ export default class SingleDropdown extends Component {
   onSave = () => {
     const { onInputSave, dataKey } = this.props;
     const { selectedOption } = this.state;
-    onInputSave(dataKey.key, selectedOption.value);
+    onInputSave(dataKey, selectedOption);
     this.setState({
       prevOption: selectedOption,
       disabled: true
@@ -78,11 +78,11 @@ export default class SingleDropdown extends Component {
         <Label for={label}>{label}</Label>
         <Dropdown
           id={label}
-          name={`${dataKey.key}-dropdown`}
+          name={`${dataKey}-dropdown`}
           value={selectedOption.value}
           options={options}
           onChange={this.onChange}
-          placeholder={`Select a ${dataKey.label}`}
+          placeholder={`Select a ${label}`}
           resetValue={defaultOption}
           searchable={false}
           disabled={disabled}

@@ -23,12 +23,18 @@ const BrotherSchema = new Schema({
   },
 
   pseClass: {
-    type: String,
+    type: {
+      label: String,
+      value: String
+    },
     required: true
   },
 
   year: {
-    type: String,
+    type: {
+      label: String,
+      value: String
+    },
     required: true
   },
 
@@ -39,7 +45,10 @@ const BrotherSchema = new Schema({
   },
 
   position: {
-    type: String,
+    type: {
+      label: String,
+      value: String
+    },
     required: true,
     default: 'Active'
   },
@@ -50,12 +59,22 @@ const BrotherSchema = new Schema({
   },
 
   majors: {
-    type: [String],
+    type: [
+      {
+        label: String,
+        value: String
+      }
+    ],
     required: true
   },
 
   minors: {
-    type: [String],
+    type: [
+      {
+        label: String,
+        value: String
+      }
+    ],
     required: false,
     default: []
   },
@@ -66,7 +85,12 @@ const BrotherSchema = new Schema({
   },
 
   previousPositions: {
-    type: [String],
+    type: [
+      {
+        label: String,
+        value: String
+      }
+    ],
     required: false,
     default: []
   },

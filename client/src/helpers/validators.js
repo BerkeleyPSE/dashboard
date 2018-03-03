@@ -4,6 +4,7 @@ import isBoolean from 'lodash/isBoolean';
 // import isObject from 'lodash/isObject';
 
 import helpers from './helpers';
+import { isObject } from 'util';
 
 /*
   - validate single choice dropdown: isExecutive (t/f), pseClass, currentPosition
@@ -34,7 +35,10 @@ export default {
   },
 
   // can we just use this for booleans as well? specifically for the isExecutive value checker
-  validateSingleDropdown: (value, options, field, expectedValueType = String) => {
+  validateSingleDropdown: (selectedOption, options, field, expectedValueType = String) => {
+    if (!isObject(selectedOption)) return `${selectedOption} must be an Object.`;
+
+    const { value } = selectedOption;
     if (helpers.isEmptyOrUndefined(value)) return `${field} must not be empty.`;
 
     switch (expectedValueType) {

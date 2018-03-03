@@ -32,7 +32,7 @@ const InputCreator = (props) => {
         case 'singleDropdown':
           return (
             <SingleDropdown
-              key={field.key.key}
+              key={field.key}
               dataId={dataId}
               dataKey={field.key}
               defaultOption={field.input.default}
