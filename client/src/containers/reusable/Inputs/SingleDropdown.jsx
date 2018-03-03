@@ -49,8 +49,8 @@ export default class SingleDropdown extends Component {
   };
 
   render() {
-    const { options, dataKey, selectedOption, defaultOption } = this.props;
-    const { disabled } = this.state;
+    const { options, dataKey, defaultOption } = this.props;
+    const { disabled, selectedOption } = this.state;
 
     return (
       <RowContainer>
@@ -75,4 +75,6 @@ export default class SingleDropdown extends Component {
   }
 }
 
-const Dropdown = styled(Select)``;
+const Dropdown = styled(Select)`
+  min-width: 300px;
+`;

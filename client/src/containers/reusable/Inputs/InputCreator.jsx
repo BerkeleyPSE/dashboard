@@ -14,9 +14,7 @@ const InputCreator = (props) => {
       schema, dataId, onInputSave, data
     } = props;
 
-    console.log(data);
-
-    schema.map((field) => {
+    return schema.map((field) => {
       switch (field.type) {
         case 'shortText':
           return (
@@ -34,7 +32,7 @@ const InputCreator = (props) => {
         case 'singleDropdown':
           return (
             <SingleDropdown
-              key={field.key}
+              key={field.key.key}
               dataId={dataId}
               dataKey={field.key}
               options={field.input.options}
