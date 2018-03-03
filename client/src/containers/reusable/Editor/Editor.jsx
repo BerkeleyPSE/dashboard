@@ -6,7 +6,8 @@ import styled from 'styled-components';
 
 // local components
 import OptionsBar from './OptionsBar';
-import TextInput from '../Inputs/TextInput';
+import InputCreator from '../Inputs/InputCreator';
+// import TextInput from '../Inputs/TextInput';
 import { SectionHeader } from '../../styleguide/Headers';
 
 export default class Editor extends Component {
@@ -76,7 +77,13 @@ export default class Editor extends Component {
     return (
       <EditorContainer>
         <SectionHeader>Edit</SectionHeader>
-        {fields.map(field => {
+        <InputCreator
+          schema={fields}
+          dataId={data._id}
+          data={data}
+          onInputSave={this.onInputSave}
+        />
+        {/* {fields.map(field => {
           return (
             <TextInput
               dataId={data._id}
@@ -87,7 +94,7 @@ export default class Editor extends Component {
               onInputSave={this.onInputSave}
             />
           );
-        })}
+        })} */}
         <OptionsBar
           changes={changes}
           isNew={isNew}

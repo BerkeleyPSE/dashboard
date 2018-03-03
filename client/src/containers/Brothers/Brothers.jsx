@@ -10,7 +10,7 @@ import isEqual from 'lodash/isEqual';
 // components
 import DataDisplayer from '../reusable/DataDisplayer';
 import Editor from '../reusable/Editor/Editor';
-import BROTHER_FIELDS from './brother_constants';
+import BrotherSchema from './BrotherSchema';
 
 // actions
 import { BrotherActions } from '../../actions/brother-actions';
@@ -65,7 +65,7 @@ class Brothers extends React.Component {
 
   generateNewBrother = () => {
     let newBrother = {};
-    BROTHER_FIELDS.forEach(field => (newBrother[field.key] = field.default));
+    BrotherSchema.forEach(field => (newBrother[field.key] = field.default));
     this.setState({ activeBrother: newBrother, isNewBrother: true, searchValue: '' });
   };
 
@@ -106,7 +106,7 @@ class Brothers extends React.Component {
         {!isEmpty(activeBrother) && (
           <Editor
             data={activeBrother}
-            fields={BROTHER_FIELDS}
+            fields={BrotherSchema}
             isNew={isNewBrother}
             clearActive={clearActiveBrother}
             createActive={this.createBrother}

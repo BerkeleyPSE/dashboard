@@ -15,14 +15,13 @@ export default class SingleDropdown extends Component {
     dataId: PropTypes.string,
     dataKey: PropTypes.object,
     options: PropTypes.arrayOf(PropTypes.object),
-    handleSubmit: PropTypes.func, // send the value to the collector
+    onInputSave: PropTypes.func, // send the value to the collector
     selectedOption: PropTypes.object,
-    defaultOption: PropTypes.object,
-    onInputSave: PropTypes.func,
+    defaultOption: PropTypes.object
   };
 
   static defaultProps = {
-    dataKey: {label: '', key: ''},
+    dataKey: { label: '', key: '' },
     options: [],
     defaultOption: { label: '', value: '' }
   };
@@ -36,30 +35,29 @@ export default class SingleDropdown extends Component {
 
   onSave = () => {
     const { onInputSave, dataKey } = this.props;
-    const { selectedOption };
+    const { selectedOption } = this.state;
     onInputSave(dataKey.key, selectedOption.value);
     this.setState({
       prevOption: selectedOption,
       disabled: true
     });
-  }
+  };
 
   onReset = () => {
     const { prevOption } = this.state;
     this.setState({ selectedOption: prevOption, disabled: true });
-  }
+  };
 
   render() {
-    const { options, handleSubmit, dataKey, selectedOption, defaultOption } = this.props;
-    const { isOpen, disabled } = this.state;
-
-    const OPTIONS = options.unshift(defaultOption);
+    const { options, dataKey, selectedOption, defaultOption } = this.props;
+    const { disabled } = this.state;
 
     return (
       <RowContainer>
         <Dropdown
           name={`${dataKey.key}-dropdown`}
           value={selectedOption.value}
+          options={options}
           onChange={selectedOption => this.setState({ selectedOption })}
           placeholder={`Select a ${dataKey.label}`}
           resetValue={defaultOption}
@@ -68,7 +66,7 @@ export default class SingleDropdown extends Component {
         />
         <InputController
           disabled={disabled}
-          setDisabled={(bool) => this.setState({ disabled: bool})}
+          setDisabled={bool => this.setState({ disabled: bool })}
           onSave={this.onSave}
           onReset={this.onReset}
         />

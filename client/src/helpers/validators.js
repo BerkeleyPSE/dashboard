@@ -1,7 +1,6 @@
 import isString from 'lodash/isString';
-// import isNumber from 'lodash/isNumber';
 import isArray from 'lodash/isArray';
-// import isBoolean from 'lodash/isBoolean';
+import isBoolean from 'lodash/isBoolean';
 // import isObject from 'lodash/isObject';
 
 import helpers from './helpers';
@@ -28,39 +27,30 @@ export default {
     return '';
   },
 
-  // it is unwise to validate a name using Regex
-  validateName: (name) => {
-    if (helpers.isEmptyOrUndefined(name)) return 'Name must not be empty.';
-    if (!isString(name)) return `Name must be a String. It is a ${typeof name}`;
+  validateString: (value, field) => {
+    if (helpers.isEmptyOrUndefined(value)) return `${field} must not be empty.`;
+    if (!isString(value)) return `${field} must be a String. It is a ${typeof value}`;
     return '';
   },
 
-  // validate ImageURL
+  // can we just use this for booleans as well? specifically for the isExecutive value checker
+  validateSingleDropdown: (value, options, field, expectedValueType = String) => {
+    if (helpers.isEmptyOrUndefined(value)) return `${field} must not be empty.`;
 
-  validatePSEClass: (pseClass) => {
-    if (helpers.isEmptyOrUndefined(pseClass)) return 'Class must not be empty.';
-    if (!isString(pseClass)) return `Class must be a String. It is a ${typeof pseClass}`;
-    return '';
-  },
-
-  validateYearString: (yearString) => {
-    if (helpers.isEmptyOrUndefined(yearString)) return 'Year must not be empty.';
-    if (!isString(yearString)) return `Year must be a String. It is a ${typeof yearString}`;
-
-    const YEARS = ['Freshman', 'Sophomore', 'Junior', 'Senior'];
-    if (!YEARS.includes(yearString)) {
-      return `Year must be one of ${YEARS.join(', ')}. It's value is ${yearString}`;
+    switch (expectedValueType) {
+      case Boolean:
+        if (!isBoolean(value)) return `${field} must be a Boolean. It is a ${typeof value}`;
+        break;
+      default:
+        if (!isString(value)) return `${field} must be a String. It is a ${typeof value}`;
     }
 
+    if (!options.includes(value)) return `${value} is not a valid option.`;
+
     return '';
   },
 
-  validateHometown: (hometown) => {
-    if (helpers.isEmptyOrUndefined(hometown)) return 'Hometown must not be empty.';
-    if (!isString(hometown)) return `Hometown must be a String. It is a ${typeof hometown}`;
-    return '';
-  },
-
+  // validateMultipleDropdown
   // validate Major(s), Minor(s), Career Interests, Previous Positions
   validateArrayOfStrings: (arr, field) => {
     if (helpers.isEmptyOrUndefined(arr)) return `${field} must not be empty.`;
