@@ -67,9 +67,9 @@ const POSITIONS = [
 ];
 
 const YEARS = [
-  { label: 'Freshman', value: 'f' },
-  { label: 'Sophomore', value: 's' },
-  { label: 'Junior', value: 'j' },
+  { label: 'Freshman', value: 'freshman' },
+  { label: 'Sophomore', value: 'sophomore' },
+  { label: 'Junior', value: 'junior' },
   { label: 'Senior', value: 'senior' }
 ];
 

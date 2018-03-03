@@ -14,10 +14,12 @@ export default class SingleDropdown extends Component {
   static propTypes = {
     dataId: PropTypes.string,
     dataKey: PropTypes.object,
-    options: PropTypes.arrayOf(PropTypes.object),
+    defaultOption: PropTypes.object,
+    label: PropTypes.string,
     onInputSave: PropTypes.func, // send the value to the collector
+    options: PropTypes.arrayOf(PropTypes.object),
     selectedOption: PropTypes.object,
-    defaultOption: PropTypes.object
+    validate: PropTypes.func.isRequired
   };
 
   static defaultProps = {
@@ -33,6 +35,17 @@ export default class SingleDropdown extends Component {
     selectedOption: this.props.selectedOption || this.props.defaultOption
   };
 
+  componentWillReceiveProps = nextProps => {
+    let { dataId } = this.props;
+    if (dataId !== nextProps.dataId) {
+      this.setState({
+        prevOption: nextProps.selectedOption || nextProps.defaultOption,
+        selectedOption: nextProps.selectedOption || nextProps.defaultOption,
+        disabled: true
+      });
+    }
+  };
+
   onSave = () => {
     const { onInputSave, dataKey } = this.props;
     const { selectedOption } = this.state;
@@ -43,22 +56,32 @@ export default class SingleDropdown extends Component {
     });
   };
 
+  onChange = selectedOption => {
+    const prevOption = this.state.selectedOption;
+    this.setState({
+      prevOption,
+      selectedOption
+    });
+  };
+
   onReset = () => {
     const { prevOption } = this.state;
     this.setState({ selectedOption: prevOption, disabled: true });
   };
 
   render() {
-    const { options, dataKey, defaultOption } = this.props;
+    const { options, dataKey, defaultOption, label } = this.props;
     const { disabled, selectedOption } = this.state;
 
     return (
-      <RowContainer>
+      <InputContainer>
+        <Label for={label}>{label}</Label>
         <Dropdown
+          id={label}
           name={`${dataKey.key}-dropdown`}
           value={selectedOption.value}
           options={options}
-          onChange={selectedOption => this.setState({ selectedOption })}
+          onChange={this.onChange}
           placeholder={`Select a ${dataKey.label}`}
           resetValue={defaultOption}
           searchable={false}
@@ -70,11 +93,22 @@ export default class SingleDropdown extends Component {
           onSave={this.onSave}
           onReset={this.onReset}
         />
-      </RowContainer>
+      </InputContainer>
     );
   }
 }
 
+const InputContainer = styled.div`
+  display: grid;
+  grid-template-columns: minmax(150px, 200px) auto 150px;
+  align-items: center;
+  margin: 20px 0;
+`;
+
+const Label = styled.label`
+  min-width: 150px;
+`;
+
 const Dropdown = styled(Select)`
-  min-width: 300px;
+  min-width: 275px;
 `;

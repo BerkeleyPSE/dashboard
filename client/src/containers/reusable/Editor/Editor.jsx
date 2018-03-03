@@ -32,8 +32,11 @@ export default class Editor extends Component {
   createInputs = () => {};
 
   onInputSave = (fieldKey, newValue) => {
+    console.log(fieldKey, newValue);
     const { data } = this.props;
     let newChanges = { ...this.state.changes };
+    console.log(data);
+    console.log(newChanges);
     if (data[fieldKey] === newValue) {
       if (newChanges[fieldKey]) {
         delete newChanges[fieldKey];
@@ -43,6 +46,7 @@ export default class Editor extends Component {
     }
 
     this.setState({ changes: newChanges });
+    console.log(newChanges);
   };
 
   createActive = async () => {
@@ -83,18 +87,6 @@ export default class Editor extends Component {
           data={data}
           onInputSave={this.onInputSave}
         />
-        {/* {fields.map(field => {
-          return (
-            <TextInput
-              dataId={data._id}
-              key={field.key}
-              dataKey={field.key}
-              label={field.label}
-              value={data[field.key] || field.default}
-              onInputSave={this.onInputSave}
-            />
-          );
-        })} */}
         <OptionsBar
           changes={changes}
           isNew={isNew}

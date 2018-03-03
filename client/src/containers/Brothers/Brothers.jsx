@@ -92,6 +92,9 @@ class Brothers extends React.Component {
   render() {
     const { brothers, activeBrother, searchValue, isNewBrother } = this.state;
     const { clearActiveBrother } = this.props;
+
+    console.log(activeBrother);
+
     return (
       <BrothersContainer>
         <DataDisplayer

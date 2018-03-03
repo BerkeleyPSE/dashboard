@@ -12,7 +12,10 @@ export default class TextInput extends Component {
   static propTypes = {
     dataId: PropTypes.string.isRequired,
     dataKey: PropTypes.string.isRequired,
+    default: PropTypes.string.isRequired,
     label: PropTypes.string.isRequired,
+    onInputSave: PropTypes.func.isRequired,
+    validate: PropTypes.func.isRequired,
     value: PropTypes.string.isRequired
   };
 
@@ -21,15 +24,9 @@ export default class TextInput extends Component {
   };
 
   state = {
-    value: '',
+    value: this.props.value,
     disabled: true
   };
-
-  componentDidMount() {
-    this.setState({
-      value: this.props.value
-    });
-  }
 
   componentWillReceiveProps = nextProps => {
     let { dataId } = this.props;

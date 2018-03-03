@@ -21,11 +21,11 @@ const InputCreator = (props) => {
             <TextInput
               key={field.key}
               dataId={dataId}
-              label={field.label}
               dataKey={field.key}
               default={field.input.default}
-              validate={field.input.validate}
+              label={field.label}
               onInputSave={onInputSave}
+              validate={field.input.validate}
               value={data[field.key] || field.input.default}
             />
           );
@@ -35,20 +35,23 @@ const InputCreator = (props) => {
               key={field.key.key}
               dataId={dataId}
               dataKey={field.key}
-              options={field.input.options}
               defaultOption={field.input.default}
+              label={field.label}
+              onInputSave={onInputSave}
+              options={field.input.options}
               selectedOption={data[field.key] || field.input.default}
               validate={field.input.validate}
-              onInputSave={onInputSave}
             />
           );
+        case 'multipleDropdown':
+          return null;
         default:
           return 'input type not specified';
       }
     });
   };
 
-  return <ColumnContainer>{createInputs()}</ColumnContainer>;
+  return <ColumnContainer alignItems="flex-start">{createInputs()}</ColumnContainer>;
 };
 
 InputCreator.propTypes = {
