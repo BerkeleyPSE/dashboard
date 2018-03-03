@@ -6,8 +6,7 @@ import styled from 'styled-components';
 import isEqual from 'lodash/isEqual';
 
 // local components
-import { RowContainer } from '../styleguide/Containers';
-import Button from './Button';
+import InputController from './InputController';
 
 export default class TextInput extends Component {
   static propTypes = {
@@ -44,7 +43,7 @@ export default class TextInput extends Component {
     if (!bool) this.textInput.focus();
   };
 
-  resetInput = () => {
+  onReset = () => {
     const { value } = this.props;
     this.setState({
       value,
@@ -75,20 +74,12 @@ export default class TextInput extends Component {
           hasChanged={!isEqual(this.props.value, value)}
           type="text"
         />
-        {disabled ? (
-          <IconContainer onClick={() => this.setDisabled(false)}>
-            <i className="fas fa-pencil-alt" aria-hidden="true" />
-          </IconContainer>
-        ) : (
-          <RowContainer>
-            <Button colorStyle="save" size="small" onClick={this.onSave}>
-              Save
-            </Button>
-            <Button colorStyle="reject" size="small" onClick={this.resetInput}>
-              Reset
-            </Button>
-          </RowContainer>
-        )}
+        <InputController
+          disabled={disabled}
+          setDisabled={this.setDisabled}
+          onSave={this.onSave}
+          onReset={this.onReset}
+        />
       </InputContainer>
     );
   }
@@ -114,13 +105,4 @@ const Input = styled.input`
   outline: none;
   min-width: 200px;
   height: 100%;
-`;
-
-const IconContainer = RowContainer.extend`
-  color: var(--accent);
-  cursor: pointer;
-
-  &:hover {
-    color: var(--accent-alt);
-  }
 `;

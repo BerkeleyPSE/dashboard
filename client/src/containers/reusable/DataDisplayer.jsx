@@ -6,8 +6,8 @@ import styled from 'styled-components';
 
 // local components
 import { SectionHeader } from '../styleguide/Headers';
-import SearchInput from './SearchInput';
-import AddNewButton from './AddNewButton';
+import SearchInput from './Inputs/SearchInput';
+import AddNewButton from './Buttons/AddNewButton';
 
 const DataDisplayer = (props) => {
   const {

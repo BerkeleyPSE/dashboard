@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 // local components
-import { RowContainer } from '../styleguide/Containers';
+import { RowContainer } from '../../styleguide/Containers';
 
 const SearchInput = props => (
   <InputContainer>

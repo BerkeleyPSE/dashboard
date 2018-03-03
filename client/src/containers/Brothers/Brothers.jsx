@@ -9,7 +9,7 @@ import isEqual from 'lodash/isEqual';
 
 // components
 import DataDisplayer from '../reusable/DataDisplayer';
-import Editor from '../reusable/Editor';
+import Editor from '../reusable/Editor/Editor';
 import BROTHER_FIELDS from './brother_constants';
 
 // actions

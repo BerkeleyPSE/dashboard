@@ -3,13 +3,11 @@ import React, { Component } from 'react';
 // node modules
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import isEmpty from 'lodash/isEmpty';
 
 // local components
-import TextInput from './TextInput';
-import Button from './Button';
-import { SectionHeader } from '../styleguide/Headers';
-import { RowContainer } from '../styleguide/Containers';
+import OptionsBar from './OptionsBar';
+import TextInput from '../Inputs/TextInput';
+import { SectionHeader } from '../../styleguide/Headers';
 
 export default class Editor extends Component {
   static propTypes = {
@@ -29,6 +27,8 @@ export default class Editor extends Component {
   state = {
     changes: {}
   };
+
+  createInputs = () => {};
 
   onInputSave = (fieldKey, newValue) => {
     const { data } = this.props;
@@ -88,37 +88,14 @@ export default class Editor extends Component {
             />
           );
         })}
-        {!isEmpty(changes) ? (
-          <RowContainer justifyContent="space-between">
-            {isNew ? (
-              <Button colorStyle="save" size="large" onClick={this.createActive} noMargin>
-                Create New
-              </Button>
-            ) : (
-              <Button colorStyle="save" size="large" onClick={this.updateActive} noMargin>
-                Confirm Updates
-              </Button>
-            )}
-            <Button colorStyle="reject" size="medium" onClick={this.clearActive} noMargin>
-              Reject Changes
-            </Button>
-            <Button colorStyle="reject" size="small" onClick={this.deleteActive} noMargin>
-              Delete This
-            </Button>
-          </RowContainer>
-        ) : (
-          <RowContainer justifyContent="flex-end">
-            {isNew ? (
-              <Button colorStyle="reject" size="small" onClick={this.clearActive} noMargin>
-                Cancel
-              </Button>
-            ) : (
-              <Button colorStyle="reject" size="small" onClick={this.deleteActive} noMargin>
-                Delete This
-              </Button>
-            )}
-          </RowContainer>
-        )}
+        <OptionsBar
+          changes={changes}
+          isNew={isNew}
+          createActive={this.createActive}
+          updateActive={this.updateActive}
+          deleteActive={this.deleteActive}
+          clearActive={this.clearActive}
+        />
       </EditorContainer>
     );
   }
