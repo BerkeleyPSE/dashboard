@@ -4,9 +4,11 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import isEqual from 'lodash/isEqual';
+import isEmpty from 'lodash/isEmpty';
 
 // local components
 import InputController from './InputController';
+import { ColumnContainer } from '../../styleguide/Containers';
 
 export default class TextInput extends Component {
   static propTypes = {
@@ -24,6 +26,7 @@ export default class TextInput extends Component {
   };
 
   state = {
+    errorMsg: '',
     value: this.props.value,
     disabled: true
   };
@@ -49,19 +52,27 @@ export default class TextInput extends Component {
   };
 
   onSave = () => {
-    const { onInputSave, dataKey } = this.props;
+    const { onInputSave, dataKey, validate } = this.props;
     const { value } = this.state;
-    onInputSave(dataKey, value);
-    this.setDisabled(true);
+    const errorMsg = validate(value);
+    if (!isEmpty(errorMsg)) {
+      this.setState({ errorMsg });
+    } else {
+      onInputSave(dataKey, value);
+      this.setDisabled(true);
+    }
   };
 
   render() {
     const { label } = this.props;
-    let { value, disabled } = this.state;
+    let { value, disabled, errorMsg } = this.state;
 
     return (
       <InputContainer>
-        <Label for={label}>{label}</Label>
+        <ColumnContainer alignItems="flex-start" justifyContent="space-between">
+          <Label for={label}>{label}</Label>
+          <ErrorLabel>{errorMsg && errorMsg}</ErrorLabel>
+        </ColumnContainer>
         <Input
           id={label}
           value={value}
@@ -90,7 +101,15 @@ const InputContainer = styled.div`
 `;
 
 const Label = styled.label`
-  min-width: 150px;
+  min-width: 200px;
+`;
+
+const ErrorLabel = styled.p`
+  color: var(--red);
+  font-size: 0.875rem;
+  margin: 5px 0;
+  padding: 0;
+  text-transform: uppercase;
 `;
 
 const Input = styled.input`
@@ -100,6 +119,6 @@ const Input = styled.input`
   border-bottom: ${props => (props.disabled ? 'none' : `2px solid var(--purple)`)};
   padding: 5px 3px;
   outline: none;
-  min-width: 200px;
+  min-width: 275px;
   height: 100%;
 `;

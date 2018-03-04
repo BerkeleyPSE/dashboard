@@ -39,7 +39,10 @@ const BrotherSchema = new Schema({
   },
 
   isExecutive: {
-    type: Boolean,
+    type: {
+      label: String,
+      value: Boolean
+    },
     required: true,
     default: false
   },

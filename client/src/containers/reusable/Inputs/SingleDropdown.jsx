@@ -3,11 +3,13 @@ import React, { Component } from 'react';
 // node modules
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import isEqual from 'lodash/isEqual';
+import isEmpty from 'lodash/isEmpty';
 import Select from 'react-select';
 import 'react-select/dist/react-select.css';
 
 // local components
-import { RowContainer } from '../../styleguide/Containers';
+import { ColumnContainer } from '../../styleguide/Containers';
 import InputController from './InputController';
 
 export default class SingleDropdown extends Component {
@@ -30,8 +32,8 @@ export default class SingleDropdown extends Component {
 
   state = {
     disabled: true,
+    errorMsg: '',
     isOpen: false,
-    prevOption: this.props.selectedOption || this.props.defaultOption,
     selectedOption: this.props.selectedOption || this.props.defaultOption
   };
 
@@ -39,7 +41,6 @@ export default class SingleDropdown extends Component {
     let { dataId } = this.props;
     if (dataId !== nextProps.dataId) {
       this.setState({
-        prevOption: nextProps.selectedOption || nextProps.defaultOption,
         selectedOption: nextProps.selectedOption || nextProps.defaultOption,
         disabled: true
       });
@@ -47,35 +48,42 @@ export default class SingleDropdown extends Component {
   };
 
   onSave = () => {
-    const { onInputSave, dataKey } = this.props;
     const { selectedOption } = this.state;
-    onInputSave(dataKey, selectedOption);
-    this.setState({
-      prevOption: selectedOption,
-      disabled: true
-    });
+    const { onInputSave, dataKey, validate } = this.props;
+    const errorMsg = validate(selectedOption);
+    if (!isEmpty(errorMsg)) {
+      this.setState({ errorMsg });
+    } else {
+      onInputSave(dataKey, selectedOption);
+      this.setState({
+        disabled: true,
+        errorMsg: ''
+      });
+    }
   };
 
   onChange = selectedOption => {
-    const prevOption = this.state.selectedOption;
     this.setState({
-      prevOption,
-      selectedOption
+      selectedOption,
+      errorMsg: ''
     });
   };
 
   onReset = () => {
-    const { prevOption } = this.state;
-    this.setState({ selectedOption: prevOption, disabled: true });
+    const { selectedOption } = this.props;
+    this.setState({ selectedOption, disabled: true, errorMsg: '' });
   };
 
   render() {
     const { options, dataKey, defaultOption, label } = this.props;
-    const { disabled, selectedOption } = this.state;
+    const { disabled, selectedOption, errorMsg } = this.state;
 
     return (
       <InputContainer>
-        <Label for={label}>{label}</Label>
+        <ColumnContainer alignItems="flex-start" justifyContent="space-between">
+          <Label for={label}>{label}</Label>
+          <ErrorLabel>{errorMsg && errorMsg}</ErrorLabel>
+        </ColumnContainer>
         <Dropdown
           id={label}
           name={`${dataKey}-dropdown`}
@@ -83,9 +91,10 @@ export default class SingleDropdown extends Component {
           options={options}
           onChange={this.onChange}
           placeholder={`Select a ${label}`}
-          resetValue={defaultOption}
+          resetValue={selectedOption || defaultOption}
           searchable={false}
           disabled={disabled}
+          hasChanged={!isEqual(selectedOption.value, this.props.selectedOption.value)}
         />
         <InputController
           disabled={disabled}
@@ -106,9 +115,21 @@ const InputContainer = styled.div`
 `;
 
 const Label = styled.label`
-  min-width: 150px;
+  min-width: 200px;
+`;
+
+const ErrorLabel = styled.p`
+  color: var(--red);
+  font-size: 0.875rem;
+  margin: 5px 0;
+  padding: 0;
+  text-transform: uppercase;
 `;
 
 const Dropdown = styled(Select)`
   min-width: 275px;
+
+  & .Select-value {
+    background-color: ${props => (props.hasChanged ? 'var(--accent-alt)' : 'rgba(0, 0, 0, 0)')};
+  }
 `;

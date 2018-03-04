@@ -49,7 +49,7 @@ export default {
         if (!isString(value)) return `${field} must be a String. It is a ${typeof value}`;
     }
 
-    if (!options.includes(value)) return `${value} is not a valid option.`;
+    if (!options.includes(selectedOption)) return `${value} is not a valid option.`;
 
     return '';
   },

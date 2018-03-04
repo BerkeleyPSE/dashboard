@@ -35,7 +35,6 @@ export default [
   },
   {
     label: 'PSE Class',
-    // key: { label: 'PSE Class', key: 'pseClass' },
     key: 'pseClass',
     type: 'singleDropdown',
     input: {
@@ -46,7 +45,6 @@ export default [
   },
   {
     label: 'Year',
-    // key: { label: 'Year', key: 'year' },
     key: 'year',
     type: 'singleDropdown',
     input: {
@@ -66,7 +64,6 @@ export default [
   },
   {
     label: 'Major(s)',
-    // key: { label: 'Major', key: 'majors' },
     key: 'majors',
     type: 'multipleDropdown',
     input: {
@@ -77,7 +74,6 @@ export default [
   },
   {
     label: 'Minor(s)',
-    // key: { label: 'Minor', key: 'minors' },
     key: 'minors',
     type: 'multipleDropdown',
     input: {
@@ -88,7 +84,6 @@ export default [
   },
   {
     label: 'Is Executive?',
-    // key: { label: 'value', key: 'isExecutive' },
     key: 'isExecutive',
     type: 'singleDropdown',
     input: {
@@ -99,7 +94,6 @@ export default [
   },
   {
     label: 'Position',
-    // key: { label: 'Position', key: 'position' },
     key: 'position',
     type: 'singleDropdown',
     input: {
@@ -119,7 +113,6 @@ export default [
   },
   {
     label: 'Previous Positions',
-    // key: { label: 'Position', key: 'previousPositions' },
     key: 'previousPositions',
     type: 'multipleDropdown',
     input: {
