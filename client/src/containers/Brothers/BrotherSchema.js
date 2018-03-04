@@ -68,8 +68,8 @@ export default [
     type: 'multipleDropdown',
     input: {
       options: SUBJECTS,
-      default: { label: '', value: '' }
-      // validate: (value) => validators.validateArrayOfStrings()
+      default: [],
+      validate: value => validators.validateMultipleDropdown(value, SUBJECTS, 'majors')
     }
   },
   {
@@ -78,8 +78,8 @@ export default [
     type: 'multipleDropdown',
     input: {
       options: SUBJECTS,
-      default: { label: '', value: '' }
-      // validate: (value) => validators.validateArrayOfStrings()
+      default: [],
+      validate: value => validators.validateMultipleDropdown(value, SUBJECTS, 'minors')
     }
   },
   {
@@ -102,23 +102,23 @@ export default [
       validate: value => validators.validateSingleDropdown(value, POSITIONS, 'position')
     }
   },
-  {
-    label: 'Career Interests',
-    key: 'careerInterests',
-    type: 'shortText',
-    input: {
-      default: 'NO CAREER INTERESTS SPECIFIED',
-      validate: value => validators.validateString(value, 'careerInterests')
-    }
-  },
+  // {
+  //   label: 'Career Interests',
+  //   key: 'careerInterests',
+  //   type: 'shortText',
+  //   input: {
+  //     default: 'NO CAREER INTERESTS SPECIFIED',
+  //     validate: value => validators.validateString(value, 'careerInterests')
+  //   }
+  // },
   {
     label: 'Previous Positions',
     key: 'previousPositions',
     type: 'multipleDropdown',
     input: {
       options: POSITIONS,
-      default: { label: '', value: '' }
-      // validate: value => validators.validateArrayOfStrings()
+      default: [],
+      validate: value => validators.validateMultipleDropdown(value, POSITIONS, 'positions')
     }
   },
   {

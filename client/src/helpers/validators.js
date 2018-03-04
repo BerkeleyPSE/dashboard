@@ -1,19 +1,13 @@
+// node modules
 import isString from 'lodash/isString';
 import isArray from 'lodash/isArray';
 import isBoolean from 'lodash/isBoolean';
-// import isObject from 'lodash/isObject';
+import isObject from 'lodash/isObject';
 
+// local
 import helpers from './helpers';
-import { isObject } from 'util';
 
 /*
-  - validate single choice dropdown: isExecutive (t/f), pseClass, currentPosition
-  - validate multiple choice dropdown: previousPositions
-    - use react-select for these
-  - validate multiple-item Array of Strings
-    - this could probably be a single String of two items separated by a single comma,
-      or two shortText inputs for each career position
-  - validateString : (value, field)
   - validateImageURL
 */
 
@@ -23,7 +17,7 @@ export default {
     if (!isString(key)) return `Key must be a String. It is a ${typeof key}`;
 
     const regexp = new RegExp(/([a-z]+\w_[a-z]+\w_?[1-9]*)/);
-    if (helpers.regexIsMatched(key, regexp)) return 'Key is invalid. Ensure proper format.';
+    if (!helpers.regexIsMatched(key, regexp)) return 'Key is invalid. Ensure proper format.';
 
     return '';
   },
@@ -34,7 +28,6 @@ export default {
     return '';
   },
 
-  // can we just use this for booleans as well? specifically for the isExecutive value checker
   validateSingleDropdown: (selectedOption, options, field, expectedValueType = String) => {
     if (!isObject(selectedOption)) return `${selectedOption} must be an Object.`;
 
@@ -54,19 +47,21 @@ export default {
     return '';
   },
 
-  // validateMultipleDropdown
-  // validate Major(s), Minor(s), Career Interests, Previous Positions
-  validateArrayOfStrings: (arr, field) => {
-    if (helpers.isEmptyOrUndefined(arr)) return `${field} must not be empty.`;
-    if (!isArray(arr)) return `${field} must be an Array. It is a ${typeof arr}`;
+  validateMultipleDropdown: (selectedOptions, options, field) => {
+    if (!isArray(selectedOptions)) return `${field} must be an Array.`;
 
-    const errors = [];
-    arr.forEach((item) => {
-      if (!isString(item)) errors.push(`${item} was found to be a ${typeof item}`);
+    selectedOptions.forEach((option) => {
+      if (!isObject(option)) {
+        return `Elements of Array must be Objects. ${option} is not.`;
+      }
     });
-    if (errors.length) {
-      return `Every item in Array must be a String. ${errors.join(', ')}`;
-    }
+
+    selectedOptions.forEach((option) => {
+      if (helpers.isEmptyOrUndefined(option.label) || helpers.isEmptyOrUndefined(option.value)) {
+        return `${option} is not formatted properly with value and label keys.`;
+      }
+      if (!options.includes(option)) return `${option.value} is not a valid option.`;
+    });
 
     return '';
   }

@@ -12,48 +12,48 @@ import 'react-select/dist/react-select.css';
 import { ColumnContainer } from '../../styleguide/Containers';
 import InputController from './InputController';
 
-export default class SingleDropdown extends Component {
+export default class MultipleDropdown extends Component {
   static propTypes = {
     dataId: PropTypes.string,
     dataKey: PropTypes.string,
-    defaultOption: PropTypes.object,
+    defaultOption: PropTypes.array,
     label: PropTypes.string,
     onInputSave: PropTypes.func, // send the value to the collector
     options: PropTypes.arrayOf(PropTypes.object),
-    selectedOption: PropTypes.object,
+    selectedOptions: PropTypes.arrayOf(PropTypes.object),
     validate: PropTypes.func.isRequired
   };
 
   static defaultProps = {
     dataKey: '',
     options: [],
-    defaultOption: { label: '', value: '' }
+    defaultOption: []
   };
 
   state = {
     disabled: true,
     errorMsg: '',
-    selectedOption: this.props.selectedOption || this.props.defaultOption
+    selectedOptions: this.props.selectedOptions || this.props.defaultOption
   };
 
   componentWillReceiveProps = nextProps => {
     let { dataId } = this.props;
     if (dataId !== nextProps.dataId) {
       this.setState({
-        selectedOption: nextProps.selectedOption || nextProps.defaultOption,
+        selectedOptions: nextProps.selectedOptions || nextProps.defaultOption,
         disabled: true
       });
     }
   };
 
   onSave = () => {
-    const { selectedOption } = this.state;
+    const { selectedOptions } = this.state;
     const { onInputSave, dataKey, validate } = this.props;
-    const errorMsg = validate(selectedOption);
+    const errorMsg = validate(selectedOptions);
     if (!isEmpty(errorMsg)) {
       this.setState({ errorMsg });
     } else {
-      onInputSave(dataKey, selectedOption);
+      onInputSave(dataKey, selectedOptions);
       this.setState({
         disabled: true,
         errorMsg: ''
@@ -61,21 +61,25 @@ export default class SingleDropdown extends Component {
     }
   };
 
-  onChange = selectedOption => {
+  onChange = selectedOptions => {
     this.setState({
-      selectedOption,
+      selectedOptions,
       errorMsg: ''
     });
   };
 
   onReset = () => {
-    const { selectedOption } = this.props;
-    this.setState({ selectedOption, disabled: true, errorMsg: '' });
+    const { selectedOptions } = this.props;
+    this.setState({ selectedOptions, disabled: true, errorMsg: '' });
   };
 
   render() {
     const { options, dataKey, defaultOption, label } = this.props;
-    const { disabled, selectedOption, errorMsg } = this.state;
+    const { disabled, selectedOptions, errorMsg } = this.state;
+
+    console.log('---');
+    console.log(this.props.selectedOptions);
+    console.log(selectedOptions);
 
     return (
       <InputContainer>
@@ -85,15 +89,16 @@ export default class SingleDropdown extends Component {
         </ColumnContainer>
         <Dropdown
           id={label}
-          name={`${dataKey}-dropdown`}
-          value={selectedOption.value}
-          options={options}
-          onChange={this.onChange}
-          placeholder={`Select a ${label}`}
-          resetValue={selectedOption || defaultOption}
-          searchable={false}
           disabled={disabled}
-          hasChanged={!isEqual(selectedOption.value, this.props.selectedOption.value)}
+          hasChanged={!isEqual(selectedOptions, this.props.selectedOptions)}
+          multi={true}
+          name={`${dataKey}-dropdown`}
+          onChange={this.onChange}
+          options={options}
+          placeholder={`Select a ${label}`}
+          resetValue={selectedOptions || defaultOption}
+          searchable={false}
+          value={selectedOptions}
         />
         <InputController
           disabled={disabled}
@@ -126,9 +131,9 @@ const ErrorLabel = styled.p`
 `;
 
 const Dropdown = styled(Select)`
-  min-width: 275px;
+  width: 275px;
 
-  & .Select-value {
+  & .Select-control {
     background-color: ${props => (props.hasChanged ? 'var(--accent-alt)' : 'rgba(0, 0, 0, 0)')};
   }
 `;

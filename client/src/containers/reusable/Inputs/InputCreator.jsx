@@ -6,7 +6,9 @@ import PropTypes from 'prop-types';
 // local components
 import { ColumnContainer } from '../../styleguide/Containers';
 import TextInput from '../Inputs/TextInput';
+import LongTextInput from '../Inputs/LongTextInput';
 import SingleDropdown from '../Inputs/SingleDropdown';
+import MultipleDropdown from '../Inputs/MultipleDropdown';
 
 const InputCreator = (props) => {
   const createInputs = () => {
@@ -26,7 +28,20 @@ const InputCreator = (props) => {
               label={field.label}
               onInputSave={onInputSave}
               validate={field.input.validate}
-              value={data[field.key] || field.input.default}
+              value={data[field.key]}
+            />
+          );
+        case 'longText':
+          return (
+            <LongTextInput
+              key={field.key}
+              dataId={dataId}
+              dataKey={field.key}
+              default={field.input.default}
+              label={field.label}
+              onInputSave={onInputSave}
+              validate={field.input.validate}
+              value={data[field.key]}
             />
           );
         case 'singleDropdown':
@@ -39,14 +54,26 @@ const InputCreator = (props) => {
               label={field.label}
               onInputSave={onInputSave}
               options={field.input.options}
-              selectedOption={data[field.key] || field.input.default}
+              selectedOption={data[field.key]}
               validate={field.input.validate}
             />
           );
         case 'multipleDropdown':
-          return null;
+          return (
+            <MultipleDropdown
+              key={field.key}
+              dataId={dataId}
+              dataKey={field.key}
+              defaultOption={field.input.default}
+              label={field.label}
+              onInputSave={onInputSave}
+              options={field.input.options}
+              selectedOptions={data[field.key]}
+              validate={field.input.validate}
+            />
+          );
         default:
-          return 'input type not specified';
+          return null;
       }
     });
   };

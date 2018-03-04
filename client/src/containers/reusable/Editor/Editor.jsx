@@ -7,7 +7,6 @@ import styled from 'styled-components';
 // local components
 import OptionsBar from './OptionsBar';
 import InputCreator from '../Inputs/InputCreator';
-// import TextInput from '../Inputs/TextInput';
 import { SectionHeader } from '../../styleguide/Headers';
 
 export default class Editor extends Component {
@@ -32,11 +31,8 @@ export default class Editor extends Component {
   createInputs = () => {};
 
   onInputSave = (fieldKey, newValue) => {
-    console.log(fieldKey, newValue);
     const { data } = this.props;
     let newChanges = { ...this.state.changes };
-    console.log(data);
-    console.log(newChanges);
     if (data[fieldKey] === newValue) {
       if (newChanges[fieldKey]) {
         delete newChanges[fieldKey];
@@ -46,7 +42,6 @@ export default class Editor extends Component {
     }
 
     this.setState({ changes: newChanges });
-    console.log(newChanges);
   };
 
   createActive = async () => {
