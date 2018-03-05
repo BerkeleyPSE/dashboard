@@ -32,13 +32,13 @@ export default {
     if (!isObject(selectedOption)) return `${selectedOption} must be an Object.`;
 
     const { value } = selectedOption;
-    if (helpers.isEmptyOrUndefined(value)) return `${field} must not be empty.`;
 
     switch (expectedValueType) {
       case Boolean:
         if (!isBoolean(value)) return `${field} must be a Boolean. It is a ${typeof value}`;
         break;
       default:
+        if (helpers.isEmptyOrUndefined(value)) return `${field} must not be empty.`;
         if (!isString(value)) return `${field} must be a String. It is a ${typeof value}`;
     }
 

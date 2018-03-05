@@ -28,7 +28,7 @@ const InputCreator = (props) => {
               label={field.label}
               onInputSave={onInputSave}
               validate={field.input.validate}
-              value={data[field.key]}
+              value={data[field.key] || field.input.default}
             />
           );
         case 'longText':
@@ -41,7 +41,7 @@ const InputCreator = (props) => {
               label={field.label}
               onInputSave={onInputSave}
               validate={field.input.validate}
-              value={data[field.key]}
+              value={data[field.key] || field.input.default}
             />
           );
         case 'singleDropdown':
@@ -54,7 +54,7 @@ const InputCreator = (props) => {
               label={field.label}
               onInputSave={onInputSave}
               options={field.input.options}
-              selectedOption={data[field.key]}
+              selectedOption={data[field.key] || field.input.default}
               validate={field.input.validate}
             />
           );
@@ -68,7 +68,7 @@ const InputCreator = (props) => {
               label={field.label}
               onInputSave={onInputSave}
               options={field.input.options}
-              selectedOptions={data[field.key]}
+              selectedOptions={data[field.key] || field.input.default}
               validate={field.input.validate}
             />
           );

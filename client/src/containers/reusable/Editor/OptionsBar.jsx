@@ -9,36 +9,34 @@ import { RowContainer } from '../../styleguide/Containers';
 import Button from '../Buttons/Button';
 
 const OptionsBar = (props) => {
-  const {
-    changes, isNew, createActive, updateActive, deleteActive, clearActive
-  } = props;
+  const { changes, isNew, openModal } = props;
 
   return !isEmpty(changes) ? (
     <RowContainer justifyContent="space-between">
       {isNew ? (
-        <Button colorStyle="save" size="large" onClick={createActive} noMargin>
+        <Button colorStyle="save" size="large" onClick={() => openModal('create')} noMargin>
           Create New
         </Button>
       ) : (
-        <Button colorStyle="save" size="large" onClick={updateActive} noMargin>
+        <Button colorStyle="save" size="large" onClick={() => openModal('update')} noMargin>
           Confirm Updates
         </Button>
       )}
-      <Button colorStyle="reject" size="medium" onClick={clearActive} noMargin>
+      <Button colorStyle="reject" size="medium" onClick={() => openModal('clear')} noMargin>
         Reject Changes
       </Button>
-      <Button colorStyle="reject" size="small" onClick={deleteActive} noMargin>
+      <Button colorStyle="reject" size="small" onClick={() => openModal('delete')} noMargin>
         Delete This
       </Button>
     </RowContainer>
   ) : (
     <RowContainer justifyContent="flex-end">
       {isNew ? (
-        <Button colorStyle="reject" size="small" onClick={clearActive} noMargin>
+        <Button colorStyle="reject" size="small" onClick={() => openModal('clear')} noMargin>
           Cancel
         </Button>
       ) : (
-        <Button colorStyle="reject" size="small" onClick={deleteActive} noMargin>
+        <Button colorStyle="reject" size="small" onClick={() => openModal('delete')} noMargin>
           Delete This
         </Button>
       )}
@@ -49,10 +47,7 @@ const OptionsBar = (props) => {
 OptionsBar.propTypes = {
   changes: PropTypes.object.isRequired,
   isNew: PropTypes.bool.isRequired,
-  createActive: PropTypes.func.isRequired,
-  updateActive: PropTypes.func.isRequired,
-  deleteActive: PropTypes.func.isRequired,
-  clearActive: PropTypes.func.isRequired
+  openModal: PropTypes.func.isRequired
 };
 
 export default OptionsBar;

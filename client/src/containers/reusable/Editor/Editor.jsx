@@ -5,8 +5,9 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 // local components
-import OptionsBar from './OptionsBar';
 import InputCreator from '../Inputs/InputCreator';
+import OptionsBar from './OptionsBar';
+import ConfirmationModal from './ConfirmationModal';
 import { SectionHeader } from '../../styleguide/Headers';
 
 export default class Editor extends Component {
@@ -25,10 +26,10 @@ export default class Editor extends Component {
   };
 
   state = {
-    changes: {}
+    changes: {},
+    isModalOpen: false,
+    modalType: ''
   };
-
-  createInputs = () => {};
 
   onInputSave = (fieldKey, newValue) => {
     const { data } = this.props;
@@ -49,14 +50,20 @@ export default class Editor extends Component {
     const { data } = this.props;
     // find way to validate all fields
     const resStatus = await this.props.createActive({ ...data, ...changes });
-    if (resStatus === 201) this.setState({ changes: {} });
+    if (resStatus === 201) {
+      this.setState({ changes: {} });
+      this.closeModal();
+    }
   };
 
   updateActive = async () => {
     const { data } = this.props;
     const { changes } = this.state;
     const resStatus = await this.props.updateActive(data._id, { ...data, ...changes });
-    if (resStatus === 200) this.setState({ changes: {} });
+    if (resStatus === 200) {
+      this.setState({ changes: {} });
+      this.closeModal();
+    }
   };
 
   deleteActive = async () => {
@@ -68,23 +75,40 @@ export default class Editor extends Component {
   clearActive = async () => {
     this.props.clearActive();
     this.setState({ changes: {} });
+    this.closeModal();
+  };
+
+  openModal = type => {
+    this.setState({
+      isModalOpen: true,
+      modalType: type
+    });
+  };
+
+  closeModal = () => {
+    this.setState({
+      isModalOpen: false,
+      modalType: ''
+    });
   };
 
   render() {
     const { data, fields, isNew } = this.props;
-    const { changes } = this.state;
+    const { changes, isModalOpen, modalType } = this.state;
     return (
       <EditorContainer>
         <SectionHeader>Edit</SectionHeader>
         <InputCreator
           schema={fields}
-          dataId={data._id}
+          dataId={data._id || '-1'}
           data={data}
           onInputSave={this.onInputSave}
         />
-        <OptionsBar
-          changes={changes}
-          isNew={isNew}
+        <OptionsBar changes={changes} isNew={isNew} openModal={this.openModal} />
+        <ConfirmationModal
+          isOpen={isModalOpen}
+          closeModal={this.closeModal}
+          modalType={modalType}
           createActive={this.createActive}
           updateActive={this.updateActive}
           deleteActive={this.deleteActive}
@@ -97,10 +121,5 @@ export default class Editor extends Component {
 
 const EditorContainer = styled.div`
   padding: 0 20px;
+  position: relative;
 `;
-
-/* write a parser function that parses the data and switches based on the typeof (data[field.key])
-   -- if string --> return data[field.key]
-   -- if array --> return data[field.key].join(' & ')
-   -- if object --> return Object.entries(data[field.key]) (with the label as the key, input value as the value)
-*/

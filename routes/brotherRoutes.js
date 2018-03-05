@@ -35,7 +35,6 @@ module.exports = (app) => {
     if (isEmpty(req.body)) return res.status(400).send({});
 
     const newBrother = new Brothers(req.body);
-
     try {
       const brother = await newBrother.save();
       if (isEmpty(brother)) return res.status(422).send({});

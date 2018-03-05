@@ -77,10 +77,6 @@ export default class MultipleDropdown extends Component {
     const { options, dataKey, defaultOption, label } = this.props;
     const { disabled, selectedOptions, errorMsg } = this.state;
 
-    console.log('---');
-    console.log(this.props.selectedOptions);
-    console.log(selectedOptions);
-
     return (
       <InputContainer>
         <ColumnContainer alignItems="flex-start" justifyContent="space-between">
