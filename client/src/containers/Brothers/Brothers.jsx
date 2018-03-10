@@ -22,10 +22,11 @@ class Brothers extends React.Component {
   };
 
   state = {
-    brothers: [],
     activeBrother: {},
+    brothers: [],
+    isNewBrother: false,
     searchValue: '',
-    isNewBrother: false
+    unsavedFields: []
   };
 
   componentDidMount() {
@@ -38,7 +39,7 @@ class Brothers extends React.Component {
       this.setState({ brothers: nextProps.BrotherReducer.brothers });
     }
     if (!isEqual(activeBrother, nextProps.BrotherReducer.activeBrother)) {
-      this.setState({ activeBrother: nextProps.BrotherReducer.activeBrother });
+      this.setState({ activeBrother: nextProps.BrotherReducer.activeBrother, unsavedFields: [] });
     }
   };
 
@@ -90,7 +91,7 @@ class Brothers extends React.Component {
   };
 
   render() {
-    const { brothers, activeBrother, searchValue, isNewBrother } = this.state;
+    const { brothers, activeBrother, searchValue, isNewBrother, unsavedFields } = this.state;
     const { clearActiveBrother } = this.props;
 
     return (
@@ -113,6 +114,8 @@ class Brothers extends React.Component {
             createActive={this.createBrother}
             updateActive={this.updateBrother}
             deleteActive={this.deleteBrother}
+            unsavedFields={unsavedFields}
+            setUnsavedFields={newFields => this.setState({ unsavedFields: newFields })}
           />
         )}
       </BrothersContainer>

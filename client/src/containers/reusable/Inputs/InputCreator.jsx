@@ -13,7 +13,7 @@ import MultipleDropdown from '../Inputs/MultipleDropdown';
 const InputCreator = (props) => {
   const createInputs = () => {
     const {
-      schema, dataId, onInputSave, data
+      schema, dataId, onInputSave, onInputDisableChange, data
     } = props;
 
     return schema.map((field) => {
@@ -27,6 +27,7 @@ const InputCreator = (props) => {
               default={field.input.default}
               label={field.label}
               onInputSave={onInputSave}
+              onInputDisableChange={onInputDisableChange}
               validate={field.input.validate}
               value={data[field.key] || field.input.default}
             />
@@ -40,6 +41,7 @@ const InputCreator = (props) => {
               default={field.input.default}
               label={field.label}
               onInputSave={onInputSave}
+              onInputDisableChange={onInputDisableChange}
               validate={field.input.validate}
               value={data[field.key] || field.input.default}
             />
@@ -53,6 +55,7 @@ const InputCreator = (props) => {
               defaultOption={field.input.default}
               label={field.label}
               onInputSave={onInputSave}
+              onInputDisableChange={onInputDisableChange}
               options={field.input.options}
               selectedOption={data[field.key] || field.input.default}
               validate={field.input.validate}
@@ -67,6 +70,7 @@ const InputCreator = (props) => {
               defaultOption={field.input.default}
               label={field.label}
               onInputSave={onInputSave}
+              onInputDisableChange={onInputDisableChange}
               options={field.input.options}
               selectedOptions={data[field.key] || field.input.default}
               validate={field.input.validate}
@@ -85,6 +89,7 @@ InputCreator.propTypes = {
   schema: PropTypes.array.isRequired,
   dataId: PropTypes.string.isRequired,
   onInputSave: PropTypes.func.isRequired,
+  onInputDisableChange: PropTypes.func.isRequired,
   data: PropTypes.object.isRequired
 };
 

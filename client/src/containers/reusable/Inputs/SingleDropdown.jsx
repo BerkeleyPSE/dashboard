@@ -19,6 +19,7 @@ export default class SingleDropdown extends Component {
     defaultOption: PropTypes.object,
     label: PropTypes.string,
     onInputSave: PropTypes.func, // send the value to the collector
+    onInputDisableChange: PropTypes.func.isRequired,
     options: PropTypes.arrayOf(PropTypes.object),
     selectedOption: PropTypes.object,
     validate: PropTypes.func.isRequired
@@ -48,7 +49,7 @@ export default class SingleDropdown extends Component {
 
   onSave = () => {
     const { selectedOption } = this.state;
-    const { onInputSave, dataKey, validate } = this.props;
+    const { onInputSave, dataKey, validate, onInputDisableChange, label } = this.props;
     const errorMsg = validate(selectedOption);
     if (!isEmpty(errorMsg)) {
       this.setState({ errorMsg });
@@ -58,6 +59,7 @@ export default class SingleDropdown extends Component {
         disabled: true,
         errorMsg: ''
       });
+      onInputDisableChange(label, true);
     }
   };
 
@@ -69,8 +71,15 @@ export default class SingleDropdown extends Component {
   };
 
   onReset = () => {
-    const { selectedOption } = this.props;
+    const { selectedOption, onInputDisableChange, label } = this.props;
     this.setState({ selectedOption, disabled: true, errorMsg: '' });
+    onInputDisableChange(label, true);
+  };
+
+  setDisabled = bool => {
+    const { onInputDisableChange, label } = this.props;
+    this.setState({ disabled: bool });
+    onInputDisableChange(label, bool);
   };
 
   render() {
@@ -97,7 +106,7 @@ export default class SingleDropdown extends Component {
         />
         <InputController
           disabled={disabled}
-          setDisabled={bool => this.setState({ disabled: bool })}
+          setDisabled={this.setDisabled}
           onSave={this.onSave}
           onReset={this.onReset}
         />

@@ -17,6 +17,7 @@ export default class TextInput extends Component {
     default: PropTypes.string.isRequired,
     label: PropTypes.string.isRequired,
     onInputSave: PropTypes.func.isRequired,
+    onInputDisableChange: PropTypes.func.isRequired,
     validate: PropTypes.func.isRequired,
     value: PropTypes.string.isRequired
   };
@@ -39,16 +40,19 @@ export default class TextInput extends Component {
   };
 
   setDisabled = async bool => {
+    const { onInputDisableChange, label } = this.props;
     await this.setState({ disabled: bool });
+    onInputDisableChange(label, bool);
     if (!bool) this.textInput.focus();
   };
 
   onReset = () => {
-    const { value } = this.props;
+    const { value, onInputDisableChange, label } = this.props;
     this.setState({
       value,
       disabled: true
     });
+    onInputDisableChange(label, true);
   };
 
   onSave = () => {

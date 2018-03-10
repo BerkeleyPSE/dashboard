@@ -12,7 +12,7 @@ const OptionsBar = (props) => {
   const { changes, isNew, openModal } = props;
 
   return !isEmpty(changes) ? (
-    <RowContainer justifyContent="space-between">
+    <Container justifyContent="space-between">
       {isNew ? (
         <Button colorStyle="save" size="large" onClick={() => openModal('create')} noMargin>
           Create New
@@ -28,9 +28,9 @@ const OptionsBar = (props) => {
       <Button colorStyle="reject" size="small" onClick={() => openModal('delete')} noMargin>
         Delete This
       </Button>
-    </RowContainer>
+    </Container>
   ) : (
-    <RowContainer justifyContent="flex-end">
+    <Container justifyContent="flex-end">
       {isNew ? (
         <Button colorStyle="reject" size="small" onClick={() => openModal('clear')} noMargin>
           Cancel
@@ -40,7 +40,7 @@ const OptionsBar = (props) => {
           Delete This
         </Button>
       )}
-    </RowContainer>
+    </Container>
   );
 };
 
@@ -51,3 +51,7 @@ OptionsBar.propTypes = {
 };
 
 export default OptionsBar;
+
+const Container = RowContainer.extend`
+  margin: 20px 0;
+`;

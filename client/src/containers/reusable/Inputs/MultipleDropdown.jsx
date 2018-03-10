@@ -19,6 +19,7 @@ export default class MultipleDropdown extends Component {
     defaultOption: PropTypes.array,
     label: PropTypes.string,
     onInputSave: PropTypes.func, // send the value to the collector
+    onInputDisableChange: PropTypes.func.isRequired,
     options: PropTypes.arrayOf(PropTypes.object),
     selectedOptions: PropTypes.arrayOf(PropTypes.object),
     validate: PropTypes.func.isRequired
@@ -48,7 +49,7 @@ export default class MultipleDropdown extends Component {
 
   onSave = () => {
     const { selectedOptions } = this.state;
-    const { onInputSave, dataKey, validate } = this.props;
+    const { onInputSave, dataKey, validate, onInputDisableChange, label } = this.props;
     const errorMsg = validate(selectedOptions);
     if (!isEmpty(errorMsg)) {
       this.setState({ errorMsg });
@@ -58,6 +59,7 @@ export default class MultipleDropdown extends Component {
         disabled: true,
         errorMsg: ''
       });
+      onInputDisableChange(label, true);
     }
   };
 
@@ -69,8 +71,15 @@ export default class MultipleDropdown extends Component {
   };
 
   onReset = () => {
-    const { selectedOptions } = this.props;
+    const { selectedOptions, onInputDisableChange, label } = this.props;
     this.setState({ selectedOptions, disabled: true, errorMsg: '' });
+    onInputDisableChange(label, true);
+  };
+
+  setDisabled = bool => {
+    const { onInputDisableChange, label } = this.props;
+    this.setState({ disabled: bool });
+    onInputDisableChange(label, bool);
   };
 
   render() {
@@ -98,7 +107,7 @@ export default class MultipleDropdown extends Component {
         />
         <InputController
           disabled={disabled}
-          setDisabled={bool => this.setState({ disabled: bool })}
+          setDisabled={this.setDisabled}
           onSave={this.onSave}
           onReset={this.onReset}
         />

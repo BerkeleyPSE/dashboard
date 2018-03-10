@@ -19,7 +19,9 @@ export default class Editor extends Component {
     isNew: PropTypes.bool,
     createActive: PropTypes.func,
     updateActive: PropTypes.func,
-    deleteActive: PropTypes.func
+    deleteActive: PropTypes.func,
+    unsavedFields: PropTypes.arrayOf(PropTypes.string),
+    setUnsavedFields: PropTypes.func
   };
 
   static defaultProps = {
@@ -29,7 +31,6 @@ export default class Editor extends Component {
   state = {
     changes: {},
     errorMsg: '',
-    unsavedFields: [],
     isModalOpen: false,
     modalType: ''
   };
@@ -48,11 +49,22 @@ export default class Editor extends Component {
     this.setState({ changes: newChanges });
   };
 
-  // onInputDisableChange = label => {
-  //   const unsavedFields = [...this.state.unsavedFields];
-  //   unsavedFields.push(label);
-  //   this.setState({ })
-  // };
+  // when an input becomes disabled (isDisabled is true), remove the label from the unsaved fields
+  onInputDisableChange = (label, isDisabled) => {
+    let { unsavedFields, setUnsavedFields } = this.props;
+    if (isDisabled) {
+      const labelIndex = unsavedFields.indexOf(label);
+      if (labelIndex >= 0) {
+        unsavedFields = [
+          ...unsavedFields.slice(0, labelIndex),
+          ...unsavedFields.slice(labelIndex + 1)
+        ];
+      }
+    } else {
+      unsavedFields.push(label);
+    }
+    setUnsavedFields(unsavedFields);
+  };
 
   createActive = async () => {
     const { changes } = this.state;
@@ -70,7 +82,7 @@ export default class Editor extends Component {
     const { changes } = this.state;
     const resStatus = await this.props.updateActive(data._id, { ...data, ...changes });
     if (resStatus === 200) {
-      this.setState({ changes: {} });
+      this.setState({ changes: {}, errorMsg: '' });
       this.closeModal();
     }
   };
@@ -83,20 +95,21 @@ export default class Editor extends Component {
 
   clearActive = async () => {
     this.props.clearActive();
-    this.setState({ changes: {} });
+    this.setState({ changes: {}, errorMsg: '' });
     this.closeModal();
   };
 
   openModal = type => {
-    const { unsavedFields } = this.state;
+    const { unsavedFields } = this.props;
     if (isEmpty(unsavedFields)) {
       this.setState({
         isModalOpen: true,
-        modalType: type
+        modalType: type,
+        errorMsg: ''
       });
     } else {
       this.setState({
-        errorMsg: `${unsavedFields.join(' ')} fields must be saved or reset before continuing.`
+        errorMsg: `Fields: "${unsavedFields.join(' ')}" must be saved or reset before continuing.`
       });
     }
   };
@@ -110,7 +123,7 @@ export default class Editor extends Component {
 
   render() {
     const { data, fields, isNew } = this.props;
-    const { changes, isModalOpen, modalType } = this.state;
+    const { changes, isModalOpen, modalType, errorMsg } = this.state;
     return (
       <EditorContainer>
         <SectionHeader>Edit</SectionHeader>
@@ -119,7 +132,9 @@ export default class Editor extends Component {
           dataId={data._id || '-1'}
           data={data}
           onInputSave={this.onInputSave}
+          onInputDisableChange={this.onInputDisableChange}
         />
+        <ErrorLabel>{errorMsg && errorMsg}</ErrorLabel>
         <OptionsBar changes={changes} isNew={isNew} openModal={this.openModal} />
         <ConfirmationModal
           isOpen={isModalOpen}
@@ -138,4 +153,12 @@ export default class Editor extends Component {
 const EditorContainer = styled.div`
   padding: 0 20px;
   position: relative;
+`;
+
+const ErrorLabel = styled.p`
+  color: var(--red);
+  font-size: 1.125rem;
+  margin: 20px 0;
+  padding: 0;
+  text-transform: uppercase;
 `;
