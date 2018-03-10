@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 // node modules
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import isEqual from 'lodash/isEqual';
 import isEmpty from 'lodash/isEmpty';
 import Select from 'react-select';
 import 'react-select/dist/react-select.css';
@@ -11,6 +10,7 @@ import 'react-select/dist/react-select.css';
 // local components
 import { ColumnContainer } from '../../styleguide/Containers';
 import InputController from './InputController';
+import { isEqualMD } from '../../../helpers/helpers';
 
 export default class MultipleDropdown extends Component {
   static propTypes = {
@@ -86,7 +86,7 @@ export default class MultipleDropdown extends Component {
         <Dropdown
           id={label}
           disabled={disabled}
-          hasChanged={!isEqual(selectedOptions, this.props.selectedOptions)}
+          hasChanged={!isEqualMD(selectedOptions, this.props.selectedOptions)}
           multi={true}
           name={`${dataKey}-dropdown`}
           onChange={this.onChange}

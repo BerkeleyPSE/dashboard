@@ -1,9 +1,5 @@
 import validators from '../../helpers/validators';
-import { CLASSES, SUBJECTS, POSITIONS, YEARS, IS_EXEC } from './brother_options';
-
-// add field for type: shortText, longText, radio, dropdown
-// if radio or dropdown, add field for options: [opt1, opt2, ...]
-// figure out how to do Media URLs
+import { CLASSES, SUBJECTS, POSITIONS, YEARS, IS_EXEC, CAREERS } from './brother_options';
 
 export default [
   {
@@ -102,15 +98,16 @@ export default [
       validate: value => validators.validateSingleDropdown(value, POSITIONS, 'position')
     }
   },
-  // {
-  //   label: 'Career Interests',
-  //   key: 'careerInterests',
-  //   type: 'shortText',
-  //   input: {
-  //     default: 'NO CAREER INTERESTS SPECIFIED',
-  //     validate: value => validators.validateString(value, 'careerInterests')
-  //   }
-  // },
+  {
+    label: 'Career Interests',
+    key: 'careerInterests',
+    type: 'multipleDropdown',
+    input: {
+      options: CAREERS,
+      default: [],
+      validate: value => validators.validateMultipleDropdown(value, CAREERS, 'careerInterests')
+    }
+  },
   {
     label: 'Previous Positions',
     key: 'previousPositions',

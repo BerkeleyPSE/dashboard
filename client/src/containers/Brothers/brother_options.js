@@ -75,4 +75,42 @@ const YEARS = [
 
 const IS_EXEC = [{ label: 'No', value: false }, { label: 'Yes', value: true }];
 
-export { CLASSES, SUBJECTS, POSITIONS, YEARS, IS_EXEC };
+const CAREERS = [
+  { label: 'Consulting', value: 'consulting' },
+  { label: 'Environmental Consulting', value: 'e-consulting' },
+  { label: 'Healthtech Consulting', value: 'h-consulting' },
+  { label: 'Human Resources Consulting', value: 'hr-consulting' },
+  { label: 'Management Consulting', value: 'm-consulting' },
+  { label: 'Social Impact Consulting', value: 'sm-consulting' },
+  { label: 'Strategy Consulting', value: 's-consulting' },
+  { label: 'Technology Consulting', value: 't-consulting' },
+  { label: 'Marketing', value: 'marketing' },
+  { label: 'Advertising', value: 'advertising' },
+  { label: 'Communications', value: 'communications' },
+  { label: 'Brand Marketing', value: 'b-marketing' },
+  { label: 'Digital Marketing', value: 'd-marketing' },
+  { label: 'Public Relations', value: 'public-relations' },
+  { label: 'Software Development', value: 'software-development' },
+  { label: 'Software Engineering', value: 'software-engineering' },
+  { label: 'Product Management', value: 'product-management' },
+  { label: 'Project Management', value: 'project-management' },
+  { label: 'Product Design', value: 'product-design' },
+  { label: 'UX Design', value: 'ux-design' },
+  { label: 'Data Analysis', value: 'data-analysis' },
+  { label: 'Finance', value: 'finance' },
+  { label: 'Accounting', value: 'accounting' },
+  { label: 'Corporate Banking', value: 'c-banking' },
+  { label: 'Financial Services', value: 'financial-services' },
+  { label: 'Financial Technology', value: 'f-technology' },
+  { label: 'Investment Banking', value: 'i-banking' },
+  { label: 'Tax M&A', value: 'tax-ma' },
+  { label: 'Wholesale Credit', value: 'wholesale-credit' },
+  { label: 'Law', value: 'law' },
+  { label: 'Corporate Law', value: 'c-law' },
+  { label: 'Healthcare Management', value: 'h-management' },
+  { label: 'Business Development', value: 'biz-development' },
+  { label: 'Corporate Strategy', value: 'c-strategy' },
+  { label: 'Brand Strategy', value: 'b-strategy' }
+];
+
+export { CLASSES, SUBJECTS, POSITIONS, YEARS, IS_EXEC, CAREERS };

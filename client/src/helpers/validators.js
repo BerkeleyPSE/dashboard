@@ -5,7 +5,7 @@ import isBoolean from 'lodash/isBoolean';
 import isObject from 'lodash/isObject';
 
 // local
-import helpers from './helpers';
+import { isEmptyOrUndefined, regexIsMatched } from './helpers';
 
 /*
   - validateImageURL
@@ -13,17 +13,17 @@ import helpers from './helpers';
 
 export default {
   validateKey: (key) => {
-    if (helpers.isEmptyOrUndefined(key)) return 'Key must not be empty.';
+    if (isEmptyOrUndefined(key)) return 'Key must not be empty.';
     if (!isString(key)) return `Key must be a String. It is a ${typeof key}`;
 
     const regexp = new RegExp(/([a-z]+\w_[a-z]+\w_?[1-9]*)/);
-    if (!helpers.regexIsMatched(key, regexp)) return 'Key is invalid. Ensure proper format.';
+    if (!regexIsMatched(key, regexp)) return 'Key is invalid. Ensure proper format.';
 
     return '';
   },
 
   validateString: (value, field) => {
-    if (helpers.isEmptyOrUndefined(value)) return `${field} must not be empty.`;
+    if (isEmptyOrUndefined(value)) return `${field} must not be empty.`;
     if (!isString(value)) return `${field} must be a String. It is a ${typeof value}`;
     return '';
   },
@@ -38,7 +38,7 @@ export default {
         if (!isBoolean(value)) return `${field} must be a Boolean. It is a ${typeof value}`;
         break;
       default:
-        if (helpers.isEmptyOrUndefined(value)) return `${field} must not be empty.`;
+        if (isEmptyOrUndefined(value)) return `${field} must not be empty.`;
         if (!isString(value)) return `${field} must be a String. It is a ${typeof value}`;
     }
 
@@ -57,7 +57,7 @@ export default {
     });
 
     selectedOptions.forEach((option) => {
-      if (helpers.isEmptyOrUndefined(option.label) || helpers.isEmptyOrUndefined(option.value)) {
+      if (isEmptyOrUndefined(option.label) || isEmptyOrUndefined(option.value)) {
         return `${option} is not formatted properly with value and label keys.`;
       }
       if (!options.includes(option)) return `${option.value} is not a valid option.`;

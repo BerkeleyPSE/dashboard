@@ -40,7 +40,10 @@ export default class LongTextInput extends Component {
 
   setDisabled = async bool => {
     await this.setState({ disabled: bool });
-    if (!bool) this.textInput.focus();
+    if (!bool) {
+      // push label into unsavedFields (passed down from Editor)
+      this.textInput.focus();
+    }
   };
 
   onReset = () => {

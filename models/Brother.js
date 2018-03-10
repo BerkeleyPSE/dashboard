@@ -83,7 +83,12 @@ const BrotherSchema = new Schema({
   },
 
   careerInterests: {
-    type: [String],
+    type: [
+      {
+        label: String,
+        value: String
+      }
+    ],
     required: true
   },
 

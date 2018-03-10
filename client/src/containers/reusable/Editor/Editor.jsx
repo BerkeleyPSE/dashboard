@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 // node modules
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import isEmpty from 'lodash/isEmpty';
 
 // local components
 import InputCreator from '../Inputs/InputCreator';
@@ -27,6 +28,8 @@ export default class Editor extends Component {
 
   state = {
     changes: {},
+    errorMsg: '',
+    unsavedFields: [],
     isModalOpen: false,
     modalType: ''
   };
@@ -44,6 +47,12 @@ export default class Editor extends Component {
 
     this.setState({ changes: newChanges });
   };
+
+  // onInputDisableChange = label => {
+  //   const unsavedFields = [...this.state.unsavedFields];
+  //   unsavedFields.push(label);
+  //   this.setState({ })
+  // };
 
   createActive = async () => {
     const { changes } = this.state;
@@ -79,10 +88,17 @@ export default class Editor extends Component {
   };
 
   openModal = type => {
-    this.setState({
-      isModalOpen: true,
-      modalType: type
-    });
+    const { unsavedFields } = this.state;
+    if (isEmpty(unsavedFields)) {
+      this.setState({
+        isModalOpen: true,
+        modalType: type
+      });
+    } else {
+      this.setState({
+        errorMsg: `${unsavedFields.join(' ')} fields must be saved or reset before continuing.`
+      });
+    }
   };
 
   closeModal = () => {
