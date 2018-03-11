@@ -6,7 +6,6 @@ import { createStore, applyMiddleware, compose } from 'redux';
 import { Provider } from 'react-redux';
 import { BrowserRouter as Router } from 'react-router-dom';
 import reduxThunk from 'redux-thunk';
-import createHistory from 'history/createBrowserHistory';
 
 // local components
 import './index.css';
@@ -19,7 +18,7 @@ const store = createStore(rootReducer, {}, composeEnhancers(applyMiddleware(redu
 
 ReactDOM.render(
   <Provider store={store}>
-    <Router history={createHistory()}>
+    <Router>
       <App />
     </Router>
   </Provider>,

@@ -1,78 +1,132 @@
 // node modules
 const mongoose = require('mongoose');
 
+const mongooseStatic = require('../databases/static');
+
 const { Schema } = mongoose;
 
 const BrotherSchema = new Schema({
-  first_name: {
+  key: {
     type: String,
     required: true,
+    lowercase: true
   },
 
-  last_name: {
+  name: {
     type: String,
-    required: true,
+    required: true
   },
 
-  pse_class: {
+  imgUrl: {
     type: String,
-    required: true,
+    required: true
+  },
+
+  pseClass: {
+    type: {
+      label: String,
+      value: String
+    },
+    required: true
   },
 
   year: {
-    type: String,
-    required: true,
+    type: {
+      label: String,
+      value: String
+    },
+    required: true
   },
 
   isExecutive: {
-    type: Boolean,
+    type: {
+      label: String,
+      value: Boolean
+    },
     required: true,
-    default: false,
+    default: false
   },
 
   position: {
-    type: String,
+    type: {
+      label: String,
+      value: String
+    },
     required: true,
-    default: 'Active',
+    default: 'Active'
   },
 
   hometown: {
     type: String,
-    required: true,
+    required: true
   },
 
-  career_interests: {
-    type: String,
-    required: true,
+  majors: {
+    type: [
+      {
+        label: String,
+        value: String
+      }
+    ],
+    required: true
   },
 
-  major1: {
-    type: String,
-    required: true,
-  },
-
-  major2: {
-    type: String,
+  minors: {
+    type: [
+      {
+        label: String,
+        value: String
+      }
+    ],
     required: false,
+    default: []
   },
 
-  minor: {
-    type: String,
+  careerInterests: {
+    type: [
+      {
+        label: String,
+        value: String
+      }
+    ],
+    required: true
+  },
+
+  previousPositions: {
+    type: [
+      {
+        label: String,
+        value: String
+      }
+    ],
     required: false,
+    default: []
   },
 
-  previous_positions: {
+  bio: {
     type: String,
-    required: false,
+    required: true
   },
 
-  media_urls: {
-    type: Object,
+  mediaUrls: {
+    type: {
+      linkedin: String,
+      github: String,
+      medium: String,
+      quora: String,
+      twitter: String,
+      website: String
+    },
     required: true,
     default: {
       linkedin: '',
-    },
-  },
+      github: '',
+      medium: '',
+      quora: '',
+      twitter: '',
+      website: ''
+    }
+  }
 });
 
-mongoose.model('brother', BrotherSchema);
+mongooseStatic.model('brothers', BrotherSchema);

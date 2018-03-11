@@ -1,7 +1,18 @@
+:root {
+  --main: #333;
+  --main-alt: #818181;
+  --accent: #895fad;
+  --accent-alt: #ffd700;
+  --white: #f5f5f5;
+  --green: #53e54b;
+  --red: #f45b69;
+}
+
 body {
   margin: 0;
   padding: 0;
-  font-family: sans-serif;
+  color: var(--main);
+  font-family: 'Roboto', sans-serif;
 }
 
 html {
@@ -12,4 +23,16 @@ html {
 *:before,
 *:after {
   box-sizing: inherit;
+}
+
+::selection {
+  background: var(--main);
+  color: #fff;
+  padding: 5px;
+}
+
+::-moz-selection {
+  background: var(--main);
+  color: #fff;
+  padding: 5px;
 }

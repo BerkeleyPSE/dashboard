@@ -1,32 +1,36 @@
+// node modules
 const mongoose = require('mongoose');
+
+// local
+const mongooseStatic = require('../databases/static');
 
 const { Schema } = mongoose;
 
 const userSchema = new Schema({
   googleID: {
     type: String,
-    required: true,
+    required: true
   },
 
   name: {
     type: String,
-    required: true,
+    required: true
   },
 
   email: {
     type: String,
-    required: true,
+    required: true
   },
 
   photo: {
     type: String,
-    required: false,
+    required: false
   },
 
   role: {
     type: String, // 'admin' or 'viewer'
-    required: true,
-  },
+    required: true
+  }
 });
 
-mongoose.model('users', userSchema);
+mongooseStatic.model('users', userSchema);

@@ -1,38 +1,41 @@
 // node modules
 const mongoose = require('mongoose');
 
+// local
+const mongooseStatic = require('../databases/static');
+
 const { Schema } = mongoose;
 
 const InternshipSchema = new Schema({
   name: {
     type: String,
-    required: true,
+    required: true
   },
 
   summer_year: {
     type: Number,
-    required: true,
+    required: true
   },
 
   industry: {
     type: String,
-    required: true,
+    required: true
   },
 
   company: {
     type: String,
-    required: true,
+    required: true
   },
 
   position: {
     type: String,
-    required: true,
+    required: true
   },
 
   location: {
     type: String,
-    required: true,
-  },
+    required: true
+  }
 });
 
-mongoose.model('internship', InternshipSchema);
+mongooseStatic.model('careers_internships', InternshipSchema);
