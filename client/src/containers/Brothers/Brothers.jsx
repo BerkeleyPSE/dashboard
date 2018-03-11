@@ -92,12 +92,13 @@ class Brothers extends React.Component {
 
   render() {
     const { brothers, activeBrother, searchValue, isNewBrother, unsavedFields } = this.state;
-    const { clearActiveBrother } = this.props;
+    const { clearActiveBrother, AuthReducer } = this.props;
 
     return (
       <BrothersContainer>
         <DataDisplayer
           pageId="Brothers"
+          canEdit={AuthReducer.canEdit}
           data={brothers}
           dictkey="name"
           handleDataClick={this.fetchOneBrother}
@@ -107,6 +108,7 @@ class Brothers extends React.Component {
         />
         {!isEmpty(activeBrother) && (
           <Editor
+            disabled={!AuthReducer.canEdit}
             data={activeBrother}
             fields={BrotherSchema}
             isNew={isNewBrother}
@@ -124,6 +126,7 @@ class Brothers extends React.Component {
 }
 
 const mapStateToProps = (state, ownProps) => ({
+  AuthReducer: state.AuthReducer,
   BrotherReducer: state.BrotherReducer
 });
 

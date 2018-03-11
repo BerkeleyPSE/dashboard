@@ -15,6 +15,7 @@ export default class LongTextInput extends Component {
     dataId: PropTypes.string.isRequired,
     dataKey: PropTypes.string.isRequired,
     default: PropTypes.string.isRequired,
+    disabled: PropTypes.bool.isRequired,
     label: PropTypes.string.isRequired,
     onInputSave: PropTypes.func.isRequired,
     onInputDisableChange: PropTypes.func.isRequired,
@@ -80,18 +81,20 @@ export default class LongTextInput extends Component {
         <Input
           id={label}
           value={value}
-          disabled={disabled}
+          disabled={this.props.disabled && disabled}
           innerRef={input => (this.textInput = input)}
           onChange={e => this.setState({ value: e.target.value })}
           hasChanged={!isEqual(this.props.value, value)}
           type="textarea"
         />
-        <InputController
-          disabled={disabled}
-          setDisabled={this.setDisabled}
-          onSave={this.onSave}
-          onReset={this.onReset}
-        />
+        {!this.props.disabled && (
+          <InputController
+            disabled={disabled}
+            setDisabled={this.setDisabled}
+            onSave={this.onSave}
+            onReset={this.onReset}
+          />
+        )}
       </InputContainer>
     );
   }

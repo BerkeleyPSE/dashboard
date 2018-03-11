@@ -17,6 +17,7 @@ export default class MultipleDropdown extends Component {
     dataId: PropTypes.string,
     dataKey: PropTypes.string,
     defaultOption: PropTypes.array,
+    disabled: PropTypes.bool,
     label: PropTypes.string,
     onInputSave: PropTypes.func, // send the value to the collector
     onInputDisableChange: PropTypes.func.isRequired,
@@ -94,7 +95,7 @@ export default class MultipleDropdown extends Component {
         </ColumnContainer>
         <Dropdown
           id={label}
-          disabled={disabled}
+          disabled={this.props.disabled && disabled}
           hasChanged={!isEqualMD(selectedOptions, this.props.selectedOptions)}
           multi={true}
           name={`${dataKey}-dropdown`}
@@ -105,12 +106,14 @@ export default class MultipleDropdown extends Component {
           searchable={false}
           value={selectedOptions}
         />
-        <InputController
-          disabled={disabled}
-          setDisabled={this.setDisabled}
-          onSave={this.onSave}
-          onReset={this.onReset}
-        />
+        {!this.props.disabled && (
+          <InputController
+            disabled={disabled}
+            setDisabled={this.setDisabled}
+            onSave={this.onSave}
+            onReset={this.onReset}
+          />
+        )}
       </InputContainer>
     );
   }

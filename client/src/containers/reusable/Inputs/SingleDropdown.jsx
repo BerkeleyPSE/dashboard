@@ -17,6 +17,7 @@ export default class SingleDropdown extends Component {
     dataId: PropTypes.string,
     dataKey: PropTypes.string,
     defaultOption: PropTypes.object,
+    disabled: PropTypes.bool,
     label: PropTypes.string,
     onInputSave: PropTypes.func, // send the value to the collector
     onInputDisableChange: PropTypes.func.isRequired,
@@ -101,15 +102,17 @@ export default class SingleDropdown extends Component {
           placeholder={`Select a ${label}`}
           resetValue={selectedOption || defaultOption}
           searchable={false}
-          disabled={disabled}
+          disabled={this.props.disabled && disabled}
           hasChanged={!isEqual(selectedOption.value, this.props.selectedOption.value)}
         />
-        <InputController
-          disabled={disabled}
-          setDisabled={this.setDisabled}
-          onSave={this.onSave}
-          onReset={this.onReset}
-        />
+        {!this.props.disabled && (
+          <InputController
+            disabled={disabled}
+            setDisabled={this.setDisabled}
+            onSave={this.onSave}
+            onReset={this.onReset}
+          />
+        )}
       </InputContainer>
     );
   }

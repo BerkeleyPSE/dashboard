@@ -13,7 +13,7 @@ import MultipleDropdown from '../Inputs/MultipleDropdown';
 const InputCreator = (props) => {
   const createInputs = () => {
     const {
-      schema, dataId, onInputSave, onInputDisableChange, data
+      schema, dataId, onInputSave, onInputDisableChange, data, disabled
     } = props;
 
     return schema.map((field) => {
@@ -25,6 +25,7 @@ const InputCreator = (props) => {
               dataId={dataId}
               dataKey={field.key}
               default={field.input.default}
+              disabled={disabled}
               label={field.label}
               onInputSave={onInputSave}
               onInputDisableChange={onInputDisableChange}
@@ -39,6 +40,7 @@ const InputCreator = (props) => {
               dataId={dataId}
               dataKey={field.key}
               default={field.input.default}
+              disabled={disabled}
               label={field.label}
               onInputSave={onInputSave}
               onInputDisableChange={onInputDisableChange}
@@ -53,6 +55,7 @@ const InputCreator = (props) => {
               dataId={dataId}
               dataKey={field.key}
               defaultOption={field.input.default}
+              disabled={disabled}
               label={field.label}
               onInputSave={onInputSave}
               onInputDisableChange={onInputDisableChange}
@@ -68,6 +71,7 @@ const InputCreator = (props) => {
               dataId={dataId}
               dataKey={field.key}
               defaultOption={field.input.default}
+              disabled={disabled}
               label={field.label}
               onInputSave={onInputSave}
               onInputDisableChange={onInputDisableChange}

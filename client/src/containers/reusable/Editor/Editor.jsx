@@ -14,6 +14,7 @@ import { SectionHeader } from '../../styleguide/Headers';
 export default class Editor extends Component {
   static propTypes = {
     data: PropTypes.object,
+    disabled: PropTypes.bool,
     fields: PropTypes.arrayOf(PropTypes.object).isRequired,
     clearActive: PropTypes.func,
     isNew: PropTypes.bool,
@@ -122,7 +123,7 @@ export default class Editor extends Component {
   };
 
   render() {
-    const { data, fields, isNew } = this.props;
+    const { data, disabled, fields, isNew } = this.props;
     const { changes, isModalOpen, modalType, errorMsg } = this.state;
     return (
       <EditorContainer>
@@ -131,11 +132,12 @@ export default class Editor extends Component {
           schema={fields}
           dataId={data._id || '-1'}
           data={data}
+          disabled={disabled}
           onInputSave={this.onInputSave}
           onInputDisableChange={this.onInputDisableChange}
         />
         <ErrorLabel>{errorMsg && errorMsg}</ErrorLabel>
-        <OptionsBar changes={changes} isNew={isNew} openModal={this.openModal} />
+        {!disabled && <OptionsBar changes={changes} isNew={isNew} openModal={this.openModal} />}
         <ConfirmationModal
           isOpen={isModalOpen}
           closeModal={this.closeModal}
