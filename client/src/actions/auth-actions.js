@@ -15,7 +15,6 @@ export const AuthConstants = {
 export const AuthActions = {
   getUser: () => async (dispatch) => {
     const res = await axios.get(API.GET_SELF);
-    debugger;
     if (isEmptyOrUndefined(res.data)) {
       return dispatch({
         type: AuthConstants.AUTHENTICATION_ERROR,

@@ -17,6 +17,7 @@ import Fulltime from './Fulltime';
 import Internship from './Internship';
 import Faqs from './Faqs';
 import Regforms from './Regforms';
+import Banner from './Banner';
 
 // actions
 import { AuthActions } from '../actions/auth-actions';
@@ -57,20 +58,22 @@ class Routes extends Component {
   render() {
     const { AuthReducer } = this.props;
     return AuthReducer.isLoggedIn ? (
-      <RoutesGrid>
-        {/* Edit / Safe Mode Banner */}
-        <Navbar />
-        <Switch>
-          <Route exact path="/" component={Home} />
-          <Route exact path="/login" component={Login} />
-          <Route exact path="/applications" component={Applications} />
-          <Route exact path="/brothers" component={Brothers} />
-          <Route exact path="/fulltime" component={Fulltime} />
-          <Route exact path="/internship" component={Internship} />
-          <Route exact path="/faqs" component={Faqs} />
-          <Route exact path="/regforms" component={Regforms} />
-        </Switch>
-      </RoutesGrid>
+      <RoutesContainer>
+        <Banner inEditMode={AuthReducer.canEdit} />
+        <RoutesGrid>
+          <Navbar />
+          <Switch>
+            <Route exact path="/" component={Home} />
+            <Route exact path="/login" component={Login} />
+            <Route exact path="/applications" component={Applications} />
+            <Route exact path="/brothers" component={Brothers} />
+            <Route exact path="/fulltime" component={Fulltime} />
+            <Route exact path="/internship" component={Internship} />
+            <Route exact path="/faqs" component={Faqs} />
+            <Route exact path="/regforms" component={Regforms} />
+          </Switch>
+        </RoutesGrid>
+      </RoutesContainer>
     ) : (
       <Route exact path="/login" component={Login} />
     );
@@ -82,6 +85,11 @@ const mapStateToProps = (state, ownProps) => ({
 });
 
 export default withRouter(connect(mapStateToProps, AuthActions)(Routes));
+
+const RoutesContainer = styled.div`
+  display: grid;
+  grid-template-rows: minmax(40px, auto) 1fr;
+`;
 
 const RoutesGrid = styled.div`
   display: grid;
