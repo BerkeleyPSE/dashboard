@@ -1,39 +1,58 @@
 import React, { Component } from 'react';
 
 // node modules
-import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 // components
 import { NAVBAR_LINKS } from './navbar_constants';
 import { ColumnContainer } from '../styleguide/Containers';
 import { MainHeader } from '../styleguide/Headers';
+import Logo from '../reusable/Logo';
+import Profile from './Profile';
 
-export default class Navbar extends Component {
+// actions
+import { AuthActions } from '../../actions/auth-actions';
+
+class Navbar extends Component {
   static propTypes = {
     AuthReducer: PropTypes.object
   };
 
+  state = {
+    promptToSwitchMode: false
+  };
+
   render() {
+    const { AuthReducer } = this.props;
     return (
-      <NavbarContainer>
+      <NavbarContainer justifyContent="flex-start">
         <MainHeader>Berkeley PSE Dashboard</MainHeader>
-        <ColumnContainer alignItems="baseline">
+        <Logo size="150px" />
+        <ColumnContainer alignItems="flex-start">
           {NAVBAR_LINKS.map(navlink => (
             <Link key={navlink.text} to={navlink.link}>
               {navlink.text}
             </Link>
           ))}
         </ColumnContainer>
+        <Profile AuthReducer={AuthReducer} />
       </NavbarContainer>
     );
   }
 }
 
-const NavbarContainer = styled.div`
+const mapStateToProps = (state, ownProps) => ({
+  AuthReducer: state.AuthReducer
+});
+
+export default connect(mapStateToProps, AuthActions)(Navbar);
+
+const NavbarContainer = ColumnContainer.extend`
   height: 100%;
-  width: 175px;
+  width: 250px;
   padding: 0 10px;
   border-right: 2px solid var(--accent);
 `;
