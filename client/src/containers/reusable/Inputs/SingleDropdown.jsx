@@ -102,7 +102,7 @@ export default class SingleDropdown extends Component {
           placeholder={`Select a ${label}`}
           resetValue={selectedOption || defaultOption}
           searchable={false}
-          disabled={this.props.disabled && disabled}
+          disabled={this.props.disabled || disabled}
           hasChanged={!isEqual(selectedOption.value, this.props.selectedOption.value)}
         />
         {!this.props.disabled && (

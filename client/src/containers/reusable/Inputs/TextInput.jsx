@@ -81,7 +81,7 @@ export default class TextInput extends Component {
         <Input
           id={label}
           value={value}
-          disabled={this.props.disabled && disabled}
+          disabled={this.props.disabled || disabled}
           innerRef={input => (this.textInput = input)}
           onChange={e => this.setState({ value: e.target.value })}
           hasChanged={!isEqual(this.props.value, value)}

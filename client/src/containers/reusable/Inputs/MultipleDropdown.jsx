@@ -95,7 +95,7 @@ export default class MultipleDropdown extends Component {
         </ColumnContainer>
         <Dropdown
           id={label}
-          disabled={this.props.disabled && disabled}
+          disabled={this.props.disabled || disabled}
           hasChanged={!isEqualMD(selectedOptions, this.props.selectedOptions)}
           multi={true}
           name={`${dataKey}-dropdown`}
