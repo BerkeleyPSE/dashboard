@@ -9,21 +9,22 @@ import { ColumnContainer } from '../styleguide/Containers';
 import SwitchEditInput from './SwitchEditInput';
 
 const Profile = (props) => {
-  const { AuthReducer } = props;
+  const { user, setUserCanEdit } = props;
   return (
     <ProfileContainer>
       <ProfileHeader>Your Profile</ProfileHeader>
       <ColumnContainer alignItems="flex-start">
-        <Name>{AuthReducer.name}</Name>
-        <Email>{AuthReducer.email}</Email>
-        <SwitchEditInput />
+        <Name>{user.name}</Name>
+        <Email>{user.email}</Email>
+        <SwitchEditInput canEdit={user.canEdit} setUserCanEdit={setUserCanEdit} />
       </ColumnContainer>
     </ProfileContainer>
   );
 };
 
 Profile.propTypes = {
-  AuthReducer: PropTypes.object
+  user: PropTypes.object,
+  setUserCanEdit: PropTypes.func.isRequired
 };
 
 export default Profile;
@@ -45,11 +46,11 @@ const Name = styled.p`
   color: var(--accent);
   font-size: 16px;
   font-weight: bold;
-  margin: 3px 0;
+  margin: 5px 0;
 `;
 
 const Email = styled.p`
   color: var(--main-alt);
   font-size: 14px;
-  margin: 3px 0;
+  margin: 5px 0;
 `;

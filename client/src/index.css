@@ -24,3 +24,15 @@ html {
 *:after {
   box-sizing: inherit;
 }
+
+::selection {
+  background: var(--main);
+  color: #fff;
+  padding: 5px;
+}
+
+::-moz-selection {
+  background: var(--main);
+  color: #fff;
+  padding: 5px;
+}

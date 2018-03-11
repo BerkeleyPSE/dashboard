@@ -61,6 +61,7 @@ const DataItem = styled.p`
   color: var(--accent);
   cursor: pointer;
   width: 100%;
+  transition: all 0.25s;
 
   &:hover {
     color: var(--accent-alt);

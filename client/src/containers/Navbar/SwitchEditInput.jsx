@@ -1,54 +1,58 @@
-import React from 'react';
+import React, { Component } from 'react';
 
 // node modules
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import Toggle from 'react-toggle';
+import '../../stylesheets/input-toggle.css';
 
-const SwitchEditInput = props => (
-  <InputContainer>
-    <Label for="edit-input">
-      Mode
-      <input type="checkbox" />
-      <Slider />
-    </Label>
-  </InputContainer>
-);
+// local components
+import { RowContainer } from '../styleguide/Containers';
 
-SwitchEditInput.propTypes = {};
+class SwitchEditInput extends Component {
+  static propTypes = {
+    canEdit: PropTypes.bool.isRequired,
+    setUserCanEdit: PropTypes.func.isRequired
+  };
+
+  changeInput = e => {
+    const { setUserCanEdit } = this.props;
+    setUserCanEdit(e.target.checked);
+  };
+
+  render() {
+    const { canEdit } = this.props;
+    console.log(canEdit);
+    return (
+      <InputContainer justifyContent="space-between">
+        <SafeSpan>Safe Mode</SafeSpan>
+        <Toggle
+          id="edit-input"
+          className="customized-toggle"
+          defaultChecked={canEdit}
+          onChange={this.changeInput}
+        />
+        <EditSpan>Edit Mode</EditSpan>
+      </InputContainer>
+    );
+  }
+}
 
 export default SwitchEditInput;
 
-const InputContainer = styled.div``;
-
-const Label = styled.label`
-  position: relative;
-  display: inline-block;
-  width: 60px;
-  height: 34px;
+const InputContainer = RowContainer.extend`
+  margin: 5px;
+  width: 100%;
 `;
 
-const Slider = styled.span`
-  border-radius: 34px;
-  position: absolute;
-  cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: #ccc;
-  -webkit-transition: 0.4s;
-  transition: 0.4s;
+const SafeSpan = styled.span`
+  color: var(--green);
+  font-size: 12px;
+  text-transform: uppercase;
+`;
 
-  &:before {
-    border-radius: 50%;
-    position: absolute;
-    content: '';
-    height: 26px;
-    width: 26px;
-    left: 4px;
-    bottom: 4px;
-    background-color: white;
-    -webkit-transition: 0.4s;
-    transition: 0.4s;
-  }
+const EditSpan = styled.span`
+  color: var(--red);
+  font-size: 12px;
+  text-transform: uppercase;
 `;

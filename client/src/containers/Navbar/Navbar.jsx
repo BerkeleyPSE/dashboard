@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 // node modules
-import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
@@ -26,19 +26,19 @@ class Navbar extends Component {
   };
 
   render() {
-    const { AuthReducer } = this.props;
+    const { AuthReducer, setUserCanEdit } = this.props;
     return (
       <NavbarContainer justifyContent="flex-start">
         <MainHeader>Berkeley PSE Dashboard</MainHeader>
         <Logo size="150px" />
-        <ColumnContainer alignItems="flex-start">
+        <LinkContainer alignItems="flex-start">
           {NAVBAR_LINKS.map(navlink => (
-            <Link key={navlink.text} to={navlink.link}>
+            <NavLink key={navlink.text} to={navlink.link}>
               {navlink.text}
-            </Link>
+            </NavLink>
           ))}
-        </ColumnContainer>
-        <Profile AuthReducer={AuthReducer} />
+        </LinkContainer>
+        <Profile user={AuthReducer} setUserCanEdit={setUserCanEdit} />
       </NavbarContainer>
     );
   }
@@ -57,7 +57,17 @@ const NavbarContainer = ColumnContainer.extend`
   border-right: 2px solid var(--accent);
 `;
 
-const Link = styled(NavLink)`
+const LinkContainer = ColumnContainer.extend`
+  margin: 20px 0;
+`;
+
+const NavLink = styled(Link)`
+  color: var(--main);
   margin: 5px 0;
   text-decoration: none;
+  transition: all 0.25s;
+
+  &:hover {
+    color: var(--accent-alt);
+  }
 `;
