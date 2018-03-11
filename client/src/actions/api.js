@@ -2,8 +2,8 @@ const BASE_URL = '/api';
 
 export default {
   // user authorization endpoints (authRoutes)
-  LOGIN: `${BASE_URL}/auth/login/`,
-  REQUEST_SIGNUP: `${BASE_URL}/auth/request-signup/`,
+  // LOGIN: '/auth/google/',
+  // REQUEST_SIGNUP: `${BASE_URL}/auth/request-signup/`,
   LOGOUT: `${BASE_URL}/auth/logout`,
   GET_SELF: `${BASE_URL}/auth/self`,
 

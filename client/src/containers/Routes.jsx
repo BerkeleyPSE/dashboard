@@ -26,6 +26,10 @@ class Routes extends Component {
     AuthReducer: propTypes.object
   };
 
+  componentWillMount() {
+    this.props.getUser();
+  }
+
   componentDidMount() {
     // check for authorization
     const { location, AuthReducer } = this.props;
@@ -38,6 +42,7 @@ class Routes extends Component {
 
   componentWillReceiveProps(nextProps) {
     const { location, AuthReducer } = nextProps;
+    // debugger;
     if (!AuthReducer.isLoggedIn && location.pathname !== '/login') {
       this.redirectTo(nextProps, '/login');
     } else if (location.pathname === 'login' && AuthReducer.isLoggedIn) {

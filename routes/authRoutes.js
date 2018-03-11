@@ -1,12 +1,34 @@
 // node modules
 const passport = require('passport');
-const includes = require('lodash/includes');
 
 // local
-const mongooseStatic = require('../databases/static');
 const API = require('./api');
 
-// MongoDB collection
-const User = mongooseStatic.model('users');
+module.exports = (app) => {
+  app.get(
+    API.LOGIN,
+    passport.authenticate('google', {
+      scope: ['profile', 'email'],
+      prompt: 'select_account'
+    })
+  );
 
-module.exports = (app) => {};
+  app.get(
+    '/auth/google/callback',
+    passport.authenticate('google', {
+      failureRedirect: '/'
+    }),
+    (req, res) => {
+      res.redirect('/');
+    }
+  );
+
+  app.get(API.LOGOUT, (req, res) => {
+    req.logout();
+    res.redirect('/');
+  });
+
+  app.get(API.GET_SELF, (req, res) => {
+    res.send(req.user);
+  });
+};
