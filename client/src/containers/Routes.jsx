@@ -37,7 +37,7 @@ class Routes extends Component {
     if (!AuthReducer.isLoggedIn && location.pathname !== '/login') {
       this.redirectTo(this.props, '/login');
     } else if (location.pathname === 'login' && AuthReducer.isLoggedIn) {
-      this.redirectTo(this.props, '/home');
+      this.redirectTo(this.props, '/');
     }
   }
 
@@ -47,7 +47,7 @@ class Routes extends Component {
     if (!AuthReducer.isLoggedIn && location.pathname !== '/login') {
       this.redirectTo(nextProps, '/login');
     } else if (location.pathname === 'login' && AuthReducer.isLoggedIn) {
-      this.redirectTo(this.props, '/home');
+      this.redirectTo(this.props, '/');
     }
   }
 

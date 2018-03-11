@@ -20,7 +20,7 @@ class Login extends Component {
 
   componentDidMount() {
     const { AuthReducer } = this.props;
-    if (AuthReducer.isLoggedIn) this.props.history.replace('/home');
+    if (AuthReducer.isLoggedIn) this.props.history.replace('/');
   }
 
   render() {
