@@ -1,14 +1,19 @@
 import { AuthConstants } from '../actions/auth-actions';
 
 const initialState = {
-  name: 'Rahul Rangnekar',
-  email: 'berkeleypse.tech@gmail.com',
+  name: '',
+  email: '',
   canEdit: false,
-  isLoggedIn: true
+  isLoggedIn: false,
+  error: ''
 };
 
 const AuthReducer = (state = initialState, action) => {
   switch (action.type) {
+    case AuthConstants.AUTHENTICATION_ERROR:
+    case AuthConstants.LOGOUT:
+      return initialState;
+    case AuthConstants.GET_USER:
     case AuthConstants.SET_USER_CAN_EDIT:
       return { ...state, ...action };
     default:

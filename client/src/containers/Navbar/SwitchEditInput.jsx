@@ -22,7 +22,6 @@ class SwitchEditInput extends Component {
 
   render() {
     const { canEdit } = this.props;
-    console.log(canEdit);
     return (
       <InputContainer justifyContent="space-between">
         <SafeSpan>Safe Mode</SafeSpan>

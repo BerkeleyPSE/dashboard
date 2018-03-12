@@ -23,6 +23,9 @@ require('./models/Fulltime');
 require('./models/Internship');
 require('./models/User');
 
+/* OAuth */
+require('./services/passport.js');
+
 /* middleware */
 
 app.use(bodyParser.json());

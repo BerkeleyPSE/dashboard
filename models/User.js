@@ -20,17 +20,12 @@ const userSchema = new Schema({
   email: {
     type: String,
     required: true
-  },
-
-  photo: {
-    type: String,
-    required: false
-  },
-
-  role: {
-    type: String, // 'admin' or 'viewer'
-    required: true
   }
+
+  // role: {
+  //   type: String, // 'admin' or 'viewer'
+  //   required: true
+  // }
 });
 
 mongooseStatic.model('users', userSchema);

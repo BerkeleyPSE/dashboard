@@ -17,6 +17,7 @@ import Fulltime from './Fulltime';
 import Internship from './Internship';
 import Faqs from './Faqs';
 import Regforms from './Regforms';
+import Banner from './Banner';
 
 // actions
 import { AuthActions } from '../actions/auth-actions';
@@ -27,12 +28,12 @@ class Routes extends Component {
   };
 
   componentDidMount() {
-    // check for authorization
+    this.props.getUser();
     const { location, AuthReducer } = this.props;
     if (!AuthReducer.isLoggedIn && location.pathname !== '/login') {
       this.redirectTo(this.props, '/login');
     } else if (location.pathname === 'login' && AuthReducer.isLoggedIn) {
-      this.redirectTo(this.props, '/home');
+      this.redirectTo(this.props, '/');
     }
   }
 
@@ -41,7 +42,7 @@ class Routes extends Component {
     if (!AuthReducer.isLoggedIn && location.pathname !== '/login') {
       this.redirectTo(nextProps, '/login');
     } else if (location.pathname === 'login' && AuthReducer.isLoggedIn) {
-      this.redirectTo(this.props, '/home');
+      this.redirectTo(this.props, '/');
     }
   }
 
@@ -52,8 +53,8 @@ class Routes extends Component {
   render() {
     const { AuthReducer } = this.props;
     return AuthReducer.isLoggedIn ? (
-      <RoutesGrid>
-        {/* Edit / Safe Mode Banner */}
+      <RoutesContainer>
+        <Banner inEditMode={AuthReducer.canEdit} />
         <Navbar />
         <Switch>
           <Route exact path="/" component={Home} />
@@ -65,7 +66,7 @@ class Routes extends Component {
           <Route exact path="/faqs" component={Faqs} />
           <Route exact path="/regforms" component={Regforms} />
         </Switch>
-      </RoutesGrid>
+      </RoutesContainer>
     ) : (
       <Route exact path="/login" component={Login} />
     );
@@ -78,8 +79,8 @@ const mapStateToProps = (state, ownProps) => ({
 
 export default withRouter(connect(mapStateToProps, AuthActions)(Routes));
 
-const RoutesGrid = styled.div`
+const RoutesContainer = styled.div`
   display: grid;
+  grid-template-rows: minmax(40px, auto) 1fr;
   grid-template-columns: 250px 1fr;
-  min-height: 100vh;
 `;

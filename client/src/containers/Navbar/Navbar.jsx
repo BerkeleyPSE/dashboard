@@ -26,11 +26,11 @@ class Navbar extends Component {
   };
 
   render() {
-    const { AuthReducer, setUserCanEdit } = this.props;
+    const { AuthReducer, setUserCanEdit, logoutUser } = this.props;
     return (
-      <NavbarContainer justifyContent="flex-start">
+      <NavbarContainer justifyContent="flex-start" alignItems="space-between">
         <MainHeader>Berkeley PSE Dashboard</MainHeader>
-        <Logo size="150px" />
+        <Logo size="125px" />
         <LinkContainer alignItems="flex-start">
           {NAVBAR_LINKS.map(navlink => (
             <NavLink key={navlink.text} to={navlink.link}>
@@ -38,7 +38,7 @@ class Navbar extends Component {
             </NavLink>
           ))}
         </LinkContainer>
-        <Profile user={AuthReducer} setUserCanEdit={setUserCanEdit} />
+        <Profile user={AuthReducer} setUserCanEdit={setUserCanEdit} logoutUser={logoutUser} />
       </NavbarContainer>
     );
   }
