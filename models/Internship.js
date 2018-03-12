@@ -12,11 +12,6 @@ const InternshipSchema = new Schema({
     required: true
   },
 
-  summer_year: {
-    type: Number,
-    required: true
-  },
-
   industry: {
     type: String,
     required: true
@@ -33,6 +28,11 @@ const InternshipSchema = new Schema({
   },
 
   location: {
+    type: String,
+    required: true
+  },
+
+  summerYear: {
     type: String,
     required: true
   }

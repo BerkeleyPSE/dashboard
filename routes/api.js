@@ -34,6 +34,7 @@ module.exports = {
 
   // internship endpoints (internshipRoutes)
   GET_INTERNSHIPS: `${BASE_URL}/internship/`,
+  GET_ONE_INTERNSHIP: `${BASE_URL}/internship/one`,
   CREATE_INTERNSHIP: `${BASE_URL}/internship/create`,
   UPDATE_INTERNSHIP: `${BASE_URL}/internship/update`,
   DELETE_INTERNSHIP: `${BASE_URL}/internship/delete`,
