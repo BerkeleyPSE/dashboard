@@ -30,6 +30,7 @@ const BannerContainer = RowContainer.extend`
   grid-column: 1 / -1;
   max-width: 100%;
   padding: 5px 0;
+  transition: all 0.25s;
 `;
 
 const Text = styled.p`
