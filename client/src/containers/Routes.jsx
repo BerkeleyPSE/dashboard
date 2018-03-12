@@ -27,12 +27,8 @@ class Routes extends Component {
     AuthReducer: propTypes.object
   };
 
-  componentWillMount() {
-    this.props.getUser();
-  }
-
   componentDidMount() {
-    // check for authorization
+    this.props.getUser();
     const { location, AuthReducer } = this.props;
     if (!AuthReducer.isLoggedIn && location.pathname !== '/login') {
       this.redirectTo(this.props, '/login');
@@ -43,7 +39,6 @@ class Routes extends Component {
 
   componentWillReceiveProps(nextProps) {
     const { location, AuthReducer } = nextProps;
-    // debugger;
     if (!AuthReducer.isLoggedIn && location.pathname !== '/login') {
       this.redirectTo(nextProps, '/login');
     } else if (location.pathname === 'login' && AuthReducer.isLoggedIn) {
@@ -60,19 +55,17 @@ class Routes extends Component {
     return AuthReducer.isLoggedIn ? (
       <RoutesContainer>
         <Banner inEditMode={AuthReducer.canEdit} />
-        <RoutesGrid>
-          <Navbar />
-          <Switch>
-            <Route exact path="/" component={Home} />
-            <Route exact path="/login" component={Login} />
-            <Route exact path="/applications" component={Applications} />
-            <Route exact path="/brothers" component={Brothers} />
-            <Route exact path="/fulltime" component={Fulltime} />
-            <Route exact path="/internship" component={Internship} />
-            <Route exact path="/faqs" component={Faqs} />
-            <Route exact path="/regforms" component={Regforms} />
-          </Switch>
-        </RoutesGrid>
+        <Navbar />
+        <Switch>
+          <Route exact path="/" component={Home} />
+          <Route exact path="/login" component={Login} />
+          <Route exact path="/applications" component={Applications} />
+          <Route exact path="/brothers" component={Brothers} />
+          <Route exact path="/fulltime" component={Fulltime} />
+          <Route exact path="/internship" component={Internship} />
+          <Route exact path="/faqs" component={Faqs} />
+          <Route exact path="/regforms" component={Regforms} />
+        </Switch>
       </RoutesContainer>
     ) : (
       <Route exact path="/login" component={Login} />
@@ -89,10 +82,5 @@ export default withRouter(connect(mapStateToProps, AuthActions)(Routes));
 const RoutesContainer = styled.div`
   display: grid;
   grid-template-rows: minmax(40px, auto) 1fr;
-`;
-
-const RoutesGrid = styled.div`
-  display: grid;
   grid-template-columns: 250px 1fr;
-  min-height: 100vh;
 `;

@@ -1,7 +1,6 @@
 import React from 'react';
 
 // node modules
-import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 // local components
@@ -23,8 +22,6 @@ const Home = () => (
     </Text>
   </HomeContainer>
 );
-
-Home.propTypes = {};
 
 export default Home;
 
