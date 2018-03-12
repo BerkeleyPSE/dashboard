@@ -70,7 +70,6 @@ export default class Editor extends Component {
   createActive = async () => {
     const { changes } = this.state;
     const { data } = this.props;
-    // find way to validate all fields
     const resStatus = await this.props.createActive({ ...data, ...changes });
     if (resStatus === 201) {
       this.setState({ changes: {} });
@@ -94,7 +93,7 @@ export default class Editor extends Component {
     if (resStatus === 200) this.clearActive();
   };
 
-  clearActive = async () => {
+  clearActive = () => {
     this.props.clearActive();
     this.setState({ changes: {}, errorMsg: '' });
     this.closeModal();

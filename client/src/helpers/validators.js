@@ -1,6 +1,5 @@
 // node modules
 import isString from 'lodash/isString';
-import isNumber from 'lodash/isNumber';
 import isArray from 'lodash/isArray';
 import isBoolean from 'lodash/isBoolean';
 import isObject from 'lodash/isObject';
@@ -31,10 +30,9 @@ export default {
 
   validateYear: (value, field) => {
     if (isEmptyOrUndefined(value)) return `${field} must not be empty.`;
-    if (!isNumber(value)) return `${field} must be a Number. It is a ${typeof value}.`;
-    const stringValue = value.toString();
-    if (stringValue.length !== 4) return `${field} must have a length of exactly 4.`;
-    if (stringValue.slice(0, 2) !== '20') return `${value} must start with 20.`;
+    if (!isString(value)) return `${field} must be a String. It is a ${typeof value}.`;
+    if (value.length !== 4) return `${field} must have a length of exactly 4.`;
+    if (value.slice(0, 2) !== '20') return `'${value}' must start with '20'.`;
     return '';
   },
 

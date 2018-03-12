@@ -44,6 +44,11 @@ class Brothers extends Component {
     }
   }
 
+  clearBrother = () => {
+    this.props.clearActiveBrother();
+    this.setState({ activeBrother: {} });
+  };
+
   createBrother = async brother => {
     const resStatus = await this.props.createBrother(brother);
     if (resStatus === 201) {
@@ -93,7 +98,7 @@ class Brothers extends Component {
 
   render() {
     const { brothers, activeBrother, searchValue, isNewBrother, unsavedFields } = this.state;
-    const { clearActiveBrother, AuthReducer } = this.props;
+    const { AuthReducer } = this.props;
 
     return (
       <PageContainer>
@@ -114,7 +119,7 @@ class Brothers extends Component {
             data={activeBrother}
             fields={BrotherSchema}
             isNew={isNewBrother}
-            clearActive={clearActiveBrother}
+            clearActive={this.clearBrother}
             createActive={this.createBrother}
             updateActive={this.updateBrother}
             deleteActive={this.deleteBrother}

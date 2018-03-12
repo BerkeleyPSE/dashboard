@@ -18,13 +18,13 @@ export const FulltimeActions = {
     const params = { search };
     const res = await axios.get(API.GET_FULLTIMES, { params });
     dispatch({
-      type: FulltimeConstants.GET_FulltimeS,
-      Fulltimes: res.data
+      type: FulltimeConstants.GET_FULLTIMES,
+      fulltimes: res.data
     });
   },
 
-  getOneFulltime: FulltimeId => async (dispatch) => {
-    const params = { FulltimeId };
+  getOneFulltime: fulltimeId => async (dispatch) => {
+    const params = { fulltimeId };
     const res = await axios.get(API.GET_ONE_FULLTIME, { params });
     dispatch({
       type: FulltimeConstants.GET_ONE_FULLTIME,
@@ -32,8 +32,8 @@ export const FulltimeActions = {
     });
   },
 
-  updateFulltime: (FulltimeId, newActiveFulltime) => async (dispatch) => {
-    const params = { FulltimeId, newActiveFulltime };
+  updateFulltime: (fulltimeId, newActiveFulltime) => async (dispatch) => {
+    const params = { fulltimeId, newActiveFulltime };
     const res = await axios.put(API.UPDATE_FULLTIME, params);
 
     if (res.status === 200) {
@@ -51,8 +51,8 @@ export const FulltimeActions = {
     type: FulltimeConstants.CLEAR_ACTIVE_FULLTIME
   }),
 
-  createFulltime: Fulltime => async (dispatch) => {
-    const res = await axios.post(API.CREATE_FULLTIME, Fulltime);
+  createFulltime: fulltime => async (dispatch) => {
+    const res = await axios.post(API.CREATE_FULLTIME, fulltime);
 
     if (res.status === 201) {
       dispatch({
@@ -65,8 +65,8 @@ export const FulltimeActions = {
     return res.status;
   },
 
-  deleteFulltime: FulltimeId => async (dispatch) => {
-    const params = { FulltimeId };
+  deleteFulltime: fulltimeId => async (dispatch) => {
+    const params = { fulltimeId };
 
     const res = await axios.delete(API.DELETE_FULLTIME, { params });
 

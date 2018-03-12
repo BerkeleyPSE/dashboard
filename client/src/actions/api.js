@@ -27,6 +27,7 @@ export default {
 
   // fulltime endpoints (fulltimeRoutes)
   GET_FULLTIMES: `${BASE_URL}/fulltime/`,
+  GET_ONE_FULLTIME: `${BASE_URL}/fulltime/one`,
   CREATE_FULLTIME: `${BASE_URL}/fulltime/create`,
   UPDATE_FULLTIME: `${BASE_URL}/fulltime/update`,
   DELETE_FULLTIME: `${BASE_URL}/fulltime/delete`,

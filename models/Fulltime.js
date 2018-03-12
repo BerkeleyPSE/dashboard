@@ -33,9 +33,9 @@ const FulltimeSchema = new Schema({
   },
 
   gradYear: {
-    type: Number,
+    type: String,
     required: true
   }
 });
 
-mongooseStatic.model('careers_fulltime', FulltimeSchema);
+mongooseStatic.model('careers_fulltimes', FulltimeSchema);

@@ -31,64 +31,77 @@ class Fulltime extends Component {
   };
 
   componentDidMount() {
-    // this.fetchFulltimes();
+    this.fetchFulltimes();
   }
 
   componentWillReceiveProps(nextProps) {
-    // check fulltime switch or active switch
+    const { activeFulltime, fulltimes } = this.props.FulltimeReducer;
+    if (!isEqual(fulltimes, nextProps.FulltimeReducer.fulltimes)) {
+      this.setState({ fulltimes: nextProps.FulltimeReducer.fulltimes });
+    }
+    if (!isEqual(activeFulltime, nextProps.FulltimeReducer.activeFulltime)) {
+      this.setState({
+        activeFulltime: nextProps.FulltimeReducer.activeFulltime,
+        unsavedFields: []
+      });
+    }
   }
 
+  clearFulltime = () => {
+    this.props.clearActiveFulltime();
+    this.setState({ activeFulltime: {} });
+  };
+
   createFulltime = async fulltime => {
-    // const resStatus = await this.props.createFulltime(fulltime);
-    // if (resStatus === 201) {
-    // this.setState({ isNewFulltime: false });
-    // this.fetchFulltimes();
-    // }
+    const resStatus = await this.props.createFulltime(fulltime);
+    if (resStatus === 201) {
+      this.setState({ isNewFulltime: false });
+      this.fetchFulltimes();
+    }
+    return resStatus;
   };
 
   updateFulltime = async (fulltimeId, newActiveFulltime) => {
-    /*
-      const resStatus = await this.props.updateFulltime(fulltimeId, newActiveFulltime);
-      if (resStatus === 200) this.fetchFulltimes();
-      return resStatus;
-    */
+    const resStatus = await this.props.updateFulltime(fulltimeId, newActiveFulltime);
+    if (resStatus === 200) this.fetchFulltimes();
+    return resStatus;
   };
 
   deleteFulltime = async fulltimeId => {
-    // const resStatus = await this.props.deleteFulltime(fulltimeId);
-    // if (resStatus === 200) this.fetchFulltimes();
-    // return resStatus;
+    const resStatus = await this.props.deleteFulltime(fulltimeId);
+    if (resStatus === 200) this.fetchFulltimes();
+    return resStatus;
   };
 
   generateNewFulltime = () => {
-    // let newFulltime = {};
-    // FulltimeSchema.forEach(field => (newFulltime[field.key] = field.default));
-    // this.setState({ activeFulltime: newFulltime, isNewFulltime: true, searchValue: '' });
+    let newFulltime = {};
+    FulltimeSchema.forEach(field => (newFulltime[field.key] = field.default));
+    this.setState({ activeFulltime: newFulltime, isNewFulltime: true, searchValue: '' });
   };
 
   fetchFulltimes = async (search = this.state.searchValue) => {
-    // await this.props.getFulltimes(search);
-    // this.setState({
-    //   fulltimes: this.props.FulltimeReducer.fulltimes
-    // });
+    await this.props.getFulltimes(search);
+    this.setState({
+      fulltimes: this.props.FulltimeReducer.fulltimes
+    });
   };
 
   fetchOneFulltime = async fulltimeId => {
-    // await this.props.getOneFulltime(fulltimeId);
-    // this.setState({
-    //   activeFulltime: this.props.FulltimeReducer.activeFulltime,
-    //   isNewFulltime: false
-    // });
+    await this.props.getOneFulltime(fulltimeId);
+    this.setState({
+      activeFulltime: this.props.FulltimeReducer.activeFulltime,
+      isNewFulltime: false
+    });
   };
 
   handleSearchChange = searchValue => {
-    // this.setState({ searchValue });
-    // this.fetchFulltimes(searchValue);
+    this.setState({ searchValue });
+    this.fetchFulltimes(searchValue);
   };
 
   render() {
     const { fulltimes, activeFulltime, searchValue, isNewFulltime, unsavedFields } = this.state;
-    const { clearActiveFulltime, AuthReducer } = this.props;
+    const { AuthReducer } = this.props;
 
     return (
       <PageContainer>
@@ -109,7 +122,7 @@ class Fulltime extends Component {
             data={activeFulltime}
             fields={FulltimeSchema}
             isNew={isNewFulltime}
-            clearActive={clearActiveFulltime}
+            clearActive={this.clearFulltime}
             createActive={this.createFulltime}
             updateActive={this.updateFulltime}
             deleteActive={this.deleteFulltime}
