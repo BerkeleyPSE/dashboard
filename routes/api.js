@@ -9,6 +9,7 @@ module.exports = {
 
   // application endpoints (appRoutes)
   GET_APPS: `${BASE_URL}/app/`,
+  GET_ONE_APP: `${BASE_URL}/app/one`,
   UPDATE_APP: `${BASE_URL}/app/update`,
   DELETE_APPS: `${BASE_URL}/app/delete`,
 
@@ -41,6 +42,7 @@ module.exports = {
 
   // registration form endpoints (regfromRoutes)
   GET_REGFORMS: `${BASE_URL}/regform/`,
+  GET_ONE_REGFORM: `${BASE_URL}/regform/one`,
   UPDATE_REGFORM: `${BASE_URL}/regform/update`,
   DELETE_REGFORMS: `${BASE_URL}/regform/delete`,
 

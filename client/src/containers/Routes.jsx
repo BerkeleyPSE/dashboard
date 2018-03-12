@@ -16,7 +16,7 @@ import Brothers from './Brothers/Brothers';
 import Fulltime from './Fulltime/Fulltime';
 import Internship from './Internship/Internship';
 import Faqs from './Faqs';
-import Regforms from './Regforms';
+import Regform from './Regform/Regform';
 import Banner from './Banner';
 
 // actions
@@ -64,7 +64,7 @@ class Routes extends Component {
           <Route exact path="/fulltime" component={Fulltime} />
           <Route exact path="/internship" component={Internship} />
           <Route exact path="/faqs" component={Faqs} />
-          <Route exact path="/regforms" component={Regforms} />
+          <Route exact path="/regform" component={Regform} />
         </Switch>
       </RoutesContainer>
     ) : (
