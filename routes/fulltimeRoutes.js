@@ -6,11 +6,15 @@ const isUndefined = require('lodash/isUndefined');
 const mongooseStatic = require('../databases/static');
 const API = require('./api');
 
+// middleware
+const requireLogin = require('../middleware/requireLogin');
+const assertCanEdit = require('../middleware/assertCanEdit');
+
 // MongoDB collection
 const Fulltime = mongooseStatic.model('careers_fulltimes');
 
 module.exports = (app) => {
-  app.get(API.GET_FULLTIMES, async (req, res) => {
+  app.get(API.GET_FULLTIMES, requireLogin, async (req, res) => {
     const searchTerm = isEmpty(req.query.search)
       ? {}
       : { name: { $regex: req.query.search, $options: 'i' } };
@@ -22,7 +26,7 @@ module.exports = (app) => {
     return res.status(200).send(fulltimes);
   });
 
-  app.get(API.GET_ONE_FULLTIME, async (req, res) => {
+  app.get(API.GET_ONE_FULLTIME, requireLogin, async (req, res) => {
     if (isEmpty(req.query) || isUndefined(req.query.fulltimeId)) return res.status(404).send({});
 
     const fulltime = await Fulltime.findById(req.query.fulltimeId);
@@ -31,7 +35,7 @@ module.exports = (app) => {
     return res.status(200).send(fulltime);
   });
 
-  app.post(API.CREATE_FULLTIME, async (req, res) => {
+  app.post(API.CREATE_FULLTIME, requireLogin, assertCanEdit, async (req, res) => {
     if (isEmpty(req.body)) return res.status(400).send({});
 
     const newfulltime = new Fulltime(req.body);
@@ -44,7 +48,7 @@ module.exports = (app) => {
     }
   });
 
-  app.put(API.UPDATE_FULLTIME, async (req, res) => {
+  app.put(API.UPDATE_FULLTIME, requireLogin, assertCanEdit, async (req, res) => {
     const { fulltimeId, newActiveFulltime } = req.body;
     if (isEmpty(fulltimeId) || isEmpty(newActiveFulltime)) return res.status(400).send({});
 
@@ -54,7 +58,7 @@ module.exports = (app) => {
     return res.status(200).send(fulltime);
   });
 
-  app.delete(API.DELETE_FULLTIME, async (req, res) => {
+  app.delete(API.DELETE_FULLTIME, requireLogin, assertCanEdit, async (req, res) => {
     if (isEmpty(req.query) || isUndefined(req.query.fulltimeId)) return res.status(400).send();
 
     await Fulltime.remove({ _id: req.query.fulltimeId }); // TODO: maybe try/catch this?
