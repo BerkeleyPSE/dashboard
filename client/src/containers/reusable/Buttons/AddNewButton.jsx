@@ -6,11 +6,12 @@ import styled from 'styled-components';
 
 const AddNewButton = props => (
   <Button onClick={props.onClick} disabled={props.disabled}>
-    <Text>Add a New Brother</Text>
+    <Text>Add New {props.addNewId}</Text>
   </Button>
 );
 
 AddNewButton.propTypes = {
+  addNewId: PropTypes.string.isRequired,
   disabled: PropTypes.bool.isRequired,
   onClick: PropTypes.func.isRequired
 };
@@ -21,7 +22,7 @@ const Button = styled.button`
   background-color: ${props => (!props.disabled ? 'var(--green)' : 'var(--red)')};
   border: ${props => (!props.disabled ? '2px solid var(--green)' : '2px solid var(--red)')};
   color: var(--white);
-  cursor: pointer;
+  cursor: ${props => (!props.disabled ? 'pointer' : 'not-allowed')};
   font-size: 1rem;
   margin: 3px 0 6px 0;
   padding: 3px 5px;

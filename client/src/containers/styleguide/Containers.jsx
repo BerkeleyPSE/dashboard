@@ -14,4 +14,11 @@ const RowContainer = styled.div`
   justify-content: ${props => props.justifyContent || 'center'};
 `;
 
-export { ColumnContainer, RowContainer };
+const PageContainer = styled.div`
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  min-height: 100%;
+  padding: 0 10px;
+`;
+
+export { ColumnContainer, RowContainer, PageContainer };

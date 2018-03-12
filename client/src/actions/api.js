@@ -27,12 +27,14 @@ export default {
 
   // fulltime endpoints (fulltimeRoutes)
   GET_FULLTIMES: `${BASE_URL}/fulltime/`,
+  GET_ONE_FULLTIME: `${BASE_URL}/fulltime/one`,
   CREATE_FULLTIME: `${BASE_URL}/fulltime/create`,
   UPDATE_FULLTIME: `${BASE_URL}/fulltime/update`,
   DELETE_FULLTIME: `${BASE_URL}/fulltime/delete`,
 
   // internship endpoints (internshipRoutes)
   GET_INTERNSHIPS: `${BASE_URL}/internship/`,
+  GET_ONE_INTERNSHIP: `${BASE_URL}/internship/one`,
   CREATE_INTERNSHIP: `${BASE_URL}/internship/create`,
   UPDATE_INTERNSHIP: `${BASE_URL}/internship/update`,
   DELETE_INTERNSHIP: `${BASE_URL}/internship/delete`,

@@ -14,7 +14,7 @@ import { isEmptyOrUndefined, regexIsMatched } from './helpers';
 export default {
   validateKey: (key) => {
     if (isEmptyOrUndefined(key)) return 'Key must not be empty.';
-    if (!isString(key)) return `Key must be a String. It is a ${typeof key}`;
+    if (!isString(key)) return `Key must be a String. It is a ${typeof key}.`;
 
     const regexp = new RegExp(/([a-z]+\w_[a-z]+\w_?[1-9]*)/);
     if (!regexIsMatched(key, regexp)) return 'Key is invalid. Ensure proper format.';
@@ -24,7 +24,15 @@ export default {
 
   validateString: (value, field) => {
     if (isEmptyOrUndefined(value)) return `${field} must not be empty.`;
-    if (!isString(value)) return `${field} must be a String. It is a ${typeof value}`;
+    if (!isString(value)) return `${field} must be a String. It is a ${typeof value}.`;
+    return '';
+  },
+
+  validateYear: (value, field) => {
+    if (isEmptyOrUndefined(value)) return `${field} must not be empty.`;
+    if (!isString(value)) return `${field} must be a String. It is a ${typeof value}.`;
+    if (value.length !== 4) return `${field} must have a length of exactly 4.`;
+    if (value.slice(0, 2) !== '20') return `'${value}' must start with '20'.`;
     return '';
   },
 
@@ -35,11 +43,11 @@ export default {
 
     switch (expectedValueType) {
       case Boolean:
-        if (!isBoolean(value)) return `${field} must be a Boolean. It is a ${typeof value}`;
+        if (!isBoolean(value)) return `${field} must be a Boolean. It is a ${typeof value}.`;
         break;
       default:
         if (isEmptyOrUndefined(value)) return `${field} must not be empty.`;
-        if (!isString(value)) return `${field} must be a String. It is a ${typeof value}`;
+        if (!isString(value)) return `${field} must be a String. It is a ${typeof value}.`;
     }
 
     if (!options.includes(selectedOption)) return `${value} is not a valid option.`;
