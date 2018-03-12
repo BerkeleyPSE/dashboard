@@ -9,12 +9,14 @@ const { Schema } = mongoose;
 const regformSchema = new Schema({
   name: {
     type: String,
-    required: true
+    required: true,
+    trim: true
   },
 
   email: {
     type: String,
-    required: true
+    required: true,
+    trim: true
   },
 
   submissionTime: Date

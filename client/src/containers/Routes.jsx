@@ -54,7 +54,7 @@ class Routes extends Component {
     const { AuthReducer } = this.props;
     return AuthReducer.isLoggedIn ? (
       <RoutesContainer>
-        <Banner inEditMode={AuthReducer.canEdit} />
+        <Banner inEditMode={AuthReducer.editMode} />
         <Navbar />
         <Switch>
           <Route exact path="/" component={Home} />

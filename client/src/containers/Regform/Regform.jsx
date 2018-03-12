@@ -85,7 +85,7 @@ class Regform extends Component {
         <DataDisplayer
           pageId="Regforms"
           // addNewId="Regform"
-          canEdit={AuthReducer.canEdit}
+          editMode={AuthReducer.editMode}
           data={regforms}
           dictkey="name"
           handleDataClick={this.fetchOneRegform}
@@ -95,7 +95,7 @@ class Regform extends Component {
         />
         {!isEmpty(activeRegform) && (
           <Viewer
-            disabled={!AuthReducer.canEdit}
+            disabled={!AuthReducer.editMode}
             data={activeRegform}
             fields={RegformSchema}
             clearActive={this.clearRegform}

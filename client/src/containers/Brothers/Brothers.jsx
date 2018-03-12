@@ -105,7 +105,7 @@ class Brothers extends Component {
         <DataDisplayer
           pageId="Brothers"
           addNewId="Brother"
-          canEdit={AuthReducer.canEdit}
+          editMode={AuthReducer.editMode}
           data={brothers}
           dictkey="name"
           handleDataClick={this.fetchOneBrother}
@@ -115,7 +115,7 @@ class Brothers extends Component {
         />
         {!isEmpty(activeBrother) && (
           <Editor
-            disabled={!AuthReducer.canEdit}
+            disabled={!AuthReducer.editMode}
             data={activeBrother}
             fields={BrotherSchema}
             isNew={isNewBrother}

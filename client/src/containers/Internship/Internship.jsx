@@ -114,7 +114,7 @@ class Internship extends Component {
         <DataDisplayer
           pageId="Internship Careers"
           addNewId="Internship"
-          canEdit={AuthReducer.canEdit}
+          editMode={AuthReducer.editMode}
           data={internships}
           dictkey="name"
           handleDataClick={this.fetchOneInternship}
@@ -124,7 +124,7 @@ class Internship extends Component {
         />
         {!isEmpty(activeInternship) && (
           <Editor
-            disabled={!AuthReducer.canEdit}
+            disabled={!AuthReducer.editMode}
             data={activeInternship}
             fields={InternshipSchema}
             isNew={isNewInternship}

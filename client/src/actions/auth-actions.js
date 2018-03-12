@@ -9,7 +9,7 @@ export const AuthConstants = {
   AUTHENTICATION_ERROR: 'AUTHENTICATION_ERROR',
   GET_USER: 'GET_USER',
   LOGOUT: 'LOGOUT',
-  SET_USER_CAN_EDIT: 'SET_USER_CAN_EDIT'
+  SET_USER_EDIT_MODE: 'SET_USER_EDIT_MODE'
 };
 
 export const AuthActions = {
@@ -35,8 +35,8 @@ export const AuthActions = {
     });
   },
 
-  setUserCanEdit: bool => ({
-    type: AuthConstants.SET_USER_CAN_EDIT,
-    canEdit: bool
+  setUserEditMode: bool => ({
+    type: AuthConstants.SET_USER_EDIT_MODE,
+    editMode: bool
   })
 };

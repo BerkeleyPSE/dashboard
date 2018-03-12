@@ -14,18 +14,23 @@ const userSchema = new Schema({
 
   name: {
     type: String,
-    required: true
+    required: true,
+    trim: true
   },
 
   email: {
     type: String,
-    required: true
-  }
+    required: true,
+    trim: true
+  },
 
-  // role: {
-  //   type: String, // 'admin' or 'viewer'
-  //   required: true
-  // }
+  role: {
+    type: String,
+    enum: ['editor', 'viewer'],
+    required: true,
+    default: 'viewer',
+    trim: true
+  }
 });
 
 mongooseStatic.model('users', userSchema);

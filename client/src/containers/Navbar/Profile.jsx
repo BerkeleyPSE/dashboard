@@ -9,14 +9,16 @@ import { ColumnContainer } from '../styleguide/Containers';
 import SwitchEditInput from './SwitchEditInput';
 
 const Profile = (props) => {
-  const { user, setUserCanEdit, logoutUser } = props;
+  const { user, setUserEditMode, logoutUser } = props;
   return (
     <ProfileContainer>
       <ProfileHeader>Your Profile</ProfileHeader>
       <ColumnContainer alignItems="flex-start">
         <Name>{user.name}</Name>
         <Email>{user.email}</Email>
-        <SwitchEditInput canEdit={user.canEdit} setUserCanEdit={setUserCanEdit} />
+        {user.role === 'editor' && (
+          <SwitchEditInput editMode={user.editMode} setUserEditMode={setUserEditMode} />
+        )}
       </ColumnContainer>
       <LogoutButton onClick={logoutUser}>Sign Out</LogoutButton>
     </ProfileContainer>
@@ -26,7 +28,7 @@ const Profile = (props) => {
 Profile.propTypes = {
   user: PropTypes.object,
   logoutUser: PropTypes.func.isRequired,
-  setUserCanEdit: PropTypes.func.isRequired
+  setUserEditMode: PropTypes.func.isRequired
 };
 
 export default Profile;

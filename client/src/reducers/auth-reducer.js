@@ -3,8 +3,9 @@ import { AuthConstants } from '../actions/auth-actions';
 const initialState = {
   name: '',
   email: '',
-  canEdit: false,
+  editMode: false,
   isLoggedIn: false,
+  role: '',
   error: ''
 };
 
@@ -14,7 +15,7 @@ const AuthReducer = (state = initialState, action) => {
     case AuthConstants.LOGOUT:
       return initialState;
     case AuthConstants.GET_USER:
-    case AuthConstants.SET_USER_CAN_EDIT:
+    case AuthConstants.SET_USER_EDIT_MODE:
       return { ...state, ...action };
     default:
       return state;

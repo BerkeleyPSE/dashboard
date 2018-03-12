@@ -14,7 +14,7 @@ const DataDisplayer = (props) => {
   const {
     pageId,
     addNewId,
-    canEdit,
+    editMode,
     data,
     dictkey,
     handleDataClick,
@@ -26,7 +26,7 @@ const DataDisplayer = (props) => {
     <DataContainer>
       <SectionHeader>{pageId}</SectionHeader>
       {!isEmpty(addNewId) && (
-        <AddNewButton onClick={generateNew} disabled={!canEdit} addNewId={addNewId} />
+        <AddNewButton onClick={generateNew} disabled={!editMode} addNewId={addNewId} />
       )}
       <SearchInput value={searchValue} handleChange={handleSearchChange} />
       {data.map((d, index) => (
@@ -41,7 +41,7 @@ const DataDisplayer = (props) => {
 DataDisplayer.propTypes = {
   pageId: PropTypes.string.isRequired,
   addNewId: PropTypes.string,
-  canEdit: PropTypes.bool.isRequired,
+  editMode: PropTypes.bool.isRequired,
   dictkey: PropTypes.string,
   data: PropTypes.arrayOf(PropTypes.object),
   handleDataClick: PropTypes.func.isRequired,
