@@ -6,11 +6,12 @@ import styled from 'styled-components';
 
 const AddNewButton = props => (
   <Button onClick={props.onClick} disabled={props.disabled}>
-    <Text>Add a New Brother</Text>
+    <Text>Add New {props.addNewId}</Text>
   </Button>
 );
 
 AddNewButton.propTypes = {
+  addNewId: PropTypes.string.isRequired,
   disabled: PropTypes.bool.isRequired,
   onClick: PropTypes.func.isRequired
 };

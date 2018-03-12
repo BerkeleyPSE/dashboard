@@ -12,6 +12,7 @@ import AddNewButton from './Buttons/AddNewButton';
 const DataDisplayer = (props) => {
   const {
     pageId,
+    addNewId,
     canEdit,
     data,
     dictkey,
@@ -23,7 +24,7 @@ const DataDisplayer = (props) => {
   return (
     <DataContainer>
       <SectionHeader>{pageId}</SectionHeader>
-      <AddNewButton onClick={generateNew} disabled={!canEdit} />
+      <AddNewButton onClick={generateNew} disabled={!canEdit} addNewId={addNewId} />
       <SearchInput value={searchValue} handleChange={handleSearchChange} />
       {data.map((d, index) => (
         <DataItem key={`${pageId}_${d._id}`} onClick={() => handleDataClick(d._id)}>
@@ -36,6 +37,7 @@ const DataDisplayer = (props) => {
 
 DataDisplayer.propTypes = {
   pageId: PropTypes.string.isRequired,
+  addNewId: PropTypes.string.isRequired,
   canEdit: PropTypes.bool.isRequired,
   dictkey: PropTypes.string.isRequired,
   data: PropTypes.arrayOf(PropTypes.object),

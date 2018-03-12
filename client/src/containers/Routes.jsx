@@ -13,7 +13,7 @@ import Home from './Home';
 import Login from './Login';
 import Applications from './Applications';
 import Brothers from './Brothers/Brothers';
-import Fulltime from './Fulltime';
+import Fulltime from './Fulltime/Fulltime';
 import Internship from './Internship';
 import Faqs from './Faqs';
 import Regforms from './Regforms';

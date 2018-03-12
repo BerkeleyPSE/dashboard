@@ -1,9 +1,8 @@
-import React from 'react';
+import React, { Component } from 'react';
 
 // node modules
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
 import isEmpty from 'lodash/isEmpty';
 import isEqual from 'lodash/isEqual';
 
@@ -11,12 +10,14 @@ import isEqual from 'lodash/isEqual';
 import DataDisplayer from '../reusable/DataDisplayer';
 import Editor from '../reusable/Editor/Editor';
 import BrotherSchema from './BrotherSchema';
+import { PageContainer } from '../styleguide/Containers';
 
 // actions
 import { BrotherActions } from '../../actions/brother-actions';
 
-class Brothers extends React.Component {
+class Brothers extends Component {
   static propTypes = {
+    AuthReducer: PropTypes.object,
     BrotherReducer: PropTypes.object,
     getBrothers: PropTypes.func
   };
@@ -33,15 +34,15 @@ class Brothers extends React.Component {
     this.fetchBrothers();
   }
 
-  componentWillReceiveProps = nextProps => {
-    let { activeBrother, brothers } = this.props.BrotherReducer;
+  componentWillReceiveProps(nextProps) {
+    const { activeBrother, brothers } = this.props.BrotherReducer;
     if (!isEqual(brothers, nextProps.BrotherReducer.brothers)) {
       this.setState({ brothers: nextProps.BrotherReducer.brothers });
     }
     if (!isEqual(activeBrother, nextProps.BrotherReducer.activeBrother)) {
       this.setState({ activeBrother: nextProps.BrotherReducer.activeBrother, unsavedFields: [] });
     }
-  };
+  }
 
   createBrother = async brother => {
     const resStatus = await this.props.createBrother(brother);
@@ -95,9 +96,10 @@ class Brothers extends React.Component {
     const { clearActiveBrother, AuthReducer } = this.props;
 
     return (
-      <BrothersContainer>
+      <PageContainer>
         <DataDisplayer
           pageId="Brothers"
+          addNewId="Brother"
           canEdit={AuthReducer.canEdit}
           data={brothers}
           dictkey="name"
@@ -120,7 +122,7 @@ class Brothers extends React.Component {
             setUnsavedFields={newFields => this.setState({ unsavedFields: newFields })}
           />
         )}
-      </BrothersContainer>
+      </PageContainer>
     );
   }
 }
@@ -131,10 +133,3 @@ const mapStateToProps = (state, ownProps) => ({
 });
 
 export default connect(mapStateToProps, BrotherActions)(Brothers);
-
-const BrothersContainer = styled.div`
-  display: grid;
-  grid-template-columns: 200px 1fr;
-  min-height: 100%;
-  padding: 0 10px;
-`;

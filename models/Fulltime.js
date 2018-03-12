@@ -12,11 +12,6 @@ const FulltimeSchema = new Schema({
     required: true
   },
 
-  graduation_year: {
-    type: Number,
-    required: true
-  },
-
   industry: {
     type: String,
     required: true
@@ -34,6 +29,11 @@ const FulltimeSchema = new Schema({
 
   location: {
     type: String,
+    required: true
+  },
+
+  gradYear: {
+    type: Number,
     required: true
   }
 });
