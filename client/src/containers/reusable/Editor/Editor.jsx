@@ -99,13 +99,13 @@ export default class Editor extends Component {
     this.closeModal();
   };
 
-  openModal = type => {
+  openModal = modalType => {
     const { unsavedFields } = this.props;
     if (isEmpty(unsavedFields)) {
       this.setState({
         isModalOpen: true,
-        modalType: type,
-        errorMsg: ''
+        errorMsg: '',
+        modalType
       });
     } else {
       this.setState({
@@ -136,7 +136,14 @@ export default class Editor extends Component {
           onInputDisableChange={this.onInputDisableChange}
         />
         <ErrorLabel>{errorMsg && errorMsg}</ErrorLabel>
-        {!disabled && <OptionsBar changes={changes} isNew={isNew} openModal={this.openModal} />}
+        {!disabled && (
+          <OptionsBar
+            changes={changes}
+            isNew={isNew}
+            openModal={this.openModal}
+            isEditView={true}
+          />
+        )}
         <ConfirmationModal
           isOpen={isModalOpen}
           closeModal={this.closeModal}

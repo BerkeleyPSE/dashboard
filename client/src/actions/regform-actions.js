@@ -6,6 +6,7 @@ import API from './api';
 
 export const RegformConstants = {
   DELETE_REGFORMS: 'DELETE_REGFORMS',
+  DELETE_ONE_REGFORM: 'DELETE_ONE_REGFORM',
   CLEAR_ACTIVE_REGFORM: 'CLEAR_ACTIVE_REGFORM',
   GET_REGFORMS: 'GET_REGFORMS',
   GET_ONE_REGFORM: 'GET_ONE_REGFORM'
@@ -28,6 +29,21 @@ export const RegformActions = {
       type: RegformConstants.GET_ONE_REGFORM,
       activeRegform: res.data
     });
+  },
+
+  deleteOneRegform: regformId => async (dispatch) => {
+    const params = { regformId };
+
+    const res = await axios.delete(API.DELETE_ONE_REGFORM, { params });
+
+    if (res.status === 200 || res.status === 204) {
+      dispatch({
+        type: RegformConstants.DELETE_ONE_REGFORM
+      });
+    } else {
+      // respond with an error message
+    }
+    return res.status;
   },
 
   deleteRegforms: () => async (dispatch) => {

@@ -8,7 +8,7 @@ import isEqual from 'lodash/isEqual';
 
 // components
 import DataDisplayer from '../reusable/DataDisplayer';
-import Editor from '../reusable/Editor/Editor';
+import Viewer from '../reusable/Editor/Viewer';
 import RegformSchema from './RegformSchema';
 import { PageContainer } from '../styleguide/Containers';
 
@@ -47,7 +47,13 @@ class Regform extends Component {
     this.setState({ activeRegform: {} });
   };
 
-  deleteRegform = async () => {
+  deleteOneRegform = async regformId => {
+    const resStatus = await this.props.deleteOneRegform(regformId);
+    if (resStatus === 200) this.fetchRegforms();
+    return resStatus;
+  };
+
+  deleteAllRegforms = async () => {
     const resStatus = await this.props.deleteRegforms();
     if (resStatus === 200) this.fetchRegforms();
     return resStatus;
@@ -88,12 +94,13 @@ class Regform extends Component {
           generateNew={this.generateNewRegform}
         />
         {!isEmpty(activeRegform) && (
-          <Editor
+          <Viewer
             disabled={!AuthReducer.canEdit}
             data={activeRegform}
             fields={RegformSchema}
             clearActive={this.clearRegform}
-            deleteActive={this.deleteRegform}
+            deleteActive={this.deleteOneRegform}
+            deleteAll={this.deleteAllRegforms}
           />
         )}
       </PageContainer>

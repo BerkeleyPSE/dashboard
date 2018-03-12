@@ -3,6 +3,7 @@ import React from 'react';
 // node modules
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import isEmpty from 'lodash/isEmpty';
 
 // local components
 import { SectionHeader } from '../styleguide/Headers';
@@ -24,7 +25,9 @@ const DataDisplayer = (props) => {
   return (
     <DataContainer>
       <SectionHeader>{pageId}</SectionHeader>
-      <AddNewButton onClick={generateNew} disabled={!canEdit} addNewId={addNewId} />
+      {!isEmpty(addNewId) && (
+        <AddNewButton onClick={generateNew} disabled={!canEdit} addNewId={addNewId} />
+      )}
       <SearchInput value={searchValue} handleChange={handleSearchChange} />
       {data.map((d, index) => (
         <DataItem key={`${pageId}_${d._id}`} onClick={() => handleDataClick(d._id)}>
@@ -37,18 +40,21 @@ const DataDisplayer = (props) => {
 
 DataDisplayer.propTypes = {
   pageId: PropTypes.string.isRequired,
-  addNewId: PropTypes.string.isRequired,
+  addNewId: PropTypes.string,
   canEdit: PropTypes.bool.isRequired,
-  dictkey: PropTypes.string.isRequired,
+  dictkey: PropTypes.string,
   data: PropTypes.arrayOf(PropTypes.object),
   handleDataClick: PropTypes.func.isRequired,
   searchValue: PropTypes.string.isRequired,
   handleSearchChange: PropTypes.func.isRequired,
-  generateNew: PropTypes.func.isRequired
+  generateNew: PropTypes.func
 };
 
 DataDisplayer.defaultProps = {
-  data: []
+  data: [],
+  addNewId: '',
+  dictkey: '',
+  generateNew: () => null
 };
 
 export default DataDisplayer;

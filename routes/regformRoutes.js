@@ -31,6 +31,14 @@ module.exports = (app) => {
     return res.status(200).send(regform);
   });
 
+  app.delete(API.DELETE_ONE_REGFORM, async (req, res) => {
+    if (isEmpty(req.query) || isUndefined(req.query.regformId)) return res.status(400).send();
+
+    await Regforms.remove({ _id: req.query.regformId }); // TODO: maybe try/catch this?
+
+    return res.status(200).send();
+  });
+
   app.delete(API.DELETE_REGFORMS, async (req, res) => {
     await Regforms.remove({}); // TODO: maybe try/catch this?
     return res.status(200).send();

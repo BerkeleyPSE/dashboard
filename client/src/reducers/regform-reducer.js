@@ -10,6 +10,7 @@ const RegformReducer = (state = initialState, action) => {
     case RegformConstants.DELETE_REGFORMS:
       return { ...state, regforms: [], activeRegform: {} };
     case RegformConstants.CLEAR_ACTIVE_REGFORM:
+    case RegformConstants.DELETE_ONE_REGFORM:
       return { ...state, activeRegform: {} };
     case RegformConstants.GET_REGFORMS:
     case RegformConstants.GET_ONE_REGFORM:
