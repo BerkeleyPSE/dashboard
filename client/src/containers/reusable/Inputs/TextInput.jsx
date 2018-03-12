@@ -68,6 +68,12 @@ export default class TextInput extends Component {
     }
   };
 
+  handleKeyPress = e => {
+    if (e.key === 'Enter') {
+      this.onSave();
+    }
+  };
+
   render() {
     const { label } = this.props;
     let { value, disabled, errorMsg } = this.state;
@@ -85,6 +91,7 @@ export default class TextInput extends Component {
           innerRef={input => (this.textInput = input)}
           onChange={e => this.setState({ value: e.target.value })}
           hasChanged={!isEqual(this.props.value, value)}
+          onKeyPress={this.handleKeyPress}
           type="text"
         />
         {!this.props.disabled && (
