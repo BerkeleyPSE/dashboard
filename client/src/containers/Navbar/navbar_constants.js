@@ -1,7 +1,7 @@
 const NAVBAR_MAP = {
   HOME_PATH: '/',
   LOGIN_PATH: '/login',
-  APPLICATION_PATH: '/applications',
+  APPLICATION_PATH: '/application',
   BROTHERS_PATH: '/brothers',
   FULLTIME_PATH: '/fulltime',
   INTERNSHIP_PATH: '/internship',

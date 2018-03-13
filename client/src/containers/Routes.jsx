@@ -11,7 +11,7 @@ import styled from 'styled-components';
 import Navbar from './Navbar/Navbar';
 import Home from './Home';
 import Login from './Login';
-import Applications from './Applications';
+import Application from './Application/Application';
 import Brothers from './Brothers/Brothers';
 import Fulltime from './Fulltime/Fulltime';
 import Internship from './Internship/Internship';
@@ -59,7 +59,7 @@ class Routes extends Component {
         <Switch>
           <Route exact path="/" component={Home} />
           <Route exact path="/login" component={Login} />
-          <Route exact path="/applications" component={Applications} />
+          <Route exact path="/application" component={Application} />
           <Route exact path="/brothers" component={Brothers} />
           <Route exact path="/fulltime" component={Fulltime} />
           <Route exact path="/internship" component={Internship} />

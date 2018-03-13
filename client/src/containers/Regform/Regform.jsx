@@ -84,14 +84,12 @@ class Regform extends Component {
       <PageContainer>
         <DataDisplayer
           pageId="Regforms"
-          // addNewId="Regform"
           editMode={AuthReducer.editMode}
           data={regforms}
           dictkey="name"
           handleDataClick={this.fetchOneRegform}
           searchValue={searchValue}
           handleSearchChange={this.handleSearchChange}
-          generateNew={this.generateNewRegform}
         />
         {!isEmpty(activeRegform) && (
           <Viewer
