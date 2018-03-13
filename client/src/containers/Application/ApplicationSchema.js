@@ -26,7 +26,7 @@ export default [
     type: 'shortText',
     input: {
       default: 'NO PHONE SPECIFIED',
-      validate: () => null // TODO
+      validate: value => validators.validateString(value, 'phone')
     }
   },
   {

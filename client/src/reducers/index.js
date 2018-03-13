@@ -7,7 +7,6 @@ import FulltimeReducer from './fulltime-reducer';
 import InternshipReducer from './internship-reducer';
 import FaqReducer from './faq-reducer';
 import RegformReducer from './regform-reducer';
-import UserReducer from './user-reducer';
 
 const rootReducer = combineReducers({
   AppReducer,
@@ -16,8 +15,7 @@ const rootReducer = combineReducers({
   FulltimeReducer,
   InternshipReducer,
   FaqReducer,
-  RegformReducer,
-  UserReducer
+  RegformReducer
 });
 
 export default rootReducer;
