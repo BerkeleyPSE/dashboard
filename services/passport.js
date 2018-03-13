@@ -6,9 +6,9 @@ const includes = require('lodash/includes');
 // local
 const mongooseStatic = require('../databases/static');
 const keys = require('../config/keys.js');
+const { allEmails, editEmails } = require('../middleware/allowed_emails');
 
 const User = mongooseStatic.model('users');
-const ALLOWED_EMAILS = ['berkeleypse.tech@gmail.com', 'berkeleypse.marketing@gmail.com'];
 
 passport.serializeUser((user, done) => {
   done(null, user.id);
@@ -30,11 +30,18 @@ passport.use(new GoogleStrategy(
   async (accessToken, refreshToken, profile, done) => {
     const existingUser = await User.findOne({ googleID: profile.id });
     if (existingUser) return done(null, existingUser);
-    if (!includes(ALLOWED_EMAILS, profile.emails[0].value)) return done(null, null);
+
+    const email = profile.emails[0].value;
+    if (!includes(allEmails, email)) return done(null, null);
+
+    let role = 'viewer';
+    if (includes(editEmails, email)) role = 'editor';
+
     const user = await new User({
       googleID: profile.id,
       name: profile.displayName,
-      email: profile.emails[0].value
+      email,
+      role
     }).save();
     done(null, user);
   }

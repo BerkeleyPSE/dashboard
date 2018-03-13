@@ -10,6 +10,15 @@ import { RowContainer } from '../../styleguide/Containers';
 import { SectionHeader } from '../../styleguide/Headers';
 import Button from '../Buttons/Button';
 
+// constants
+const MESSAGE_MAP = {
+  create: 'This new item will be LIVE.',
+  update: 'You will not be able to revert these updates.',
+  delete: 'You will not be able to restore this item.',
+  deleteAll: 'You will not be able to restore these items.',
+  clear: 'Any changes you have made on this item will not be saved.'
+};
+
 const ConfirmationModal = (props) => {
   const {
     isOpen,
@@ -17,6 +26,7 @@ const ConfirmationModal = (props) => {
     modalType,
     createActive,
     deleteActive,
+    deleteAll,
     updateActive,
     clearActive
   } = props;
@@ -47,10 +57,16 @@ const ConfirmationModal = (props) => {
             Confirm Deletion
           </Button>
         );
+      case 'deleteAll':
+        return (
+          <Button onClick={deleteAll} size="medium" colorStyle="save">
+            Confirm Total Deletion
+          </Button>
+        );
       case 'clear':
         return (
           <Button onClick={clearActive} size="medium" colorStyle="save">
-            Confirm Reset
+            Confirm Cancellation
           </Button>
         );
       default:
@@ -61,7 +77,7 @@ const ConfirmationModal = (props) => {
   return (
     <CModal isOpen={isOpen} onRequestClose={props.closeModal}>
       <SectionHeader>Are you sure?</SectionHeader>
-      <Text>You will not be able to revert these changes.</Text>
+      <Text>{MESSAGE_MAP[modalType]}</Text>
       <br />
       <RowContainer>
         {actionButton()}
@@ -75,10 +91,19 @@ ConfirmationModal.propTypes = {
   isOpen: PropTypes.bool.isRequired,
   closeModal: PropTypes.func.isRequired,
   modalType: PropTypes.string.isRequired,
-  createActive: PropTypes.func.isRequired,
-  clearActive: PropTypes.func.isRequired,
-  updateActive: PropTypes.func.isRequired,
-  deleteActive: PropTypes.func.isRequired
+  createActive: PropTypes.func,
+  clearActive: PropTypes.func,
+  updateActive: PropTypes.func,
+  deleteActive: PropTypes.func,
+  deleteAll: PropTypes.func
+};
+
+ConfirmationModal.defaultProps = {
+  createActive: () => null,
+  clearActive: () => null,
+  updateActive: () => null,
+  deleteActive: () => null,
+  deleteAll: () => null
 };
 
 export default ConfirmationModal;

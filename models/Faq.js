@@ -9,7 +9,8 @@ const { Schema } = mongoose;
 const FaqSchema = new Schema({
   question: {
     type: String,
-    required: true
+    required: true,
+    trim: true
   },
 
   answer: {

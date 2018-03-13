@@ -18,9 +18,10 @@ const app = express();
 
 /* models */
 require('./models/Brother');
-require('./models/Faq');
+// require('./models/Faq');
 require('./models/Fulltime');
 require('./models/Internship');
+require('./models/Regform');
 require('./models/User');
 
 /* OAuth */
@@ -42,11 +43,11 @@ app.use(passport.session());
 require('./routes/authRoutes')(app);
 // require('./routes/applicationRoutes')(app);
 require('./routes/brotherRoutes')(app);
-require('./routes/faqRoutes')(app);
+// require('./routes/faqRoutes')(app);
 require('./routes/fulltimeRoutes')(app);
 require('./routes/internshipRoutes')(app);
-// require('./routes/regformRoutes')(app);
-require('./routes/userRoutes')(app);
+require('./routes/regformRoutes')(app);
+// require('./routes/userRoutes')(app);
 
 /* start the server */
 if (process.env.NODE_ENV === 'production') {

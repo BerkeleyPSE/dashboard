@@ -9,17 +9,20 @@ const BrotherSchema = new Schema({
   key: {
     type: String,
     required: true,
-    lowercase: true
+    lowercase: true,
+    trim: true
   },
 
   name: {
     type: String,
-    required: true
+    required: true,
+    trim: true
   },
 
   imgUrl: {
     type: String,
-    required: true
+    required: true,
+    trim: true
   },
 
   pseClass: {
@@ -58,7 +61,8 @@ const BrotherSchema = new Schema({
 
   hometown: {
     type: String,
-    required: true
+    required: true,
+    trim: true
   },
 
   majors: {
@@ -105,7 +109,8 @@ const BrotherSchema = new Schema({
 
   bio: {
     type: String,
-    required: true
+    required: true,
+    trim: true
   },
 
   mediaUrls: {

@@ -108,7 +108,7 @@ class Fulltime extends Component {
         <DataDisplayer
           pageId="Fulltime Careers"
           addNewId="Fulltime"
-          canEdit={AuthReducer.canEdit}
+          editMode={AuthReducer.editMode}
           data={fulltimes}
           dictkey="name"
           handleDataClick={this.fetchOneFulltime}
@@ -118,7 +118,7 @@ class Fulltime extends Component {
         />
         {!isEmpty(activeFulltime) && (
           <Editor
-            disabled={!AuthReducer.canEdit}
+            disabled={!AuthReducer.editMode}
             data={activeFulltime}
             fields={FulltimeSchema}
             isNew={isNewFulltime}

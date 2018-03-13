@@ -11,24 +11,24 @@ import { RowContainer } from '../styleguide/Containers';
 
 class SwitchEditInput extends Component {
   static propTypes = {
-    canEdit: PropTypes.bool.isRequired,
-    setUserCanEdit: PropTypes.func.isRequired
+    editMode: PropTypes.bool.isRequired,
+    setUserEditMode: PropTypes.func.isRequired
   };
 
   changeInput = e => {
-    const { setUserCanEdit } = this.props;
-    setUserCanEdit(e.target.checked);
+    const { setUserEditMode } = this.props;
+    setUserEditMode(e.target.checked);
   };
 
   render() {
-    const { canEdit } = this.props;
+    const { editMode } = this.props;
     return (
       <InputContainer justifyContent="space-between">
         <SafeSpan>Safe Mode</SafeSpan>
         <Toggle
           id="edit-input"
           className="customized-toggle"
-          defaultChecked={canEdit}
+          defaultChecked={editMode}
           onChange={this.changeInput}
         />
         <EditSpan>Edit Mode</EditSpan>

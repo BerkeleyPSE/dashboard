@@ -1,12 +1,12 @@
 const NAVBAR_MAP = {
   HOME_PATH: '/',
   LOGIN_PATH: '/login',
-  APPLICATION_PATH: '/applications',
+  APPLICATION_PATH: '/application',
   BROTHERS_PATH: '/brothers',
   FULLTIME_PATH: '/fulltime',
   INTERNSHIP_PATH: '/internship',
   FAQ_PATH: '/faqs',
-  REGFORM_PATH: '/regforms',
+  REGFORM_PATH: '/regform',
   PROFILE_PATH: '/profile'
 };
 
@@ -36,7 +36,7 @@ const NAVBAR_LINKS = [
     link: NAVBAR_MAP.FAQ_PATH
   },
   {
-    text: 'Registration Form',
+    text: 'Registration Forms',
     link: NAVBAR_MAP.REGFORM_PATH
   }
 ];

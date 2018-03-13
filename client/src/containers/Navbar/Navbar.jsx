@@ -26,7 +26,7 @@ class Navbar extends Component {
   };
 
   render() {
-    const { AuthReducer, setUserCanEdit, logoutUser } = this.props;
+    const { AuthReducer, setUserEditMode, logoutUser } = this.props;
     return (
       <NavbarContainer justifyContent="flex-start" alignItems="space-between">
         <MainHeader>Berkeley PSE Dashboard</MainHeader>
@@ -38,7 +38,7 @@ class Navbar extends Component {
             </NavLink>
           ))}
         </LinkContainer>
-        <Profile user={AuthReducer} setUserCanEdit={setUserCanEdit} logoutUser={logoutUser} />
+        <Profile user={AuthReducer} setUserEditMode={setUserEditMode} logoutUser={logoutUser} />
       </NavbarContainer>
     );
   }
