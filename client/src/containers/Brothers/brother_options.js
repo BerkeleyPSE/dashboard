@@ -45,25 +45,25 @@ const SUBJECTS = [
 
 const POSITIONS = [
   { label: 'Active', value: 'active' },
-  { label: 'Dir. Alumni Relations', value: 'd-alumni-relations' },
-  { label: 'Dir. Brotherhood', value: 'd-brotherhood' },
-  { label: 'Dir. Chapter Secretary', value: 'd-chapter-secretary' },
-  { label: 'Dir. External Recruitment', value: 'd-external-recruitment' },
-  { label: 'Dir. Internal Recruitment', value: 'd-internal-recruitment' },
-  { label: 'Dir. Philanthropy', value: 'd-philanthropy' },
-  { label: 'Dir. Professional Development', value: 'd-pd' },
-  { label: 'Dir. Projects', value: 'd-projects' },
+  { label: 'Director of Alumni Relations', value: 'd-alumni-relations' },
+  { label: 'Director of Brotherhood', value: 'd-brotherhood' },
+  { label: 'Director of Chapter Secretary', value: 'd-chapter-secretary' },
+  { label: 'Director of External Recruitment', value: 'd-external-recruitment' },
+  { label: 'Director of Internal Recruitment', value: 'd-internal-recruitment' },
+  { label: 'Director of Philanthropy', value: 'd-philanthropy' },
+  { label: 'Director of Professional Development', value: 'd-pd' },
+  { label: 'Director of Projects', value: 'd-projects' },
   { label: 'Prospective Member Trainer', value: 'd-pmt' },
-  { label: 'Dir. Scholarship', value: 'd-scholarship' },
-  { label: 'Dir. Social Media', value: 'd-social-media' },
-  { label: 'Dir. Technology', value: 'd-technology' },
-  { label: 'VP Administration', value: 'vp-a' },
-  { label: 'VP Finance', value: 'vp-f' },
-  { label: 'VP Human Resources', value: 'vp-hr' },
-  { label: 'VP Marketing', value: 'vp-m' },
+  { label: 'Director of Scholarship', value: 'd-scholarship' },
+  { label: 'Director of Social Media', value: 'd-social-media' },
+  { label: 'Director of Technology', value: 'd-technology' },
+  { label: 'Vice President of Administration', value: 'vp-a' },
+  { label: 'Vice President of Finance', value: 'vp-f' },
+  { label: 'Vice President of Human Resources', value: 'vp-hr' },
+  { label: 'Vice President of Marketing', value: 'vp-m' },
   { label: 'President', value: 'president' },
-  { label: 'VP Professional Development', value: 'vp-pd' },
-  { label: 'VP Public Relations', value: 'vp-pr' }
+  { label: 'Vice President of Professional Development', value: 'vp-pd' },
+  { label: 'Vice President of Public Relations', value: 'vp-pr' }
 ];
 
 const YEARS = [
