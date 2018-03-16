@@ -10,9 +10,8 @@
     "server": "nodemon index.js",
     "client": "yarn start --cwd client",
     "dev": "concurrently \"yarn run server\" \"yarn run client\" --kill-others",
-    "build": "yarn run build --cwd client",
-    "heroku-postbuild":
-      "NPM_CONFIG_PRODUCTION=false && yarn install --cwd client && yarn run build --cwd client"
+    "build": "npm run build --prefix client",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false && npm install --prefix client && npm run build --prefix client"
   },
   "devDependencies": {
     "concurrently": "3.5.1",
