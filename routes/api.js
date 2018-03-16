@@ -2,7 +2,7 @@ const BASE_URL = '/api';
 
 module.exports = {
   // user authorization endpoints (authRoutes)
-  LOGIN: '/auth/google/',
+  LOGIN: '/auth/google',
   // REQUEST_SIGNUP: `${BASE_URL}/auth/request-signup/`,
   LOGOUT: `${BASE_URL}/auth/logout`,
   GET_SELF: `${BASE_URL}/auth/self`,
