@@ -8,10 +8,10 @@
   "scripts": {
     "start": "node index.js",
     "server": "nodemon index.js",
-    "client": "cd client && yarn start",
+    "client": "yarn start --cwd client",
     "dev": "concurrently \"yarn run server\" \"yarn run client\" --kill-others",
-    "build": "cd client && yarn run build",
-    "heroku-postbuild": "cd client && yarn install && yarn run build"
+    "build": "yarn run build --cwd client",
+    "heroku-postbuild": "yarn install --cwd client && yarn run build --cwd client"
   },
   "devDependencies": {
     "concurrently": "3.5.1",
