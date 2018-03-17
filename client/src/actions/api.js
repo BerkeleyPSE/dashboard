@@ -10,7 +10,7 @@ export default {
   // application endpoints (appRoutes)
   GET_APPS: `${BASE_URL}/app/`,
   GET_ONE_APP: `${BASE_URL}/app/one`,
-  // UPDATE_APP: `${BASE_URL}/app/update`,
+  UPDATE_APP: `${BASE_URL}/app/update`,
   DELETE_ONE_APP: `${BASE_URL}/app/delete/one`,
   DELETE_APPS: `${BASE_URL}/app/delete`,
 

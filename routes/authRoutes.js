@@ -19,12 +19,12 @@ module.exports = (app) => {
       failureRedirect: '/'
     }),
     (req, res) => {
-      console.log('successful login');
       res.redirect('/');
     }
   );
 
   app.get(API.LOGOUT, (req, res) => {
+    console.log('LOGGING OUT');
     req.logout();
     res.redirect('/');
   });
