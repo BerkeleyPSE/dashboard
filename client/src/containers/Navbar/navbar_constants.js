@@ -5,7 +5,6 @@ const NAVBAR_MAP = {
   BROTHERS_PATH: '/brothers',
   FULLTIME_PATH: '/fulltime',
   INTERNSHIP_PATH: '/internship',
-  FAQ_PATH: '/faqs',
   REGFORM_PATH: '/regform',
   PROFILE_PATH: '/profile'
 };
@@ -30,10 +29,6 @@ const NAVBAR_LINKS = [
   {
     text: 'Internships',
     link: NAVBAR_MAP.INTERNSHIP_PATH
-  },
-  {
-    text: 'FAQs',
-    link: NAVBAR_MAP.FAQ_PATH
   },
   {
     text: 'Registration Forms',

@@ -43,7 +43,8 @@ export default class SingleDropdown extends Component {
     if (dataId !== nextProps.dataId) {
       this.setState({
         selectedOption: nextProps.selectedOption || nextProps.defaultOption,
-        disabled: true
+        disabled: true,
+        errorMsg: ''
       });
     }
   };

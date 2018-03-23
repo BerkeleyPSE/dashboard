@@ -43,7 +43,8 @@ export default class MultipleDropdown extends Component {
     if (dataId !== nextProps.dataId) {
       this.setState({
         selectedOptions: nextProps.selectedOptions || nextProps.defaultOption,
-        disabled: true
+        disabled: true,
+        errorMsg: ''
       });
     }
   };

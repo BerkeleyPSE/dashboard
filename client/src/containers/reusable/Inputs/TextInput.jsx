@@ -36,7 +36,7 @@ export default class TextInput extends Component {
   componentWillReceiveProps = nextProps => {
     let { dataId } = this.props;
     if (dataId !== nextProps.dataId) {
-      this.setState({ value: nextProps.value, disabled: true });
+      this.setState({ value: nextProps.value, disabled: true, errorMsg: '' });
     }
   };
 

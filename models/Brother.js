@@ -19,12 +19,6 @@ const BrotherSchema = new Schema({
     trim: true
   },
 
-  imgUrl: {
-    type: String,
-    required: true,
-    trim: true
-  },
-
   pseClass: {
     type: {
       label: String,

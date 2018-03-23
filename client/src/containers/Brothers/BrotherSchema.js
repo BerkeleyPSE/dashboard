@@ -21,15 +21,6 @@ export default [
     }
   },
   {
-    label: 'Image URL',
-    key: 'imgUrl',
-    type: 'shortText',
-    input: {
-      default: 'NO IMAGE URL SPECIFIED',
-      validate: () => '' // TODO: write a validator function for this
-    }
-  },
-  {
     label: 'PSE Class',
     key: 'pseClass',
     type: 'singleDropdown',
