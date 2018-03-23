@@ -6,7 +6,7 @@ const mongooseStatic = require('../databases/static');
 
 const { Schema } = mongoose;
 
-const userSchema = new Schema({
+const UserSchema = new Schema({
   googleID: {
     type: String,
     required: true
@@ -33,4 +33,4 @@ const userSchema = new Schema({
   }
 });
 
-mongooseStatic.model('users', userSchema);
+mongooseStatic.model('users', UserSchema);

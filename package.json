@@ -11,8 +11,7 @@
     "client": "cd client && yarn start",
     "dev": "concurrently \"yarn run server\" \"yarn run client\" --kill-others",
     "build": "npm run build --prefix client",
-    "heroku-postbuild":
-      "NPM_CONFIG_PRODUCTION=false && npm install --prefix client && npm run build --prefix client"
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false && npm install --prefix client && npm run build --prefix client"
   },
   "devDependencies": {
     "concurrently": "3.5.1",
@@ -24,6 +23,7 @@
     "nodemon": "^1.14.12"
   },
   "dependencies": {
+    "berkeleypse-schemas": "^1.0.0",
     "body-parser": "1.18.2",
     "cookie-session": "^2.0.0-beta.3",
     "express": "4.16.1",
