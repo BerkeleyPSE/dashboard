@@ -55,7 +55,7 @@ const OptionsBar = (props) => {
   return (
     <Container justifyContent="space-between">
       {buttons.map(button => (
-        <Button {...BUTTON_TYPES[button]} onClick={() => openModal(button)} noMargin />
+        <Button key={button} {...BUTTON_TYPES[button]} onClick={() => openModal(button)} noMargin />
       ))}
     </Container>
   );

@@ -7,10 +7,12 @@ import isEqual from 'lodash/isEqual';
 import isEmpty from 'lodash/isEmpty';
 
 // local components
-import InputController from './InputController';
-import { ColumnContainer } from '../../styleguide/Containers';
+import InputController from '../InputController';
+import { ColumnContainer } from '../../../styleguide/Containers';
+import TextInput from './TextInput';
+import MEDIA_TYPES from '../../../Brothers/media_types';
 
-export default class TextInput extends Component {
+export default class MediaInput extends Component {
   static propTypes = {
     dataId: PropTypes.string.isRequired,
     dataKey: PropTypes.string.isRequired,
@@ -19,7 +21,7 @@ export default class TextInput extends Component {
     onInputSave: PropTypes.func.isRequired,
     onInputDisableChange: PropTypes.func.isRequired,
     validate: PropTypes.func.isRequired,
-    value: PropTypes.string.isRequired
+    value: PropTypes.object.isRequired
   };
 
   static defaultProps = {
@@ -43,7 +45,12 @@ export default class TextInput extends Component {
     const { onInputDisableChange, label } = this.props;
     await this.setState({ disabled: bool });
     onInputDisableChange(label, bool);
-    if (!bool) this.textInput.focus();
+  };
+
+  onChange = (fieldKey, value) => {
+    const values = { ...this.state.value };
+    values[fieldKey].value = value;
+    this.setState({ value: values });
   };
 
   onReset = () => {
@@ -84,16 +91,21 @@ export default class TextInput extends Component {
           <Label for={label}>{label}</Label>
           {errorMsg && <ErrorLabel>{errorMsg}</ErrorLabel>}
         </ColumnContainer>
-        <Input
-          id={label}
-          value={value}
-          disabled={this.props.disabled || disabled}
-          innerRef={input => (this.textInput = input)}
-          onChange={e => this.setState({ value: e.target.value })}
-          hasChanged={!isEqual(this.props.value, value)}
-          onKeyPress={this.handleKeyPress}
-          type="text"
-        />
+        <ColumnContainer alignItems="flex-start" justifyContent="space-between">
+          {Object.keys(MEDIA_TYPES).map(fieldKey => {
+            return (
+              <TextInput
+                key={fieldKey}
+                fieldKey={fieldKey}
+                label={MEDIA_TYPES[fieldKey].label}
+                value={value[fieldKey].value}
+                disabled={disabled}
+                onChange={this.onChange}
+                hasChanged={!isEqual(this.props.value[fieldKey].value, value[fieldKey].value)}
+              />
+            );
+          })}
+        </ColumnContainer>
         {!this.props.disabled && (
           <InputController
             disabled={disabled}
@@ -110,7 +122,7 @@ export default class TextInput extends Component {
 const InputContainer = styled.div`
   display: grid;
   grid-template-columns: minmax(150px, 200px) auto 150px;
-  align-items: center;
+  align-items: flex-start;
   margin: 20px 0;
 `;
 
@@ -124,15 +136,4 @@ const ErrorLabel = styled.p`
   margin: 5px 0;
   padding: 0;
   text-transform: uppercase;
-`;
-
-const Input = styled.input`
-  background-color: ${props => !props.disabled && 'var(--white)'};
-  background-color: ${props => props.hasChanged && 'var(--accent-alt)'};
-  border: none;
-  border-bottom: ${props => (props.disabled ? 'none' : `2px solid var(--purple)`)};
-  padding: 5px 3px;
-  outline: none;
-  min-width: 275px;
-  height: 100%;
 `;

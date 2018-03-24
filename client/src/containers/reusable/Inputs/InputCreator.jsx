@@ -9,6 +9,7 @@ import TextInput from '../Inputs/TextInput';
 import LongTextInput from '../Inputs/LongTextInput';
 import SingleDropdown from '../Inputs/SingleDropdown';
 import MultipleDropdown from '../Inputs/MultipleDropdown';
+import MediaInput from '../Inputs/MediaInput/MediaInput';
 
 const InputCreator = (props) => {
   const createInputs = () => {
@@ -24,7 +25,6 @@ const InputCreator = (props) => {
               key={field.key}
               dataId={dataId}
               dataKey={field.key}
-              default={field.input.default}
               disabled={disabled}
               label={field.label}
               onInputSave={onInputSave}
@@ -39,7 +39,6 @@ const InputCreator = (props) => {
               key={field.key}
               dataId={dataId}
               dataKey={field.key}
-              default={field.input.default}
               disabled={disabled}
               label={field.label}
               onInputSave={onInputSave}
@@ -77,6 +76,21 @@ const InputCreator = (props) => {
               onInputDisableChange={onInputDisableChange}
               options={field.input.options}
               selectedOptions={data[field.key] || field.input.default}
+              validate={field.input.validate}
+            />
+          );
+        case 'mediaInput':
+          debugger;
+          return (
+            <MediaInput
+              key={field.key}
+              dataId={dataId}
+              dataKey={field.key}
+              disabled={disabled}
+              label={field.label}
+              onInputSave={onInputSave}
+              onInputDisableChange={onInputDisableChange}
+              value={data[field.key] || field.input.default}
               validate={field.input.validate}
             />
           );

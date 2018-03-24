@@ -72,5 +72,22 @@ export default {
     });
 
     return '';
+  },
+
+  validateMediaInput: (value) => {
+    if (isEmptyOrUndefined(value)) return 'Media Input must not be empty.';
+
+    const medias = ['linkedin', 'medium', 'github', 'website', 'quora', 'twitter'];
+    const regexp = new RegExp(/^(https:\/\/www\.|https:\/\/)?[a-z0-9]+([-.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/);
+
+    if (isEmptyOrUndefined(value.linkedin)) return 'linkedin does not have a value defined.';
+
+    medias.forEach((m) => {
+      if (!regexIsMatched(value[m].value, regexp)) {
+        return `${value[m].value} does not match URL structure.`;
+      }
+    });
+
+    return '';
   }
 };

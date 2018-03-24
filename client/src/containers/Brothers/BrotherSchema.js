@@ -1,5 +1,6 @@
 import validators from '../../helpers/validators';
 import { CLASSES, SUBJECTS, POSITIONS, YEARS, IS_EXEC, CAREERS } from './brother_options';
+import MEDIA_TYPES from './media_types';
 
 export default [
   {
@@ -117,10 +118,14 @@ export default [
       default: 'NO BIOGRAPHY SPECIFIED',
       validate: value => validators.validateString(value, 'bio')
     }
+  },
+  {
+    label: 'Media URLs',
+    key: 'mediaUrls',
+    type: 'mediaInput',
+    input: {
+      default: MEDIA_TYPES,
+      validate: value => validators.validateMediaInput(value)
+    }
   }
-  // TO DO
-  // {
-  //   label: 'Media URLs',
-  //   key: 'mediaUrls'
-  // }
 ];

@@ -14,7 +14,6 @@ export default class LongTextInput extends Component {
   static propTypes = {
     dataId: PropTypes.string.isRequired,
     dataKey: PropTypes.string.isRequired,
-    default: PropTypes.string.isRequired,
     disabled: PropTypes.bool.isRequired,
     label: PropTypes.string.isRequired,
     onInputSave: PropTypes.func.isRequired,
