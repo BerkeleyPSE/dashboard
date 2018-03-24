@@ -16,6 +16,7 @@ const keys = require('./config/keys');
 const app = express();
 
 /* models */
+require('./models/Application');
 require('./models/Brother');
 require('./models/Fulltime');
 require('./models/Internship');

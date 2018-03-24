@@ -8,48 +8,42 @@ module.exports = {
   GET_SELF: `${BASE_URL}/auth/self`,
 
   // application endpoints (appRoutes)
-  GET_APPS: `${BASE_URL}/app/`,
+  GET_APPS: `${BASE_URL}/app`,
   GET_ONE_APP: `${BASE_URL}/app/one`,
   UPDATE_APP: `${BASE_URL}/app/update`,
   DELETE_ONE_APP: `${BASE_URL}/app/delete/one`,
   DELETE_APPS: `${BASE_URL}/app/delete`,
 
   // brother endpoints (brotherRoutes)
-  GET_BROTHERS: `${BASE_URL}/brother/all`,
+  GET_BROTHERS: `${BASE_URL}/brother`,
   GET_ONE_BROTHER: `${BASE_URL}/brother/one`,
   CREATE_BROTHER: `${BASE_URL}/brother/create`,
   UPDATE_BROTHER: `${BASE_URL}/brother/update`,
   DELETE_BROTHER: `${BASE_URL}/brother/delete`,
 
-  // faq endpoints (faqRoutes)
-  GET_FAQS: `${BASE_URL}/faqs/`,
-  CREATE_FAQ: `${BASE_URL}/faqs/create`,
-  UPDATE_FAQ: `${BASE_URL}/faqs/update`,
-  DELETE_FAQ: `${BASE_URL}/faqs/delete`,
-
   // fulltime endpoints (fulltimeRoutes)
-  GET_FULLTIMES: `${BASE_URL}/fulltime/`,
+  GET_FULLTIMES: `${BASE_URL}/fulltime`,
   GET_ONE_FULLTIME: `${BASE_URL}/fulltime/one`,
   CREATE_FULLTIME: `${BASE_URL}/fulltime/create`,
   UPDATE_FULLTIME: `${BASE_URL}/fulltime/update`,
   DELETE_FULLTIME: `${BASE_URL}/fulltime/delete`,
 
   // internship endpoints (internshipRoutes)
-  GET_INTERNSHIPS: `${BASE_URL}/internship/`,
+  GET_INTERNSHIPS: `${BASE_URL}/internship`,
   GET_ONE_INTERNSHIP: `${BASE_URL}/internship/one`,
   CREATE_INTERNSHIP: `${BASE_URL}/internship/create`,
   UPDATE_INTERNSHIP: `${BASE_URL}/internship/update`,
   DELETE_INTERNSHIP: `${BASE_URL}/internship/delete`,
 
   // registration form endpoints (regfromRoutes)
-  GET_REGFORMS: `${BASE_URL}/regform/`,
+  GET_REGFORMS: `${BASE_URL}/regform`,
   GET_ONE_REGFORM: `${BASE_URL}/regform/one`,
   UPDATE_REGFORM: `${BASE_URL}/regform/update`,
   DELETE_ONE_REGFORM: `${BASE_URL}/regform/delete/one`,
   DELETE_REGFORMS: `${BASE_URL}/regform/delete`,
 
   // user endpoints (userRoutes)
-  GET_USER: `${BASE_URL}/user/`,
+  GET_USER: `${BASE_URL}/user`,
   CREATE_USER: `${BASE_URL}/user/create`,
   UPDATE_USER: `${BASE_URL}/user/update`,
   DELETE_USER: `${BASE_URL}/user/delete`
