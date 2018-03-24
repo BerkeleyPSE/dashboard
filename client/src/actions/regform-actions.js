@@ -25,6 +25,7 @@ export const RegformActions = {
   getOneRegform: regformId => async (dispatch) => {
     const params = { regformId };
     const res = await axios.get(API.GET_ONE_REGFORM, { params });
+
     dispatch({
       type: RegformConstants.GET_ONE_REGFORM,
       activeRegform: res.data

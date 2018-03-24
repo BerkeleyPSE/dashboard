@@ -92,9 +92,14 @@ const InputCreator = (props) => {
 InputCreator.propTypes = {
   schema: PropTypes.array.isRequired,
   dataId: PropTypes.string.isRequired,
-  onInputSave: PropTypes.func.isRequired,
-  onInputDisableChange: PropTypes.func.isRequired,
+  onInputSave: PropTypes.func,
+  onInputDisableChange: PropTypes.func,
   data: PropTypes.object.isRequired
+};
+
+InputCreator.defaultProps = {
+  onInputSave: () => null,
+  onInputDisableChange: () => null
 };
 
 export default InputCreator;

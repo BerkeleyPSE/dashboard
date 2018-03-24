@@ -51,7 +51,8 @@ export default class LongTextInput extends Component {
     const { value, onInputDisableChange, label } = this.props;
     this.setState({
       value,
-      disabled: true
+      disabled: true,
+      errorMsg: ''
     });
     onInputDisableChange(label, true);
   };
@@ -82,7 +83,7 @@ export default class LongTextInput extends Component {
       <InputContainer>
         <ColumnContainer alignItems="flex-start" justifyContent="space-between">
           <Label for={label}>{label}</Label>
-          <ErrorLabel>{errorMsg && errorMsg}</ErrorLabel>
+          {errorMsg && <ErrorLabel>{errorMsg}</ErrorLabel>}
         </ColumnContainer>
         <Input
           id={label}
@@ -110,7 +111,7 @@ export default class LongTextInput extends Component {
 const InputContainer = styled.div`
   display: grid;
   grid-template-columns: minmax(150px, 200px) auto 150px;
-  align-items: center;
+  align-items: baseline;
   margin: 20px 0;
   height: 200px;
 `;

@@ -92,7 +92,7 @@ export default class SingleDropdown extends Component {
       <InputContainer>
         <ColumnContainer alignItems="flex-start" justifyContent="space-between">
           <Label for={label}>{label}</Label>
-          <ErrorLabel>{errorMsg && errorMsg}</ErrorLabel>
+          {errorMsg && <ErrorLabel>{errorMsg}</ErrorLabel>}
         </ColumnContainer>
         <Dropdown
           id={label}

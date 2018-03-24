@@ -1,6 +1,3 @@
-import validators from '../../helpers/validators';
-import { YEARS, YES_NO, INTERVIEW_SLOTS, HEAR } from './application_options';
-
 export default [
   {
     label: 'Name',
@@ -8,7 +5,7 @@ export default [
     type: 'shortText',
     input: {
       default: 'NO NAME SPECIFIED',
-      validate: value => validators.validateString(value, 'name')
+      validate: () => true
     }
   },
   {
@@ -17,7 +14,7 @@ export default [
     type: 'shortText',
     input: {
       default: 'NO EMAIL SPECIFIED',
-      validate: value => validators.validateString(value, 'email')
+      validate: () => true
     }
   },
   {
@@ -26,17 +23,16 @@ export default [
     type: 'shortText',
     input: {
       default: 'NO PHONE SPECIFIED',
-      validate: value => validators.validateString(value, 'phone')
+      validate: () => true
     }
   },
   {
     label: 'Year',
     key: 'year',
-    type: 'singleDropdown',
+    type: 'shortText',
     input: {
-      options: YEARS,
-      default: YEARS[0],
-      validate: value => validators.validateSingleDropdown(value, YEARS, 'year')
+      default: 'NO YEAR SPECIFIED',
+      validate: () => true
     }
   },
   {
@@ -45,7 +41,7 @@ export default [
     type: 'shortText',
     input: {
       default: 'NO MAJOR SPECIFIED',
-      validate: value => validators.validateSingleDropdown(value, 'major')
+      validate: () => true
     }
   },
   {
@@ -54,84 +50,79 @@ export default [
     type: 'shortText',
     input: {
       default: 'NO MINOR SPECIFIED',
-      validate: value => validators.validateString(value, 'minor')
+      validate: () => true
     }
   },
   {
     label: 'Please list your current and expected commitments for the semester.',
     key: 'commitments',
-    type: 'shortText',
+    type: 'longText',
     input: {
       default: 'NO COMMITMENTS SPECIFIED',
-      validate: value => validators.validateString(value, 'commitments')
+      validate: () => true
     }
   },
   {
     label: 'What would you do with a free weekend in Berkeley?',
     key: 'freeWeekend',
-    type: 'shortText',
+    type: 'longText',
     input: {
       default: 'NO ANSWER SPECIFIED',
-      validate: value => validators.validateString(value, 'freeWeekend')
+      validate: () => true
     }
   },
   {
     label: 'Are you available for our Invite Only event, Friday (3/16) at 8pm?',
     key: 'inviteOnly',
-    type: 'singleDropdown',
+    type: 'shortText',
     input: {
-      options: YES_NO,
-      default: YES_NO[0],
-      validate: value => validators.validateSingleDropdown(value, YES_NO, 'inviteOnly')
+      default: 'NOT SPECIFIED',
+      validate: () => true
     }
   },
   {
     label: 'When would you like to interview?',
     key: 'interview1',
-    type: 'singleDropdown',
+    type: 'shortText',
     input: {
-      options: INTERVIEW_SLOTS,
-      default: INTERVIEW_SLOTS[0],
-      validate: value => validators.validateSingleDropdown(value, INTERVIEW_SLOTS, 'interview1')
+      default: 'NOT SPECIFIED',
+      validate: () => true
     }
   },
   {
     label: 'When is your alternate choice to interview?',
     key: 'interview2',
-    type: 'singleDropdown',
+    type: 'shortText',
     input: {
-      options: INTERVIEW_SLOTS,
-      default: INTERVIEW_SLOTS[INTERVIEW_SLOTS.length - 1],
-      validate: value => validators.validateSingleDropdown(value, INTERVIEW_SLOTS, 'interview2')
+      default: 'NOT SPECIFIED',
+      validate: () => true
     }
   },
   {
     label: 'Are you available for PMT, Monday nights from 7-10pm?',
     key: 'pmtAvailability',
-    type: 'singleDropdown',
+    type: 'shortText',
     input: {
-      options: YES_NO,
-      default: YES_NO[0],
-      validate: value => validators.validateSingleDropdown(value, YES_NO, 'pmtAvailability')
+      default: 'NOT SPECIFIED',
+      validate: () => true
     }
   },
   {
     label: 'How did you hear about us?',
     key: 'hear',
-    type: 'singleDropdown',
+    type: 'shortText',
     input: {
-      options: HEAR,
-      default: HEAR[0],
-      validate: value => validators.validateSingleDropdown(value, HEAR, 'hear')
+      default: 'NOT SPECIFIED',
+      validate: () => true
     }
   },
   {
     label: 'Additional Information',
     key: 'additionalInformation',
-    type: 'longTextDropdown',
+    type: 'longText',
     input: {
       default: 'NOT SPECIFIED',
-      validate: value => validators.validateString(value, 'additionalInformation')
+      validate: () => true
     }
   }
 ];

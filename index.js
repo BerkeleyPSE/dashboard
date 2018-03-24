@@ -40,7 +40,7 @@ app.use(passport.session());
 
 /* routes */
 require('./routes/authRoutes')(app);
-// require('./routes/applicationRoutes')(app);
+require('./routes/applicationRoutes')(app);
 require('./routes/brotherRoutes')(app);
 require('./routes/fulltimeRoutes')(app);
 require('./routes/internshipRoutes')(app);

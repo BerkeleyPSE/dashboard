@@ -1,5 +1,3 @@
-import validators from '../../helpers/validators';
-
 export default [
   {
     label: 'Name',
@@ -7,7 +5,7 @@ export default [
     type: 'shortText',
     input: {
       default: 'NO NAME SPECIFIED',
-      validate: value => validators.validateString(value, 'name')
+      validate: () => true
     }
   },
   {
@@ -16,7 +14,7 @@ export default [
     type: 'shortText',
     input: {
       default: 'NO EMAIL SPECIFIED',
-      validate: value => validators.validateString(value, 'email')
+      validate: () => true
     }
   }
 ];
