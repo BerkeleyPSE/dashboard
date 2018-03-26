@@ -241,7 +241,7 @@ bcrypt-pbkdf@^1.0.0:
   dependencies:
     tweetnacl "^0.14.3"
 
-berkeleypse-schemas@^1.0.0:
+berkeleypse-schemas@1.3.0:
   version "1.3.0"
   resolved "https://registry.yarnpkg.com/berkeleypse-schemas/-/berkeleypse-schemas-1.3.0.tgz#fb2debf86772a914d76d1dfa9a1e83e8f627254c"
   dependencies:

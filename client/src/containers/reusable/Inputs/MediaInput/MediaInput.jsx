@@ -75,12 +75,6 @@ export default class MediaInput extends Component {
     }
   };
 
-  handleKeyPress = e => {
-    if (e.key === 'Enter') {
-      this.onSave();
-    }
-  };
-
   render() {
     const { label } = this.props;
     let { value, disabled, errorMsg } = this.state;
